@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainDialogBase</class>
+ <widget class="QDialog" name="MainDialogBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>654</width>
+    <height>630</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Open Symos</string>
+  </property>
+  <widget class="QComboBox" name="cmbLatka">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>10</y>
+     <width>511</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>sirovodik</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>chlorovodik</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>peroxid_vodiku</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>dimetyl_sulfid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>oxid_siricity</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>oxid_dusnaty</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>oxid_dusicity</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>amoniak</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>sirouhlik</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>formaldehyd</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>oxid_dusny</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>oxid_uhelnaty</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>oxid_uhlicity</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>metan</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>vyssi_uhlovodiky</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>metyl_chlorid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>karbonyl_sulfid</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>prach</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLineEdit" name="txtZdroj">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>140</y>
+     <width>411</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnZdroj">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>140</y>
+     <width>91</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Procházet</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblLatka">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>65</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Látka</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblTypVypoctu">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Typ výpočtu</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cmbTypVypoctu">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>40</y>
+     <width>511</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>maximální krátkodobé koncentrace</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>průměrné roční koncentrace</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>doby překročení zvolených koncentrací</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="lblZdroj">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>101</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Zdroje (XML)</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>631</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblTeren">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>190</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Terén</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>170</y>
+     <width>631</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="txtTeren2">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>220</y>
+     <width>511</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>250</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblTeren2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>220</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Fixní výška</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>250</y>
+     <width>631</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblReceptory">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>280</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Receptory</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnCalculate">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>590</y>
+     <width>95</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Výpočet</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnRuzice">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>360</y>
+     <width>95</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Procházet</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>340</y>
+     <width>631</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblRuzice">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>360</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Růžice</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="txtRuzice">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>360</y>
+     <width>411</width>
+     <height>27</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblReceptoryVyska">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>310</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Výška</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="txtReceptoryVyska">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>310</y>
+     <width>511</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnUlozit">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>590</y>
+     <width>95</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Uložit</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnNacist">
+   <property name="geometry">
+    <rect>
+     <x>110</x>
+     <y>590</y>
+     <width>95</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Nacist</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblLimit">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>410</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Limit</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="txtLimit">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>410</y>
+     <width>511</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="Line" name="line_5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>390</y>
+     <width>631</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblStatus">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>460</y>
+     <width>81</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Stav</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txtStatus">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>490</y>
+     <width>511</width>
+     <height>71</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QProgressBar" name="progressBar">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>460</y>
+     <width>511</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="value">
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="Line" name="line_6">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>440</y>
+     <width>631</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblZdrojeVrstva">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>121</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Zdroje (vrstva)</string>
+   </property>
+  </widget>
+  <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxReceptory">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>270</y>
+     <width>501</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxZdroje">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>100</y>
+     <width>511</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxTeren">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>190</y>
+     <width>511</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QgsMapLayerComboBox</class>
+   <extends>QComboBox</extends>
+   <header>qgsmaplayercombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
