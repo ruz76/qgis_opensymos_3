@@ -24,17 +24,9 @@
 """
 
 import os
-import qgis
-import uuid
-import tempfile
 from shutil import copyfile
 from qgis.core import *
-from main import Main
-
-from PyQt4 import QtGui, uic
-import processing
-from processing.tools.vector import VectorWriter
-
+from PyQt5 import QtGui, uic
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'line_to_point.ui'))

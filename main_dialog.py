@@ -29,6 +29,7 @@ import tempfile
 from shutil import copyfile
 from qgis.core import *
 from .main import Main
+from .line_to_points_dialog import LineToPointsDialog
 
 from PyQt5 import QtGui, uic
 
@@ -52,9 +53,14 @@ class MainDialog(QtGui.QDialog, FORM_CLASS):
         self.btnCalculate.clicked.connect(self.calculate)
         self.btnUlozit.clicked.connect(self.selectConfigFileSave)
         self.btnNacist.clicked.connect(self.selectConfigFileOpen)
+        self.pushButton.clicked.connect(self.linesToPoints)
         self.mMapLayerComboBoxReceptory.setFilters(QgsMapLayerProxyModel.PointLayer)
         self.mMapLayerComboBoxZdroje.setFilters(QgsMapLayerProxyModel.PointLayer)
         self.mMapLayerComboBoxTeren.setFilters(QgsMapLayerProxyModel.RasterLayer)
+
+    def linesToPoints(self):
+        self.linetopints = LineToPointsDialog()
+        self.linetopints.show()
 
     def selectZdrojFile(self):
         self.fileDialog = QtGui.QFileDialog(self)
