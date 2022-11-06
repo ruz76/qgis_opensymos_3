@@ -143,7 +143,7 @@ class MainDialog(QtGui.QDialog, FORM_CLASS):
 
         self.main.vypocti(self.txtStatus, self.progressBar, self.cmbLatka.currentText(), self.cmbTypVypoctu.currentIndex() + 1, float(self.txtLimit.text()), float(self.txtReceptoryVyska.text()), fixed_h)
         typ_zkr = ''
-        # xxxxxxxxxxxxxxxxx
+        # xxxxxxxxxxxxxxxxx ABCD
         if self.cmbTypVypoctu.currentIndex() == 0:
             typ_zkr = 'max'
         if self.cmbTypVypoctu.currentIndex() == 1:
