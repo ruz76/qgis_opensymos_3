@@ -25,6 +25,7 @@ from qgis.core import *
 from qgis.gui import *
 
 from .main_dialog import MainDialog
+from .jaster_polluted_source_preparation import Formular
 
 class Open_symos:
     # Implementace QGIS pluginu
@@ -40,6 +41,7 @@ class Open_symos:
         self.iface = iface
         self.canvas = iface.mapCanvas()
         self.dlg = MainDialog()
+        self.dlgFormular = Formular()
 
     def initGui(self):
         # Vytvoreni a konfigurace nastrojove listy pro spusteni pluginu
@@ -50,6 +52,17 @@ class Open_symos:
                                 "OpenSYMOS", self.iface.mainWindow())
         self.toolbar.addActions([self.show_btn])
         self.show_btn.triggered.connect(self.showDialog)
+
+
+        self.show_btnFormular = QAction(QIcon(os.path.join(os.path.dirname(__file__), "jaster_mapicon.png")),
+                                        "OpenSYMOS", self.iface.mainWindow())
+        self.toolbar.addActions([self.show_btnFormular])
+        self.show_btnFormular.triggered.connect(self.showDialogFormular)
+
+
+    def showDialogFormular(self):
+        self.dlgFormular.show()
+
 
     def showDialog(self):
         self.dlg.show()
