@@ -31,12 +31,15 @@ from qgis.core import *
 from .main import Main
 
 from PyQt5 import QtGui, uic
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'main_dialog_base.ui'))
 
 
-class MainDialog(QtGui.QDialog, FORM_CLASS):
+class MainDialog(QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
         super(MainDialog, self).__init__(parent)
@@ -143,6 +146,7 @@ class MainDialog(QtGui.QDialog, FORM_CLASS):
 
         self.main.vypocti(self.txtStatus, self.progressBar, self.cmbLatka.currentText(), self.cmbTypVypoctu.currentIndex() + 1, float(self.txtLimit.text()), float(self.txtReceptoryVyska.text()), fixed_h)
         typ_zkr = ''
+
         if self.cmbTypVypoctu.currentIndex() == 0:
             typ_zkr = 'max'
         if self.cmbTypVypoctu.currentIndex() == 1:
