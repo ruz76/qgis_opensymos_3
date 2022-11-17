@@ -31,12 +31,15 @@ from qgis.core import *
 from .main import Main
 
 from PyQt5 import QtGui, uic
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'main_dialog_base.ui'))
 
 
-class MainDialog(QtGui.QDialog, FORM_CLASS):
+class MainDialog(QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
         super(MainDialog, self).__init__(parent)
