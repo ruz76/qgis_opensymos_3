@@ -13,9 +13,9 @@
 #------------------------------------------------------------------------------- 
 
 import sys
-import gdal
+from osgeo import gdal
 import numpy as np
-import gdalconst
+from osgeo import gdalconst
 
 class Teren:
 
