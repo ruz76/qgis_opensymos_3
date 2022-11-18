@@ -31,12 +31,15 @@ from qgis.core import *
 from .main import Main
 
 from PyQt5 import QtGui, uic
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'jaster_polluted_source_preparation.ui'))
 
 
-class Formular(QtGui.QDialog, FORM_CLASS):
+class Formular(QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
         super(Formular, self).__init__(parent)
