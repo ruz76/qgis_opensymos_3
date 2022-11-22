@@ -48,3 +48,52 @@ class Formular(QDialog, FORM_CLASS):
         # self.<objectname>, and you can use autoconnect slots - see
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
+        self.iface = iface
+        self.EntryDialog = Formular()
+
+    def AreaSelection(self):
+        # Otevření dialogového okna
+        self.EntryDialog.exec()
+        # Zjištění, kam chce uživatel uložit výstup (výsledný soubor)
+        Output = self.EntryDialog.FileOutput.filePath()
+        # Zjištění adresáře, kam chce uživatel uložit výstup (bez jména souboru, jen adresář)
+        self.location = os.path.dirname(Output)
+
+        # Zjištení jakou vrstvu uživatel vybral v rozbalovacím seznamu vrstev na formuláři
+        self.layer = (self.EntryDialog.VyberVrstvu.currentLayer())
+        QgsMessageLog.logMessage("Zpracovávaná/vybraná vrstva: " + self.layer.name(), "Messages")
+        # Získání všech geoprvků z vybrané vrstvy (seznam)
+        areas = self.layer.getFeatures()
+        self.SelectedAreas = []
+        self.CurrentPosition = 0
+
+
+
+        # Otevření výstupního souboru
+        with open(Output, mode='w', encoding='utf-8') as soubor:
+            # Procházení seznamu všech geoprvků/parcel
+            for area in areas:
+                print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
+        # Volání metody přiblížení na parcelu
+        self.ZoomToArea()
+        QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
+
+
+        # Metoda pro přiblížení na parcelu
+    def ZoomToArea(self):
+        # Zjištění plošného rozsahu vybrané parcely
+        zoom = self.SelectedAreas[self.CurrentPosition].geometry().boundingBox()
+        # Přiblížení na rozsah vybrané parcely
+        self.iface.mapCanvas().setExtent(zoom)
+        self.iface.mapCanvas().refresh()
+        # Volání metody exportMap s 1s zpožděním (aby se stihlo mapové pole překreslit)
+        QTimer.singleShot(1000,self.ExportView)
+
+    def ExportView(self):
+        # Uložení obrázku mapového pole (pojmenování obr. dle id aktuálně zpracovávané parcely)
+        self.iface.mapCanvas().saveAsImage(self.location + "\area_" + str(self.SelectedAreas[self.CurrentPosition]["Id"]) + ".png")
+        # Posun pozice (v seznamu vybraných parcel) na další
+        self.CurrentPosition = self.CurrentPosition + 1
+        # Pokud není na konci seznamu vybraných parcel, pak se volá přiblížení na další parcelu (s 1s zpožděním)
+        if self.CurrentPosition < len(self.SelectedAreas):
+            QTimer.singleShot(1000,self.ZoomToArea)
