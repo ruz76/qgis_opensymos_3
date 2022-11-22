@@ -48,7 +48,6 @@ class Formular(QDialog, FORM_CLASS):
         # self.<objectname>, and you can use autoconnect slots - see
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
-        self.iface = iface
         self.EntryDialog = Formular()
 
     def AreaSelection(self):
