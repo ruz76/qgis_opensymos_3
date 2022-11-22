@@ -41,6 +41,9 @@ import qgis.utils
 import processing
 import re
 
+import geopandas as gpd
+from shapely.geometry import Polygon
+import numpy as np
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -150,7 +153,30 @@ class Formular(QDialog, FORM_CLASS):
             except TypeError:
                 QgsMessageLog.logMessage("niečo je zle.", "Messages")
 
-        #------------------------------------------------------------------------------
+        # pokus 2------------------------------------------------------------------------------
+        if self.dlgFormular.DivideArea.isChecked():
+            try:
+                data = gpd.read_file(self.layer)
+
+                xmin, ymin, xmax, ymax = data.total_bounds
+
+                length = 1000
+                wide = 1200
+
+                cols = list(np.arange(xmin, xmax + wide, wide))
+                rows = list(np.arange(ymin, ymax + length, length))
+
+                polygons = []
+                for x in cols[:-1]:
+                    for y in rows[:-1]:
+                        polygons.append(Polygon([(x,y), (x+wide, y), (x+wide, y+length), (x, y+length)]))
+
+                grid = gpd.GeoDataFrame({'geometry':polygons})
+                grid.to_file("grid.shp")
+            except TypeError:
+                QgsMessageLog.logMessage("niečo je zle.", "Messages")
+
+        # -------------------------------------------------------------------------------------
 
         # Otevření výstupního souboru
         with open(Output, mode='w', encoding='utf-8') as soubor:
