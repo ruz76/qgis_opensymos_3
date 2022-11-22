@@ -35,6 +35,10 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
+from qgis.PyQt.QtCore import QVariant
+
+
+
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'jaster_polluted_source_preparation.ui'))
 
@@ -100,3 +104,80 @@ class Formular(QDialog, FORM_CLASS):
         # Pokud není na konci seznamu vybraných parcel, pak se volá přiblížení na další parcelu (s 1s zpožděním)
         if self.CurrentPosition < len(self.SelectedAreas):
             QTimer.singleShot(1000,self.ZoomToArea)
+
+
+
+    def cut_polygon_into_windows(self, p, window_height, window_width):
+        self.layer = (self.dlgFormular.VyberVrstvu.currentLayer())
+
+        crs = p.crs().toWkt()
+        extent = p.extent()
+        (xmin, xmax, ymin, ymax) = (extent.xMinimum(), extent.xMaximum(), extent.yMinimum(), extent.yMaximum())
+
+        # Create the grid layer
+        vector_grid = QgsVectorLayer('Polygon?crs='+ crs, 'vector_grid' , 'memory')
+        prov = vector_grid.dataProvider()
+
+        # Create the grid layer
+        output = QgsVectorLayer('Polygon?crs='+ crs, 'output' , 'memory')
+        outprov = output.dataProvider()
+
+        # Add ids and coordinates fields
+        fields = QgsFields()
+        fields.append(QgsField('ID', QVariant.Int, '', 10, 0))
+        outprov.addAttributes(fields)
+
+        # Generate the features for the vector grid
+        id = 0
+        y = ymax
+        while y >= ymin:
+            x = xmin
+            while x <= xmax:
+                point1 = QgsPoint(x, y)
+                point2 = QgsPoint(x + window_width, y)
+                point3 = QgsPoint(x + window_width, y - window_height)
+                point4 = QgsPoint(x, y - window_height)
+                vertices = [point1, point2, point3, point4] # Vertices of the polygon for the current id
+                inAttr = [id]
+                feat = QgsFeature()
+                feat.setGeometry(QgsGeometry().fromPolygon([vertices])) # Set geometry for the current id
+                feat.setAttributes(inAttr) # Set attributes for the current id
+                prov.addFeatures([feat])
+                x = x + window_width
+                id += 1
+            y = y - window_height
+
+        index = QgsSpatialIndex() # Spatial index
+        for ft in vector_grid.getFeatures():
+            index.insertFeature(ft)
+
+        for feat in p.getFeatures():
+            geom = feat.geometry()
+            idsList = index.intersects(geom.boundingBox())
+            for gridfeat in vector_grid.getFeatures(QgsFeatureRequest().setFilterFids(idsList)):
+                tmp_geom = QgsGeometry(gridfeat.geometry())
+                tmp_attrs = gridfeat.attributes()
+                if geom.intersects(tmp_geom):
+                    int = QgsGeometry(geom.intersection(tmp_geom))
+                    outfeat = QgsFeature()
+                    outfeat.setGeometry(int)
+                    outfeat.setAttributes(tmp_attrs)
+                    outprov.addFeatures([outfeat])
+
+        output.updateFields()
+
+        return output
+
+
+        # Load the layer
+        p = self.layer
+
+        # Set width and height as you want
+        window_width = 5000
+        window_height = 5000
+
+        # Run the function
+        divided_area = cut_polygon_into_windows(p, window_height, window_width)
+
+        # Add the layer to the Layers panel
+        QgsMapLayerRegistry.instance().addMapLayers([divided_area])
