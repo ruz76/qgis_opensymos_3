@@ -35,7 +35,11 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from qgis.PyQt.QtCore import QVariant
+from qgis.core import QgsMessageLog
+from qgis.gui import *
+import qgis.utils
+import processing
+import re
 
 
 
@@ -69,12 +73,83 @@ class Formular(QDialog, FORM_CLASS):
         # Zjištení jakou vrstvu uživatel vybral v rozbalovacím seznamu vrstev na formuláři
         self.layer = (self.dlgFormular.VyberVrstvu.currentLayer())
         QgsMessageLog.logMessage("Zpracovávaná/vybraná vrstva: " + self.layer.name(), "Messages")
+        # Zjištení jaký druh parcely uživatel vybral v rozbalovacím seznamu na formuláři
+        AreaType = self.vstupDialog.VyberAtribut.currentText()
+
         # Získání všech geoprvků z vybrané vrstvy (seznam)
         areas = self.layer.getFeatures()
         self.SelectedAreas = []
         self.CurrentPosition = 0
 
+        #spusteníe rozdelenia-------------------------------------------------------
 
+        if self.dlgFormular.DivideArea.isChecked():
+            try:
+
+                cell_size = 2.4
+                layer = self.layer
+                selected = AreaType
+                crs = self.layer.crs().authid()
+
+                ids = []
+                x_maxs = []
+                x_mins = []
+                y_maxs = []
+                y_mins = []
+
+                for lay in selected:
+                    id = lay.id()
+                    ids.append(id)
+                    print("working on: " + str(id))
+
+                    x_min, y_min, x_max, y_max = re.split(":|,",  lay.geometry().boundingBox().toString().replace(" ", ""))
+                x_mins.append(float(x_min))
+                x_maxs.append(float(x_max))
+                y_mins.append(float(y_min))
+                y_maxs.append(float(y_max))
+
+                extent = str(min(x_mins)) + "," + str(max(x_maxs)) + "," + str(min(y_mins)) + "," + str(max(y_maxs))
+                print(extent)
+
+                grid_parameters = {"TYPE":  1,
+                                "EXTENT": extent,
+                                "HSPACING": cell_size,
+                                "VSPACING":cell_size,
+                                #"HOVERLAY": 0,
+                                #"VOVERLAY": 0,
+                                "CRS": crs,
+                                "OUTPUT": None}
+
+                grid = processing.runalg("qgis:creategrid",  grid_parameters)
+
+                intersection_parameters = {"INPUT":  layer,
+                                        "INPUT2": grid["OUTPUT"],
+                                        "IGNORE_NULL": True,
+                                        "OUTPUT": None}
+
+                intersect = processing.runalg("qgis:intersection", intersection_parameters)
+
+                mem_intersect = QgsVectorLayer(intersect["OUTPUT"], "lyr_intersect", "ogr")
+
+                fields_to_delete = []
+            fieldnames = set(["left", "right",  "top", "bottom"])
+            for field in mem_intersect.fields():
+                if field.name() in fieldnames:
+                    fields_to_delete.append(mem_intersect.fieldNameIndex(field.name()))
+
+                mem_intersect.dataProvider().deleteAttributes(fields_to_delete)
+                mem_intersect.updateFields()
+
+                features = []
+                for feat in mem_intersect.getFeatures():
+                    features.append(feat)
+
+                with edit(layer):
+                    layer.deleteFeatures(ids)
+                    layer.dataProvider().addFeatures(features)
+
+
+        #------------------------------------------------------------------------------
 
         # Otevření výstupního souboru
         with open(Output, mode='w', encoding='utf-8') as soubor:
@@ -104,80 +179,3 @@ class Formular(QDialog, FORM_CLASS):
         # Pokud není na konci seznamu vybraných parcel, pak se volá přiblížení na další parcelu (s 1s zpožděním)
         if self.CurrentPosition < len(self.SelectedAreas):
             QTimer.singleShot(1000,self.ZoomToArea)
-
-
-
-    def cut_polygon_into_windows(self, p, window_height, window_width):
-        self.layer = (self.dlgFormular.VyberVrstvu.currentLayer())
-
-        crs = p.crs().toWkt()
-        extent = p.extent()
-        (xmin, xmax, ymin, ymax) = (extent.xMinimum(), extent.xMaximum(), extent.yMinimum(), extent.yMaximum())
-
-        # Create the grid layer
-        vector_grid = QgsVectorLayer('Polygon?crs='+ crs, 'vector_grid' , 'memory')
-        prov = vector_grid.dataProvider()
-
-        # Create the grid layer
-        output = QgsVectorLayer('Polygon?crs='+ crs, 'output' , 'memory')
-        outprov = output.dataProvider()
-
-        # Add ids and coordinates fields
-        fields = QgsFields()
-        fields.append(QgsField('ID', QVariant.Int, '', 10, 0))
-        outprov.addAttributes(fields)
-
-        # Generate the features for the vector grid
-        id = 0
-        y = ymax
-        while y >= ymin:
-            x = xmin
-            while x <= xmax:
-                point1 = QgsPoint(x, y)
-                point2 = QgsPoint(x + window_width, y)
-                point3 = QgsPoint(x + window_width, y - window_height)
-                point4 = QgsPoint(x, y - window_height)
-                vertices = [point1, point2, point3, point4] # Vertices of the polygon for the current id
-                inAttr = [id]
-                feat = QgsFeature()
-                feat.setGeometry(QgsGeometry().fromPolygon([vertices])) # Set geometry for the current id
-                feat.setAttributes(inAttr) # Set attributes for the current id
-                prov.addFeatures([feat])
-                x = x + window_width
-                id += 1
-            y = y - window_height
-
-        index = QgsSpatialIndex() # Spatial index
-        for ft in vector_grid.getFeatures():
-            index.insertFeature(ft)
-
-        for feat in p.getFeatures():
-            geom = feat.geometry()
-            idsList = index.intersects(geom.boundingBox())
-            for gridfeat in vector_grid.getFeatures(QgsFeatureRequest().setFilterFids(idsList)):
-                tmp_geom = QgsGeometry(gridfeat.geometry())
-                tmp_attrs = gridfeat.attributes()
-                if geom.intersects(tmp_geom):
-                    int = QgsGeometry(geom.intersection(tmp_geom))
-                    outfeat = QgsFeature()
-                    outfeat.setGeometry(int)
-                    outfeat.setAttributes(tmp_attrs)
-                    outprov.addFeatures([outfeat])
-
-        output.updateFields()
-
-        return output
-
-
-        # Load the layer
-        p = self.layer
-
-        # Set width and height as you want
-        window_width = 5000
-        window_height = 5000
-
-        # Run the function
-        divided_area = cut_polygon_into_windows(p, window_height, window_width)
-
-        # Add the layer to the Layers panel
-        QgsMapLayerRegistry.instance().addMapLayers([divided_area])
