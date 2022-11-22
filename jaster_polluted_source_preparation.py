@@ -48,18 +48,18 @@ class Formular(QDialog, FORM_CLASS):
         # self.<objectname>, and you can use autoconnect slots - see
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
-        self.EntryDialog = Formular()
+        self.dlgFormular = Formular()
 
     def AreaSelection(self):
         # Otevření dialogového okna
-        self.EntryDialog.exec()
+        self.dlgFormular.exec()
         # Zjištění, kam chce uživatel uložit výstup (výsledný soubor)
-        Output = self.EntryDialog.FileOutput.filePath()
+        Output = self.dlgFormular.FileOutput.filePath()
         # Zjištění adresáře, kam chce uživatel uložit výstup (bez jména souboru, jen adresář)
         self.location = os.path.dirname(Output)
 
         # Zjištení jakou vrstvu uživatel vybral v rozbalovacím seznamu vrstev na formuláři
-        self.layer = (self.EntryDialog.VyberVrstvu.currentLayer())
+        self.layer = (self.dlgFormular.VyberVrstvu.currentLayer())
         QgsMessageLog.logMessage("Zpracovávaná/vybraná vrstva: " + self.layer.name(), "Messages")
         # Získání všech geoprvků z vybrané vrstvy (seznam)
         areas = self.layer.getFeatures()
