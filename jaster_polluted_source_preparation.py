@@ -48,7 +48,12 @@ class Formular(QDialog, FORM_CLASS):
         # self.<objectname>, and you can use autoconnect slots - see
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
-        self.dlgFormular = Formular()
+        self.init_param()
+        self.setupUi(self)
+        self.VyberVrstvu.clicked.connect(self.AreaSelection())
+        self.FileOutput.clicked.connect(self.AreaSelection())
+        self.FileOutput.clicked.connect(self.ZoomToArea())
+        self.FileOutput.clicked.connect(self.ExportView())
 
     def AreaSelection(self):
         # Otevření dialogového okna
