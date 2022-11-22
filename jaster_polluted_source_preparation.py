@@ -61,6 +61,7 @@ class Formular(QDialog, FORM_CLASS):
         #self.FileOutput.clicked.connect(self.AreaSelection())
         #self.FileOutput.clicked.connect(self.ZoomToArea())
         #self.FileOutput.clicked.connect(self.ExportView())
+        self.dlgFormular = Formular()
 
     def AreaSelection(self):
         # Otevření dialogového okna
@@ -86,7 +87,7 @@ class Formular(QDialog, FORM_CLASS):
         if self.dlgFormular.DivideArea.isChecked():
             try:
 
-                cell_size = 2.4
+                cell_size = 30
                 layer = self.layer
                 selected = AreaType
                 crs = self.layer.crs().authid()
