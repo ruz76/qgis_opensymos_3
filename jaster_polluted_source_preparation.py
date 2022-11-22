@@ -61,7 +61,6 @@ class Formular(QDialog, FORM_CLASS):
         #self.FileOutput.clicked.connect(self.AreaSelection())
         #self.FileOutput.clicked.connect(self.ZoomToArea())
         #self.FileOutput.clicked.connect(self.ExportView())
-        from .opensymos import Open_symos
 
     def AreaSelection(self):
         # Otevření dialogového okna
@@ -75,7 +74,7 @@ class Formular(QDialog, FORM_CLASS):
         self.layer = (self.dlgFormular.VyberVrstvu.currentLayer())
         QgsMessageLog.logMessage("Zpracovávaná/vybraná vrstva: " + self.layer.name(), "Messages")
         # Zjištení jaký druh parcely uživatel vybral v rozbalovacím seznamu na formuláři
-        AreaType = self.vstupDialog.VyberAtribut.currentText()
+        AreaType = self.dlgFormular.VyberAtribut.currentText()
 
         # Získání všech geoprvků z vybrané vrstvy (seznam)
         areas = self.layer.getFeatures()
