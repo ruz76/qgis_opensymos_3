@@ -132,10 +132,10 @@ class Formular(QDialog, FORM_CLASS):
                 mem_intersect = QgsVectorLayer(intersect["OUTPUT"], "lyr_intersect", "ogr")
 
                 fields_to_delete = []
-            fieldnames = set(["left", "right",  "top", "bottom"])
-            for field in mem_intersect.fields():
-                if field.name() in fieldnames:
-                    fields_to_delete.append(mem_intersect.fieldNameIndex(field.name()))
+                fieldnames = set(["left", "right",  "top", "bottom"])
+                for field in mem_intersect.fields():
+                    if field.name() in fieldnames:
+                        fields_to_delete.append(mem_intersect.fieldNameIndex(field.name()))
 
                 mem_intersect.dataProvider().deleteAttributes(fields_to_delete)
                 mem_intersect.updateFields()
@@ -147,7 +147,8 @@ class Formular(QDialog, FORM_CLASS):
                 with edit(layer):
                     layer.deleteFeatures(ids)
                     layer.dataProvider().addFeatures(features)
-
+            except TypeError:
+                QgsMessageLog.logMessage("niečo je zle.", "Messages")
 
         #------------------------------------------------------------------------------
 
