@@ -37,13 +37,7 @@ from PyQt5.QtWidgets import *
 
 from qgis.core import QgsMessageLog
 from qgis.gui import *
-import qgis.utils
-import processing
-import re
 
-import geopandas as gpd
-from shapely.geometry import Polygon
-import numpy as np
 
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -60,10 +54,6 @@ class Formular(QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-        #self.VyberVrstvu.connect(self.AreaSelection())
-        #self.FileOutput.clicked.connect(self.AreaSelection())
-        #self.FileOutput.clicked.connect(self.ZoomToArea())
-        #self.FileOutput.clicked.connect(self.ExportView())
         self.VyberVrstvu.layerChanged.connect(self.SelectLayerFields)
 
     # def AreaSelection(self):
@@ -91,99 +81,6 @@ class Formular(QDialog, FORM_CLASS):
         self.SelectedAreas = []
         self.CurrentPosition = 0
 
-        #spusteníe rozdelenia-------------------------------------------------------
-
-        if self.dlgFormular.DivideArea.isChecked():
-            try:
-
-                cell_size = 30
-                layer = self.layer
-                selected = AreaType
-                crs = self.layer.crs().authid()
-
-                ids = []
-                x_maxs = []
-                x_mins = []
-                y_maxs = []
-                y_mins = []
-
-                for lay in selected:
-                    id = lay.id()
-                    ids.append(id)
-                    print("working on: " + str(id))
-
-                    x_min, y_min, x_max, y_max = re.split(":|,",  lay.geometry().boundingBox().toString().replace(" ", ""))
-                x_mins.append(float(x_min))
-                x_maxs.append(float(x_max))
-                y_mins.append(float(y_min))
-                y_maxs.append(float(y_max))
-
-                extent = str(min(x_mins)) + "," + str(max(x_maxs)) + "," + str(min(y_mins)) + "," + str(max(y_maxs))
-                print(extent)
-
-                grid_parameters = {"TYPE":  1,
-                                "EXTENT": extent,
-                                "HSPACING": cell_size,
-                                "VSPACING":cell_size,
-                                #"HOVERLAY": 0,
-                                #"VOVERLAY": 0,
-                                "CRS": crs,
-                                "OUTPUT": None}
-
-                grid = processing.runalg("qgis:creategrid",  grid_parameters)
-
-                intersection_parameters = {"INPUT":  layer,
-                                        "INPUT2": grid["OUTPUT"],
-                                        "IGNORE_NULL": True,
-                                        "OUTPUT": None}
-
-                intersect = processing.runalg("qgis:intersection", intersection_parameters)
-
-                mem_intersect = QgsVectorLayer(intersect["OUTPUT"], "lyr_intersect", "ogr")
-
-                fields_to_delete = []
-                fieldnames = set(["left", "right",  "top", "bottom"])
-                for field in mem_intersect.fields():
-                    if field.name() in fieldnames:
-                        fields_to_delete.append(mem_intersect.fieldNameIndex(field.name()))
-
-                mem_intersect.dataProvider().deleteAttributes(fields_to_delete)
-                mem_intersect.updateFields()
-
-                features = []
-                for feat in mem_intersect.getFeatures():
-                    features.append(feat)
-
-                with edit(layer):
-                    layer.deleteFeatures(ids)
-                    layer.dataProvider().addFeatures(features)
-            except TypeError:
-                QgsMessageLog.logMessage("niečo je zle.", "Messages")
-
-        # pokus 2------------------------------------------------------------------------------
-        if self.dlgFormular.DivideArea.isChecked():
-            try:
-                data = gpd.read_file(self.layer)
-
-                xmin, ymin, xmax, ymax = data.total_bounds
-
-                length = 1000
-                wide = 1200
-
-                cols = list(np.arange(xmin, xmax + wide, wide))
-                rows = list(np.arange(ymin, ymax + length, length))
-
-                polygons = []
-                for x in cols[:-1]:
-                    for y in rows[:-1]:
-                        polygons.append(Polygon([(x,y), (x+wide, y), (x+wide, y+length), (x, y+length)]))
-
-                grid = gpd.GeoDataFrame({'geometry':polygons})
-                grid.to_file("grid.shp")
-            except TypeError:
-                QgsMessageLog.logMessage("niečo je zle.", "Messages")
-
-        # -------------------------------------------------------------------------------------
 
         # Otevření výstupního souboru
         with open(Output, mode='w', encoding='utf-8') as soubor:
