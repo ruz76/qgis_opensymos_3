@@ -40,6 +40,7 @@ from qgis.gui import *
 
 from qgis.PyQt.QtCore import QVariant
 from qgis.utils import iface
+import processing
 
 # for polygon in vrstva
 #     boundingbox každeho polygonu
