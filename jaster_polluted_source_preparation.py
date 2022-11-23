@@ -66,19 +66,19 @@ class Formular(QDialog, FORM_CLASS):
         #self.FileOutput.clicked.connect(self.ExportView())
         self.VyberVrstvu.layerChanged.connect(self.SelectLayerFields)
 
-    def AreaSelection(self):
-        # Otevření dialogového okna
-        self.dlgFormular.exec()
-        # Zjištění, kam chce uživatel uložit výstup (výsledný soubor)
-        Output = self.dlgFormular.FileOutput.filePath()
-        # Zjištění adresáře, kam chce uživatel uložit výstup (bez jména souboru, jen adresář)
-        self.location = os.path.dirname(Output)
-
-        # Zjištení jakou vrstvu uživatel vybral v rozbalovacím seznamu vrstev na formuláři
-        self.layer = (self.dlgFormular.VyberVrstvu.currentLayer())
-        QgsMessageLog.logMessage("Zpracovávaná/vybraná vrstva: " + self.layer.name(), "Messages")
-        # Zjištení jaký druh parcely uživatel vybral v rozbalovacím seznamu na formuláři
-        #AreaType = self.dlgFormular.VyberAtribut.currentText()
+    # def AreaSelection(self):
+    #     # Otevření dialogového okna
+    #     self.dlgFormular.exec()
+    #     # Zjištění, kam chce uživatel uložit výstup (výsledný soubor)
+    #     Output = self.dlgFormular.FileOutput.filePath()
+    #     # Zjištění adresáře, kam chce uživatel uložit výstup (bez jména souboru, jen adresář)
+    #     self.location = os.path.dirname(Output)
+    #
+    #     # Zjištení jakou vrstvu uživatel vybral v rozbalovacím seznamu vrstev na formuláři
+    #     self.layer = (self.VyberVrstvu.currentLayer())
+    #     QgsMessageLog.logMessage("Zpracovávaná/vybraná vrstva: " + self.layer.name(), "Messages")
+    #     # Zjištení jaký druh parcely uživatel vybral v rozbalovacím seznamu na formuláři
+    #     #AreaType = self.dlgFormular.VyberAtribut.currentText()
 
 
 
