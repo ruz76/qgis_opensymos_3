@@ -144,19 +144,6 @@
     <string>Velikost buňky:</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="DivideArea">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>200</y>
-     <width>181</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Spustenie rozdelenia</string>
-   </property>
-  </widget>
  </widget>
  <customwidgets>
   <customwidget>
