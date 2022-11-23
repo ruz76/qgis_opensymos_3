@@ -121,7 +121,7 @@ class Formular(QDialog, FORM_CLASS):
         # vector_grid = QgsVectorLayer('Polygon?crs='+ crs, 'vector_grid' , 'memory')
         # prov = vector_grid.dataProvider()
 
-        processing.runalg('qgis:vectorgrid', extent, step_x, step_y, type, output)
+        #processing.runalg('qgis:vectorgrid', extent, step_x, step_y, type, output)
 
         cellsize = 0.0001 #Cell Size in WGS 84 will be 10 x 10 meters
         crs = "EPSG:4326" #WGS 84 System
