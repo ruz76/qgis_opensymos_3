@@ -92,6 +92,24 @@ class Formular(QDialog, FORM_CLASS):
         self.CurrentPosition = 0
 
 
+       # for polygon in self.layer:
+
+        layer = self.layer
+        newlayer = QgsVectorLayer("Polygon?crs={}&index=yes".format(layer.crs().authid()), "BoundingBoxes", "memory")
+
+        with edit(newlayer):
+            newlayer.dataProvider().addAttributes(layer.fields()) # copy the fields to the outputlayer
+            newlayer.updateFields() # save the changes
+            for polygon in layer.getFeatures(): # iterate over inputlayer
+                bbox = polygon.geometry().boundingBox() # get the Boundingbox as QgsRectangle
+                bbox_geom = QgsGeometry.fromRect(bbox) # Turn the QgsRectangle into QgsGeometry
+                outpolygon = QgsFeature() # Create a new feature
+                outpolygon.setAttributes(polygon.attributes()) # copy the attributes to the outputlayer
+                outpolygon.setGeometry(bbox_geom) # set the geometry of the outputfeature to the bbox of the inputfeature
+                newlayer.dataProvider().addFeature(outpolygon) # add the feature to the outputlayer
+
+        QgsProject.instance().addMapLayer(newlayer)
+
         # Otevření výstupního souboru
         Output = self.FileOutput.filePath()
         with open(Output, mode='w', encoding='utf-8') as soubor:
