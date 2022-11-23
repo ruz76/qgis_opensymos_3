@@ -123,20 +123,20 @@ class Formular(QDialog, FORM_CLASS):
 
         #processing.runalg('qgis:vectorgrid', extent, step_x, step_y, type, output)
 
-        for box in newlayer:
-            cellsize = 0.0001 #Cell Size in WGS 84 will be 10 x 10 meters
-            crs = "EPSG:4326" #WGS 84 System
-            #input = processing.getObject(newlayer()) #Use the processing.getObject to get information from our vector layer
-            xmin = (box.extent().xMinimum()) #extract the minimum x coord from our layer
-            xmax =  (box.extent().xMaximum()) #extract our maximum x coord from our layer
-            ymin = (box.extent().yMinimum()) #extract our minimum y coord from our layer
-            ymax = (box.extent().yMaximum()) #extract our maximum y coord from our layer
-            #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
-            extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
-            grid="PATH_FOR_VECTORGRID_CREATION"
-            processing.runalg('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid)
+        #for box in newlayer:
+        cellsize = 0.0001 #Cell Size in WGS 84 will be 10 x 10 meters
+        crs = "EPSG:4326" #WGS 84 System
+        input = processing.getObject(newlayer.name()) #Use the processing.getObject to get information from our vector layer
+        xmin = (input.textent().xMinimum()) #extract the minimum x coord from our layer
+        xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
+        ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
+        ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
+        #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
+        extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
+        grid="PATH_FOR_VECTORGRID_CREATION"
+        processing.runalg('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid)
 
-            QgsProject.instance().addMapLayer(processing.runalg('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid))
+        QgsProject.instance().addMapLayer(processing.runalg('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid))
 
 # Otevření výstupního souboru
         Output = self.FileOutput.filePath()
