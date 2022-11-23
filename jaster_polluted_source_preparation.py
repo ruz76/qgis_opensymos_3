@@ -70,7 +70,7 @@ class Formular(QDialog, FORM_CLASS):
         # Otevření dialogového okna
         self.dlgFormular.exec()
         # Zjištění, kam chce uživatel uložit výstup (výsledný soubor)
-        putOut = self.dlgFormular.FileOutput.filePath()
+        Output = self.dlgFormular.FileOutput.filePath()
         # Zjištění adresáře, kam chce uživatel uložit výstup (bez jména souboru, jen adresář)
         self.location = os.path.dirname(Output)
 
@@ -83,7 +83,7 @@ class Formular(QDialog, FORM_CLASS):
 
 
     def SelectLayerFields(self):
-        self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer)
+        self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
 
     # Získání všech geoprvků z vybrané vrstvy (seznam)
         areas = self.layer.getFeatures()
