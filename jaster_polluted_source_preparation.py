@@ -64,6 +64,7 @@ class Formular(QDialog, FORM_CLASS):
         #self.FileOutput.clicked.connect(self.AreaSelection())
         #self.FileOutput.clicked.connect(self.ZoomToArea())
         #self.FileOutput.clicked.connect(self.ExportView())
+        self.dlgFormular.VyberVrstvu.layerChanged.connect(self.SelectLayerFields)
 
     def AreaSelection(self):
         # Otevření dialogového okna
@@ -79,7 +80,7 @@ class Formular(QDialog, FORM_CLASS):
         # Zjištení jaký druh parcely uživatel vybral v rozbalovacím seznamu na formuláři
         #AreaType = self.dlgFormular.VyberAtribut.currentText()
 
-        self.dlgFormular.VyberVrstvu.layerChanged.connect(self.SelectLayerFields)
+
 
     def SelectLayerFields(self):
         self.dlgFormular.VyberAtribut.setLayer(self.dlgFormular.VyberVrstvu.currentLayer)
