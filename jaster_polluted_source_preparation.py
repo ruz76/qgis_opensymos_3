@@ -43,7 +43,7 @@ from qgis.utils import iface
 import processing
 
 # for polygon in vrstva
-#     boundingbox každeho polygonu
+#     boundingbox každeho polygonu // boundingBox vrstvy
 #     zistiť tie emisie v tych poygonoch
 #     metoda na vygenerovanie pravidelneho gridu buniek (10*10) v tom boudingboxu, podľa prekryvu s pôvodným poylgonom, kde 1 sa vytvorí bunka a 0 nie
 #     zmeniť bunky na body (seznam bodov ktore su vnutri boundindBoxu polygonu)
@@ -124,7 +124,7 @@ class Formular(QDialog, FORM_CLASS):
 
         VyslednyExtent = processing.runalg("grass7:r.neighbors",layer,0,3,False,False,"",coords,0,None)
         QgsMessageLog.logMessage("Extent: " + str(VyslednyExtent), "Messages")
-        
+
 # emise = self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
         # QgsMessageLog.logMessage("Vybraný atribut (emise): " + str(emise), "Messages")
 
