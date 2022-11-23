@@ -39,6 +39,16 @@ from qgis.core import QgsMessageLog
 from qgis.gui import *
 
 
+# for polygon in vrstva
+#     boundingbox každeho polygonu
+#     zistiť tie emisii v tych poygonoch
+#     metoda na vygenerovanie pravidelneho gridu buniek (10*10) v tom boudingboxu, podľa prekryvu s pôvodným poylgonom, kde 1 sa vytvorí bunka a 0 nie
+#     zmeniť bunky na body (seznam bodov ktore su vnutri boundindBoxu polygonu)
+#     emisia na polygon / body
+# zapísať hodnotu emisie na bode do nového stĺpca / prepísať pôvodný stlpec emisie
+# export novej bodovej vrstvy s tym novou hodnotou emisii
+
+
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'jaster_polluted_source_preparation.ui'))
