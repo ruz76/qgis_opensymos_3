@@ -83,7 +83,7 @@ class Formular(QDialog, FORM_CLASS):
 
 
     def SelectLayerFields(self):
-        self.VyberAtribut.setLayer(self.dlgFormular.VyberVrstvu.currentLayer)
+        self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer)
 
     # Získání všech geoprvků z vybrané vrstvy (seznam)
         areas = self.layer.getFeatures()
