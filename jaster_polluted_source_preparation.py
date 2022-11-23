@@ -38,10 +38,12 @@ from PyQt5.QtWidgets import *
 from qgis.core import QgsMessageLog
 from qgis.gui import *
 
+from qgis.PyQt.QtCore import QVariant
+from qgis.utils import iface
 
 # for polygon in vrstva
 #     boundingbox každeho polygonu
-#     zistiť tie emisii v tych poygonoch
+#     zistiť tie emisie v tych poygonoch
 #     metoda na vygenerovanie pravidelneho gridu buniek (10*10) v tom boudingboxu, podľa prekryvu s pôvodným poylgonom, kde 1 sa vytvorí bunka a 0 nie
 #     zmeniť bunky na body (seznam bodov ktore su vnutri boundindBoxu polygonu)
 #     emisia na polygon / body
@@ -110,7 +112,31 @@ class Formular(QDialog, FORM_CLASS):
 
         QgsProject.instance().addMapLayer(newlayer)
 
-        # Otevření výstupního souboru
+        emise = self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
+        QgsMessageLog.logMessage("Vybraný atribut (emise): " + str(emise), "Messages")
+
+        # # Create the grid layer
+        # crs = iface.mapCanvas().mapSettings().destinationCrs().toWkt()
+        # vector_grid = QgsVectorLayer('Polygon?crs='+ crs, 'vector_grid' , 'memory')
+        # prov = vector_grid.dataProvider()
+
+        processing.runalg('qgis:vectorgrid', extent, step_x, step_y, type, output)
+
+        cellsize = 0.0001 #Cell Size in WGS 84 will be 10 x 10 meters
+        crs = "EPSG:4326" #WGS 84 System
+        input = processing.getObject(self.layer.name()) #Use the processing.getObject to get information from our vector layer
+        xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
+        xmax =  (input.extent().xMaximum()) #extract our maximum x coord from our layer
+        ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
+        ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
+        #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
+        extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
+        grid="PATH_FOR_VECTORGRID_CREATION"
+        processing.runalg('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid)
+
+        QgsProject.instance().addMapLayer(processing.runalg('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid))
+
+# Otevření výstupního souboru
         Output = self.FileOutput.filePath()
         with open(Output, mode='w', encoding='utf-8') as soubor:
             # Procházení seznamu všech geoprvků/parcel
