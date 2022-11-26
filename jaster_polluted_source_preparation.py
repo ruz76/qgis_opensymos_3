@@ -113,17 +113,17 @@ class Formular(QDialog, FORM_CLASS):
 
         QgsProject.instance().addMapLayer(newlayer)
 
-        # #layer = iface.activeLayer() # load the layer as you want
-        # ext = layer.extent()
-        #
-        # xmin = ext.xMinimum()
-        # xmax = ext.xMaximum()
-        # ymin = ext.yMinimum()
-        # ymax = ext.yMaximum()
-        # coords = "%f,%f,%f,%f" %(xmin, xmax, ymin, ymax) # this is a string that stores the coordinates
-        #
-        # VyslednyExtent = processing.runalg("grass7:r.neighbors",layer,0,3,False,False,"",coords,0,None)
-        # QgsMessageLog.logMessage("Extent: " + str(VyslednyExtent), "Messages")
+        #layer = iface.activeLayer() # load the layer as you want
+        ext = layer.extent()
+
+        xmin = ext.xMinimum()
+        xmax = ext.xMaximum()
+        ymin = ext.yMinimum()
+        ymax = ext.yMaximum()
+        coords = "%f,%f,%f,%f" %(xmin, xmax, ymin, ymax) # this is a string that stores the coordinates
+
+        VyslednyExtent = processing.run("grass7:r.neighbors",layer,0,3,False,False,"",coords,0,None)
+        QgsMessageLog.logMessage("Extent: " + str(VyslednyExtent), "Messages")
 
 # emise = self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
         # QgsMessageLog.logMessage("Vybraný atribut (emise): " + str(emise), "Messages")
@@ -135,21 +135,21 @@ class Formular(QDialog, FORM_CLASS):
 
         #processing.runalg('qgis:vectorgrid', extent, step_x, step_y, type, output)
 
-        # #for box in newlayer:
-        cellsize = 0.0001 #Cell Size in WGS 84 will be 10 x 10 meters
-        crs = "EPSG:4326" #WGS 84 System
-        # input = processing.getObject(newlayer.name()) #Use the processing.getObject to get information from our vector layer
-        input = newlayer #Use the processing.getObject to get information from our vector layer
-        xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
-        xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
-        ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
-        ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
-        #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
-        extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
-        grid="PATH_FOR_VECTORGRID_CREATION"
-        processing.run('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid)
-
-        QgsProject.instance().addMapLayer(processing.runalg('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid))
+        # # #for box in newlayer:
+        # cellsize = 0.0001 #Cell Size in WGS 84 will be 10 x 10 meters
+        # crs = "EPSG:4326" #WGS 84 System
+        # # input = processing.getObject(newlayer.name()) #Use the processing.getObject to get information from our vector layer
+        # input = newlayer #Use the processing.getObject to get information from our vector layer
+        # xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
+        # xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
+        # ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
+        # ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
+        # #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
+        # extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
+        # grid="PATH_FOR_VECTORGRID_CREATION"
+        # processing.run('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid)
+        #
+        # QgsProject.instance().addMapLayer(processing.runalg('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid))
 
 # Otevření výstupního souboru
         Output = self.FileOutput.filePath()
