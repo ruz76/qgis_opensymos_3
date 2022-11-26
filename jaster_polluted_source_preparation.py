@@ -146,10 +146,10 @@ class Formular(QDialog, FORM_CLASS):
         ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
         #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
         extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
-        grid="PATH_FOR_VECTORGRID_CREATION"
-        processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
+        grid = "\jaster_grid\grid.shp"
+        grid_creation = processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
 
-        QgsProject.instance().addMapLayer(processing.runalg('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid))
+        QgsProject.instance().addMapLayer(grid)
 
 # Otevření výstupního souboru
         Output = self.FileOutput.filePath()
