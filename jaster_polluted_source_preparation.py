@@ -136,8 +136,8 @@ class Formular(QDialog, FORM_CLASS):
         #processing.runalg('qgis:vectorgrid', extent, step_x, step_y, type, output)
 
         # # #for box in newlayer:
-        cellsize = 0.001 #Cell Size in WGS 84 will be 100 x 100 meters
-        crs = QgsCoordinateReferenceSystem("EPSG:4326") #WGS 84 System
+        cellsize = 100 #Cell Size in WGS 84 will be 100 x 100 meters
+        crs = QgsProject().instance().crs().toWkt() #WGS 84 System
         # input = processing.getObject(newlayer.name()) #Use the processing.getObject to get information from our vector layer
         input = newlayer #Use the processing.getObject to get information from our vector layer
         xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
@@ -146,11 +146,11 @@ class Formular(QDialog, FORM_CLASS):
         ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
         #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
         extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
-        grid = "C:/Users/jasni/Desktop/test_grid.shp"
         #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
-        processing.run("native:creategrid", {'TYPE':0,'EXTENT': extent,'HSPACING':cellsize,'VSPACING':cellsize,'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': grid})
+        grid_creation = processing.run("native:creategrid", {'TYPE':0,'EXTENT': extent,'HSPACING':cellsize,'VSPACING':cellsize,'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
+        grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
         QgsMessageLog.logMessage("Grid je hotový.", "Messages")
-        #QgsProject.instance().addMapLayer(grid)
+        QgsProject.instance().addMapLayer(grid)
 
 # Otevření výstupního souboru
         Output = self.FileOutput.filePath()
