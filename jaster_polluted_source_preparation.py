@@ -139,7 +139,7 @@ class Formular(QDialog, FORM_CLASS):
         cellsize = 0.0001 #Cell Size in WGS 84 will be 10 x 10 meters
         crs = "EPSG:4326" #WGS 84 System
         # input = processing.getObject(newlayer.name()) #Use the processing.getObject to get information from our vector layer
-        input = QgsProcessingUtils.mapLayerFromString(newlayer) #Use the processing.getObject to get information from our vector layer
+        input = QgsProcessingUtils.mapLayerFromString(str(newlayer)) #Use the processing.getObject to get information from our vector layer
         xmin = (input.textent().xMinimum()) #extract the minimum x coord from our layer
         xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
         ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
