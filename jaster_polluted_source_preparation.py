@@ -149,8 +149,8 @@ class Formular(QDialog, FORM_CLASS):
         grid = "C:/Users/jasni/Desktop/test_grid.shp"
         #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
         processing.run("native:creategrid", {'TYPE':0,'EXTENT': extent,'HSPACING':cellsize,'VSPACING':cellsize,'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': grid})
-
-        QgsProject.instance().addMapLayer(grid)
+        QgsMessageLog.logMessage("Grid je hotový.", "Messages")
+        #QgsProject.instance().addMapLayer(grid)
 
 # Otevření výstupního souboru
         Output = self.FileOutput.filePath()
