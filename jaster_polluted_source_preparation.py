@@ -147,7 +147,7 @@ class Formular(QDialog, FORM_CLASS):
         #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
         extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
         grid="PATH_FOR_VECTORGRID_CREATION"
-        processing.runalg('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid)
+        processing.run('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid)
 
         QgsProject.instance().addMapLayer(processing.runalg('qgis:vectorgrid',  extent, cellsize, cellsize, 0, grid))
 
