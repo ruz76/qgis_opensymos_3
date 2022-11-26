@@ -146,7 +146,7 @@ class Formular(QDialog, FORM_CLASS):
         ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
         #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
         extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
-        #grid = "\jaster_grid\grid.shp"
+        grid = "\jaster_grid\grid.shp"
         #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
         processing.run("native:creategrid", {'TYPE':0,'EXTENT': extent,'HSPACING':cellsize,'VSPACING':cellsize,'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': grid})
 
