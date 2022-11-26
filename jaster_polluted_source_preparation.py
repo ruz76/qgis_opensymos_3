@@ -136,7 +136,7 @@ class Formular(QDialog, FORM_CLASS):
         #processing.runalg('qgis:vectorgrid', extent, step_x, step_y, type, output)
 
         # # #for box in newlayer:
-        cellsize = 0.0001 #Cell Size in WGS 84 will be 10 x 10 meters
+        cellsize = 0.001 #Cell Size in WGS 84 will be 100 x 100 meters
         crs = "EPSG:4326" #WGS 84 System
         # input = processing.getObject(newlayer.name()) #Use the processing.getObject to get information from our vector layer
         input = newlayer #Use the processing.getObject to get information from our vector layer
