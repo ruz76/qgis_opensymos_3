@@ -148,7 +148,7 @@ class Formular(QDialog, FORM_CLASS):
         extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
         grid = "C:/Users/jasni/Desktop/test_grid.shp"
         #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
-        processing.run("qgis:creategrid", {'TYPE':0,'EXTENT': extent,'HSPACING':cellsize,'VSPACING':cellsize,'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': grid})
+        processing.run("native:creategrid", {'TYPE':0,'EXTENT': extent,'HSPACING':cellsize,'VSPACING':cellsize,'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': grid})
 
         QgsProject.instance().addMapLayer(grid)
 
