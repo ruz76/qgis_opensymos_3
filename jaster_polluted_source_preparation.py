@@ -152,6 +152,34 @@ class Formular(QDialog, FORM_CLASS):
         QgsMessageLog.logMessage("Grid je hotový.", "Messages")
         QgsProject.instance().addMapLayer(grid)
 
+        #novy grid podle zvolene vrstvy (pouziti fce intersect)
+        grid_create2 = processing.run("native:intersection",
+                       {'INPUT': grid, 'OVERLAY': layer,
+                        'INPUT_FIELDS': [], 'OVERLAY_FIELDS': [], 'OVERLAY_FIELDS_PREFIX': '',
+                        'OUTPUT': 'TEMPORARY_OUTPUT', 'GRID_SIZE': None})
+        finalgrid = grid_create2['OUTPUT']
+        QgsMessageLog.logMessage("Grid je hotový.", "Messages")
+        QgsProject.instance().addMapLayer(finalgrid)
+
+        #prida novy atribut emise
+        layer_provider = finalgrid.dataProvider()
+        layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
+        finalgrid.updateFields()
+
+        # vypocita hodnoty v atributu emise (nejde)
+        # expression = QgsExpression ('DruhPozemk'/10)
+        # index = finalgrid.fieldNameIndex("emise")
+        # expression.prepare(finalgrid.pendingFields())
+        # finalgrid.startEditing()
+        # for feature in finalgrid.getFeatures():
+        #     value = expression.evaluate(feature)
+        #     finalgrid.changeAttributeValue(feature.id(), index, value)
+        #
+        # finalgrid.commitChanges()
+
+        print(finalgrid.fields().names())
+
+
 # Otevření výstupního souboru
         Output = self.FileOutput.filePath()
         with open(Output, mode='w', encoding='utf-8') as soubor:
