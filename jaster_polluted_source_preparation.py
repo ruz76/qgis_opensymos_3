@@ -90,11 +90,20 @@ class Formular(QDialog, FORM_CLASS):
         self.SelectedAreas = []
         self.CurrentPosition = 0
         layer = self.layer
+        vyber_atributu = (self.VyberAtribut.currentLayer())
 
-        for atribut in self.VyberAtribut:
-            count_atributes = count(int(self.VyberAtribut.value()))
-        QgsMessageLog.logMessage("Suma čísel zo zvoleného atributu: ", str(count_atributes),  "Messages")
-        #atributes = int(self.VyberAtribut.value())
+        features = vyber_atributu.getFeatures()
+
+        attrs = features.attributes()
+        var = attrs[1]
+        QgsMessageLog.logMessage("Hodnota atributu: ", str(var),  "Messages")
+
+
+
+        # for atribut in emise:
+        #     count_atributes = count(int(self.VyberAtribut.value()))
+        # QgsMessageLog.logMessage("Suma čísel zo zvoleného atributu: ", str(count_atributes),  "Messages")
+        # #atributes = int(self.VyberAtribut.value())
 
 
         #cellsize = 100 #Cell Size in WGS 84 will be 100 x 100 meters
