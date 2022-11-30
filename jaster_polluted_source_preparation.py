@@ -169,7 +169,6 @@ class Formular(QDialog, FORM_CLASS):
         layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
         finalgrid.updateFields()
 
-spinBox
         # vypocita hodnoty v atributu emise (nejde)
         # expression = QgsExpression ('DruhPozemk'/10)
         # index = finalgrid.fieldNameIndex("emise")
