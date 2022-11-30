@@ -94,25 +94,25 @@ class Formular(QDialog, FORM_CLASS):
         cell_size = int(self.spinBox.value())
         self.SelectedAreas = []
         self.CurrentPosition = 0
-
+        layer = self.layer
 
        # for polygon in self.layer:
 
-        layer = self.layer
-        newlayer = QgsVectorLayer("Polygon?crs={}&index=yes".format(layer.crs().authid()), "BoundingBoxes", "memory")
 
-        with edit(newlayer):
-            newlayer.dataProvider().addAttributes(layer.fields()) # copy the fields to the outputlayer
-            newlayer.updateFields() # save the changes
-            for polygon in layer.getFeatures(): # iterate over inputlayer
-                bbox = polygon.geometry().boundingBox() # get the Boundingbox as QgsRectangle
-                bbox_geom = QgsGeometry.fromRect(bbox) # Turn the QgsRectangle into QgsGeometry
-                outpolygon = QgsFeature() # Create a new feature
-                outpolygon.setAttributes(polygon.attributes()) # copy the attributes to the outputlayer
-                outpolygon.setGeometry(bbox_geom) # set the geometry of the outputfeature to the bbox of the inputfeature
-                newlayer.dataProvider().addFeature(outpolygon) # add the feature to the outputlayer
-
-        QgsProject.instance().addMapLayer(newlayer)
+        # newlayer = QgsVectorLayer("Polygon?crs={}&index=yes".format(layer.crs().authid()), "BoundingBoxes", "memory")
+        #
+        # with edit(newlayer):
+        #     newlayer.dataProvider().addAttributes(layer.fields()) # copy the fields to the outputlayer
+        #     newlayer.updateFields() # save the changes
+        #     for polygon in layer.getFeatures(): # iterate over inputlayer
+        #         bbox = polygon.geometry().boundingBox() # get the Boundingbox as QgsRectangle
+        #         bbox_geom = QgsGeometry.fromRect(bbox) # Turn the QgsRectangle into QgsGeometry
+        #         outpolygon = QgsFeature() # Create a new feature
+        #         outpolygon.setAttributes(polygon.attributes()) # copy the attributes to the outputlayer
+        #         outpolygon.setGeometry(bbox_geom) # set the geometry of the outputfeature to the bbox of the inputfeature
+        #         newlayer.dataProvider().addFeature(outpolygon) # add the feature to the outputlayer
+        #
+        # QgsProject.instance().addMapLayer(newlayer)
 
         # #layer = iface.activeLayer() # load the layer as you want
         # ext = layer.extent()
@@ -148,9 +148,11 @@ class Formular(QDialog, FORM_CLASS):
         #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
         extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
         #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
-        grid_creation = processing.run("native:creategrid", {'TYPE':0,'EXTENT': extent,'HSPACING':cellsize,'VSPACING':cell_size,'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
+        grid_creation = processing.run("native:creategrid", {'TYPE':0,'EXTENT': extent,
+                                                             'HSPACING':cellsize,'VSPACING':cell_size,
+                                                             'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
         grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
-        QgsMessageLog.logMessage("Grid je hotový.", "Messages")
+        #QgsMessageLog.logMessage("Grid je hotový.", "Messages")
         QgsProject.instance().addMapLayer(grid)
 
         #novy grid podle zvolene vrstvy (pouziti fce intersect)
