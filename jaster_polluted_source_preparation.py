@@ -113,10 +113,10 @@ class Formular(QDialog, FORM_CLASS):
 
             crs = QgsProject().instance().crs().toWkt() #WGS 84 System
             #input = layer #Use the processing.getObject to get information from our vector layer
-            xmin = (polygon.boundinBox().xMinimum()) #extract the minimum x coord from our layer
+            xmin = (polygon.boundingBox().xMinimum()) #extract the minimum x coord from our layer
             xmax = (polygon.boundingBox().xMaximum()) #extract our maximum x coord from our layer
-            ymin = (polygon.boundinBox().yMinimum()) #extract our minimum y coord from our layer
-            ymax = (polygon.boundinBox().yMaximum()) #extract our maximum y coord from our layer
+            ymin = (polygon.boundingBox().yMinimum()) #extract our minimum y coord from our layer
+            ymax = (polygon.boundingBox().yMaximum()) #extract our maximum y coord from our layer
             #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
             extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
         #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
