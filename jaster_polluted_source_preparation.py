@@ -146,10 +146,10 @@ class Formular(QDialog, FORM_CLASS):
 
         crs = QgsProject().instance().crs().toWkt() #WGS 84 System
         input = layer #Use the processing.getObject to get information from our vector layer
-        xmin = (input.xMinimum()) #extract the minimum x coord from our layer
-        xmax = (input.xMaximum()) #extract our maximum x coord from our layer
-        ymin = (input.yMinimum()) #extract our minimum y coord from our layer
-        ymax = (input.yMaximum()) #extract our maximum y coord from our layer
+        xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
+        xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
+        ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
+        ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
         #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
         extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
         #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
@@ -157,7 +157,7 @@ class Formular(QDialog, FORM_CLASS):
                                                                  'HSPACING':cell_size,'VSPACING':cell_size,
                                                                  'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
         grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
-            
+
 
         #novy grid podle zvolene vrstvy (pouziti fce intersect)
         grid_create2 = processing.run("native:intersection",
