@@ -153,7 +153,7 @@ class Formular(QDialog, FORM_CLASS):
                                                              'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
         grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
         #QgsMessageLog.logMessage("Grid je hotový.", "Messages")
-        QgsProject.instance().addMapLayer(grid)
+        #QgsProject.instance().addMapLayer(grid)
 
         #novy grid podle zvolene vrstvy (pouziti fce intersect)
         grid_create2 = processing.run("native:intersection",
