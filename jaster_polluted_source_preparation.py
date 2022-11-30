@@ -91,7 +91,7 @@ class Formular(QDialog, FORM_CLASS):
 
     # Získání všech geoprvků z vybrané vrstvy (seznam)
         areas = self.layer.getFeatures()
-        cell_size = int(self.spinBox.value())
+        cell_size = int(self.spinBox.currentValue())
         self.SelectedAreas = []
         self.CurrentPosition = 0
 
