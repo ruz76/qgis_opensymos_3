@@ -43,12 +43,9 @@ from qgis.utils import iface
 import processing
 
 # for polygon in vrstva
-#     boundingbox každeho polygonu // boundingBox vrstvy
 #     zistiť tie emisie v tych poygonoch
-#     metoda na vygenerovanie pravidelneho gridu buniek (10*10) v tom boudingboxu, podľa prekryvu s pôvodným poylgonom, kde 1 sa vytvorí bunka a 0 nie
-#     zmeniť bunky na body (seznam bodov ktore su vnutri boundindBoxu polygonu)
 #     emisia na polygon / body
-# zapísať hodnotu emisie na bode do nového stĺpca / prepísať pôvodný stlpec emisie
+# zapísať hodnotu emisie na bode do nového stĺpca
 # export novej bodovej vrstvy s tym novou hodnotou emisii
 
 
@@ -83,8 +80,6 @@ class Formular(QDialog, FORM_CLASS):
     #     # Zjištení jaký druh parcely uživatel vybral v rozbalovacím seznamu na formuláři
     #     #AreaType = self.dlgFormular.VyberAtribut.currentText()
 
-
-
     def SelectLayerFields(self):
         self.layer = (self.VyberVrstvu.currentLayer())
         self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
@@ -96,50 +91,14 @@ class Formular(QDialog, FORM_CLASS):
         self.CurrentPosition = 0
         layer = self.layer
 
-       # for polygon in self.layer:
+        for atribut in self.VyberAtribut:
+            count_atributes = count(int(self.VyberAtribut.value()))
+        QgsMessageLog.logMessage("Suma čísel zo zvoleného atributu: ", str(count_atributes),  "Messages")
+        #atributes = int(self.VyberAtribut.value())
 
 
-        #newlayer = QgsVectorLayer("Polygon?crs={}&index=yes".format(layer.crs().authid()), "BoundingBoxes", "memory")
-        #
-        # with edit(newlayer):
-        #     newlayer.dataProvider().addAttributes(layer.fields()) # copy the fields to the outputlayer
-        #     newlayer.updateFields() # save the changes
-        #     for polygon in layer.getFeatures(): # iterate over inputlayer
-        #         bbox = polygon.geometry().boundingBox() # get the Boundingbox as QgsRectangle
-        #         bbox_geom = QgsGeometry.fromRect(bbox) # Turn the QgsRectangle into QgsGeometry
-        #         outpolygon = QgsFeature() # Create a new feature
-        #         outpolygon.setAttributes(polygon.attributes()) # copy the attributes to the outputlayer
-        #         outpolygon.setGeometry(bbox_geom) # set the geometry of the outputfeature to the bbox of the inputfeature
-        #         newlayer.dataProvider().addFeature(outpolygon) # add the feature to the outputlayer
-        #
-        # QgsProject.instance().addMapLayer(newlayer)
-
-        # #layer = iface.activeLayer() # load the layer as you want
-        # ext = layer.extent()
-        #
-        # xmin = ext.xMinimum()
-        # xmax = ext.xMaximum()
-        # ymin = ext.yMinimum()
-        # ymax = ext.yMaximum()
-        # coords = "%f,%f,%f,%f" %(xmin, xmax, ymin, ymax) # this is a string that stores the coordinates
-        #
-        # VyslednyExtent = processing.run("grass7:r.neighbors",layer,0,3,False,False,"",coords,0,None)
-        # QgsMessageLog.logMessage("Extent: " + str(VyslednyExtent), "Messages")
-
-# emise = self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
-        # QgsMessageLog.logMessage("Vybraný atribut (emise): " + str(emise), "Messages")
-
-        # # Create the grid layer
-        # crs = iface.mapCanvas().mapSettings().destinationCrs().toWkt()
-        # vector_grid = QgsVectorLayer('Polygon?crs='+ crs, 'vector_grid' , 'memory')
-        # prov = vector_grid.dataProvider()
-
-        #processing.runalg('qgis:vectorgrid', extent, step_x, step_y, type, output)
-
-        # # #for box in newlayer:
-        cellsize = 100 #Cell Size in WGS 84 will be 100 x 100 meters
+        #cellsize = 100 #Cell Size in WGS 84 will be 100 x 100 meters
         crs = QgsProject().instance().crs().toWkt() #WGS 84 System
-        # input = processing.getObject(newlayer.name()) #Use the processing.getObject to get information from our vector layer
         input = layer #Use the processing.getObject to get information from our vector layer
         xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
         xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
@@ -152,8 +111,6 @@ class Formular(QDialog, FORM_CLASS):
                                                              'HSPACING':cellsize,'VSPACING':cell_size,
                                                              'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
         grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
-        #QgsMessageLog.logMessage("Grid je hotový.", "Messages")
-        #QgsProject.instance().addMapLayer(grid)
 
         #novy grid podle zvolene vrstvy (pouziti fce intersect)
         grid_create2 = processing.run("native:intersection",
@@ -162,7 +119,6 @@ class Formular(QDialog, FORM_CLASS):
                         'OUTPUT': 'TEMPORARY_OUTPUT', 'GRID_SIZE': None})
         finalgrid = grid_create2['OUTPUT']
         finalgrid.setName('Terka_is_Best')
-        #finalgrid = QgsVectorLayer(grid_create2['OUTPUT'], 'grid', 'ogr')
         QgsMessageLog.logMessage("Finálny grid je hotový.", "Messages")
         QgsProject.instance().addMapLayer(finalgrid)
 
@@ -170,6 +126,7 @@ class Formular(QDialog, FORM_CLASS):
         layer_provider = finalgrid.dataProvider()
         layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
         finalgrid.updateFields()
+        print(finalgrid.fields().names())
 
         # vypocita hodnoty v atributu emise (nejde)
         # expression = QgsExpression ('DruhPozemk'/10)
@@ -182,8 +139,6 @@ class Formular(QDialog, FORM_CLASS):
         #
         # finalgrid.commitChanges()
 
-        print(finalgrid.fields().names())
-
 
 # Otevření výstupního souboru
         Output = self.FileOutput.filePath()
@@ -191,26 +146,8 @@ class Formular(QDialog, FORM_CLASS):
             # Procházení seznamu všech geoprvků/parcel
             for area in areas:
                 print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
-        # Volání metody přiblížení na parcelu
-        self.ZoomToArea()
         QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
-
-
-        # Metoda pro přiblížení na parcelu
-    def ZoomToArea(self):
-        # Zjištění plošného rozsahu vybrané parcely
-        zoom = self.SelectedAreas[self.CurrentPosition].geometry().boundingBox()
-        # Přiblížení na rozsah vybrané parcely
-        self.iface.mapCanvas().setExtent(zoom)
-        self.iface.mapCanvas().refresh()
-        # Volání metody exportMap s 1s zpožděním (aby se stihlo mapové pole překreslit)
-        QTimer.singleShot(1000,self.ExportView)
 
     def ExportView(self):
         # Uložení obrázku mapového pole (pojmenování obr. dle id aktuálně zpracovávané parcely)
         self.iface.mapCanvas().saveAsImage(self.location + "\area_" + str(self.SelectedAreas[self.CurrentPosition]["Id"]) + ".png")
-        # Posun pozice (v seznamu vybraných parcel) na další
-        self.CurrentPosition = self.CurrentPosition + 1
-        # Pokud není na konci seznamu vybraných parcel, pak se volá přiblížení na další parcelu (s 1s zpožděním)
-        if self.CurrentPosition < len(self.SelectedAreas):
-            QTimer.singleShot(1000,self.ZoomToArea)
