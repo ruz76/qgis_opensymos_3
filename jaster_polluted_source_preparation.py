@@ -90,7 +90,9 @@ class Formular(QDialog, FORM_CLASS):
         self.SelectedAreas = []
         self.CurrentPosition = 0
         layer = self.layer
-        vyber_atributu = (self.VyberAtribut.currentLayer())
+
+
+        vyber_atributu = (self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer()))
 
         features = vyber_atributu.getFeatures()
 
