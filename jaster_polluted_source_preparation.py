@@ -109,7 +109,7 @@ class Formular(QDialog, FORM_CLASS):
 
 
         #cellsize = 100 #Cell Size in WGS 84 will be 100 x 100 meters
-        for polygon in self.layer:
+        for polygon in areas:
 
             crs = QgsProject().instance().crs().toWkt() #WGS 84 System
             #input = layer #Use the processing.getObject to get information from our vector layer
