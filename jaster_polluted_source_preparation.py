@@ -106,6 +106,22 @@ class Formular(QDialog, FORM_CLASS):
         #     count_atributes = sum(int(self.VyberAtribut.value()))
         # QgsMessageLog.logMessage("Suma čísel zo zvoleného atributu: ", str(count_atributes),  "Messages")
         # #atributes = int(self.VyberAtribut.value())
+# newlayer = QgsVectorLayer("Polygon?crs={}&index=yes".format(layer.crs().authid()), "BoundingBoxes", "memory")
+#
+# with edit(newlayer):
+#     newlayer.dataProvider().addAttributes(layer.fields()) # copy the fields to the outputlayer
+#     newlayer.updateFields() # save the changes
+#     for polygon in layer.getFeatures(): # iterate over inputlayer
+#         bbox = polygon.geometry().boundingBox() # get the Boundingbox as QgsRectangle
+#         bbox_geom = QgsGeometry.fromRect(bbox) # Turn the QgsRectangle into QgsGeometry
+#         outpolygon = QgsFeature() # Create a new feature
+#         outpolygon.setAttributes(polygon.attributes()) # copy the attributes to the outputlayer
+#         outpolygon.setGeometry(bbox_geom) # set the geometry of the outputfeature to the bbox of the inputfeature
+#         newlayer.dataProvider().addFeature(outpolygon) # add the feature to the outputlayer
+#
+# QgsProject.instance().addMapLayer(newlayer)
+
+
 
 
         #cellsize = 100 #Cell Size in WGS 84 will be 100 x 100 meters
@@ -113,10 +129,10 @@ class Formular(QDialog, FORM_CLASS):
 
             crs = QgsProject().instance().crs().toWkt() #WGS 84 System
             #input = layer #Use the processing.getObject to get information from our vector layer
-            xmin = (polygon.boundingBox().xMinimum()) #extract the minimum x coord from our layer
-            xmax = (polygon.boundingBox().xMaximum()) #extract our maximum x coord from our layer
-            ymin = (polygon.boundingBox().yMinimum()) #extract our minimum y coord from our layer
-            ymax = (polygon.boundingBox().yMaximum()) #extract our maximum y coord from our layer
+            xmin = (polygon.geometry().boundingBox().xMinimum()) #extract the minimum x coord from our layer
+            xmax = (polygon.geometry().boundingBox().xMaximum()) #extract our maximum x coord from our layer
+            ymin = (polygon.geometry().boundingBox().yMinimum()) #extract our minimum y coord from our layer
+            ymax = (polygon.geometry().boundingBox().yMaximum()) #extract our maximum y coord from our layer
             #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
             extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
         #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
