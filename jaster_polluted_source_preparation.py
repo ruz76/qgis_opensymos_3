@@ -99,7 +99,7 @@ class Formular(QDialog, FORM_CLASS):
        # for polygon in self.layer:
 
 
-        # newlayer = QgsVectorLayer("Polygon?crs={}&index=yes".format(layer.crs().authid()), "BoundingBoxes", "memory")
+        #newlayer = QgsVectorLayer("Polygon?crs={}&index=yes".format(layer.crs().authid()), "BoundingBoxes", "memory")
         #
         # with edit(newlayer):
         #     newlayer.dataProvider().addAttributes(layer.fields()) # copy the fields to the outputlayer
@@ -140,7 +140,7 @@ class Formular(QDialog, FORM_CLASS):
         cellsize = 100 #Cell Size in WGS 84 will be 100 x 100 meters
         crs = QgsProject().instance().crs().toWkt() #WGS 84 System
         # input = processing.getObject(newlayer.name()) #Use the processing.getObject to get information from our vector layer
-        input = newlayer #Use the processing.getObject to get information from our vector layer
+        input = layer #Use the processing.getObject to get information from our vector layer
         xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
         xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
         ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
