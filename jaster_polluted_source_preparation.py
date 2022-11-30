@@ -158,7 +158,7 @@ class Formular(QDialog, FORM_CLASS):
                         'INPUT_FIELDS': [], 'OVERLAY_FIELDS': [], 'OVERLAY_FIELDS_PREFIX': '',
                         'OUTPUT': 'TEMPORARY_OUTPUT', 'GRID_SIZE': None})
         #finalgrid = grid_create2['OUTPUT', 'finalgrid']
-        finalgrid = QgsVectorLayer(grid_create2['OUTPUT'], 'finalgrid', 'ogr')
+        finalgrid = QgsVectorLayer(grid_create2['OUTPUT'], 'grid', 'ogr')
         QgsMessageLog.logMessage("Finálny grid je hotový.", "Messages")
         QgsProject.instance().addMapLayer(finalgrid)
 
