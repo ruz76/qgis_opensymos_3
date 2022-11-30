@@ -157,8 +157,8 @@ class Formular(QDialog, FORM_CLASS):
                        {'INPUT': grid, 'OVERLAY': layer,
                         'INPUT_FIELDS': [], 'OVERLAY_FIELDS': [], 'OVERLAY_FIELDS_PREFIX': '',
                         'OUTPUT': 'TEMPORARY_OUTPUT', 'GRID_SIZE': None})
-        finalgrid = grid_create2['OUTPUT']
-        QgsMessageLog.logMessage("Grid je hotový.", "Messages")
+        finalgrid = grid_create2['OUTPUT', 'finalgrid']
+        QgsMessageLog.logMessage("Finálny grid je hotový.", "Messages")
         QgsProject.instance().addMapLayer(finalgrid)
 
         #prida novy atribut emise
