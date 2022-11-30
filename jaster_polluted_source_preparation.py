@@ -124,22 +124,40 @@ class Formular(QDialog, FORM_CLASS):
 
 
 
-        #cellsize = 100 #Cell Size in WGS 84 will be 100 x 100 meters
-        for polygon in areas:
+        # #cellsize = 100 #Cell Size in WGS 84 will be 100 x 100 meters
+        # for polygon in areas:
+        #
+        #     crs = QgsProject().instance().crs().toWkt() #WGS 84 System
+        #     #input = layer #Use the processing.getObject to get information from our vector layer
+        #     xmin = (polygon.geometry().boundingBox().xMinimum()) #extract the minimum x coord from our layer
+        #     xmax = (polygon.geometry().boundingBox().xMaximum()) #extract our maximum x coord from our layer
+        #     ymin = (polygon.geometry().boundingBox().yMinimum()) #extract our minimum y coord from our layer
+        #     ymax = (polygon.geometry().boundingBox().yMaximum()) #extract our maximum y coord from our layer
+        #     #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
+        #     extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
+        # #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
+        #     grid_creation = processing.run("native:creategrid", {'TYPE':2,'EXTENT': extent,
+        #                                                      'HSPACING':cell_size,'VSPACING':cell_size,
+        #                                                      'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
+        #     grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
 
-            crs = QgsProject().instance().crs().toWkt() #WGS 84 System
-            #input = layer #Use the processing.getObject to get information from our vector layer
-            xmin = (polygon.geometry().boundingBox().xMinimum()) #extract the minimum x coord from our layer
-            xmax = (polygon.geometry().boundingBox().xMaximum()) #extract our maximum x coord from our layer
-            ymin = (polygon.geometry().boundingBox().yMinimum()) #extract our minimum y coord from our layer
-            ymax = (polygon.geometry().boundingBox().yMaximum()) #extract our maximum y coord from our layer
-            #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
-            extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
+
+
+
+        crs = QgsProject().instance().crs().toWkt() #WGS 84 System
+        input = layer #Use the processing.getObject to get information from our vector layer
+        xmin = (input.xMinimum()) #extract the minimum x coord from our layer
+        xmax = (input.xMaximum()) #extract our maximum x coord from our layer
+        ymin = (input.yMinimum()) #extract our minimum y coord from our layer
+        ymax = (input.yMaximum()) #extract our maximum y coord from our layer
+        #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
+        extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
         #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
-            grid_creation = processing.run("native:creategrid", {'TYPE':2,'EXTENT': extent,
-                                                             'HSPACING':cell_size,'VSPACING':cell_size,
-                                                             'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
-            grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
+        grid_creation = processing.run("native:creategrid", {'TYPE':2,'EXTENT': extent,
+                                                                 'HSPACING':cell_size,'VSPACING':cell_size,
+                                                                 'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
+        grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
+            
 
         #novy grid podle zvolene vrstvy (pouziti fce intersect)
         grid_create2 = processing.run("native:intersection",
