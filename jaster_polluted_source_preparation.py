@@ -92,36 +92,38 @@ class Formular(QDialog, FORM_CLASS):
         layer = self.layer
 
 
-        vyber_atributu = (self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer()))
-
-        features = vyber_atributu.getFeatures()
-
-        attrs = features.attributes()
-        var = attrs[1]
-        QgsMessageLog.logMessage("Hodnota atributu: ", str(var),  "Messages")
+        # vyber_atributu = (self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer()))
+        #
+        # features = vyber_atributu.getFeatures()
+        #
+        # attrs = features.attributes()
+        # var = attrs[1]
+        # QgsMessageLog.logMessage("Hodnota atributu: ", str(var),  "Messages")
 
 
 
         # for atribut in emise:
-        #     count_atributes = count(int(self.VyberAtribut.value()))
+        #     count_atributes = sum(int(self.VyberAtribut.value()))
         # QgsMessageLog.logMessage("Suma čísel zo zvoleného atributu: ", str(count_atributes),  "Messages")
         # #atributes = int(self.VyberAtribut.value())
 
 
         #cellsize = 100 #Cell Size in WGS 84 will be 100 x 100 meters
-        crs = QgsProject().instance().crs().toWkt() #WGS 84 System
-        input = layer #Use the processing.getObject to get information from our vector layer
-        xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
-        xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
-        ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
-        ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
-        #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
-        extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
+        for polygon in layer:
+
+            crs = QgsProject().instance().crs().toWkt() #WGS 84 System
+            #input = layer #Use the processing.getObject to get information from our vector layer
+            xmin = (polygon.extent().xMinimum()) #extract the minimum x coord from our layer
+            xmax = (polygon.extent().xMaximum()) #extract our maximum x coord from our layer
+            ymin = (polygon.extent().yMinimum()) #extract our minimum y coord from our layer
+            ymax = (polygon.extent().yMaximum()) #extract our maximum y coord from our layer
+            #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
+            extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
         #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
-        grid_creation = processing.run("native:creategrid", {'TYPE':0,'EXTENT': extent,
+            grid_creation = processing.run("native:creategrid", {'TYPE':0,'EXTENT': extent,
                                                              'HSPACING':cellsize,'VSPACING':cell_size,
                                                              'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
-        grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
+            grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
 
         #novy grid podle zvolene vrstvy (pouziti fce intersect)
         grid_create2 = processing.run("native:intersection",
