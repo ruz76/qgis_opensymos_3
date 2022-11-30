@@ -137,7 +137,7 @@ class Formular(QDialog, FORM_CLASS):
             extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
         #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
             grid_creation = processing.run("native:creategrid", {'TYPE':0,'EXTENT': extent,
-                                                             'HSPACING':cellsize,'VSPACING':cell_size,
+                                                             'HSPACING':cell_size,'VSPACING':cell_size,
                                                              'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
             grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
 
