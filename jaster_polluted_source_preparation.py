@@ -168,20 +168,21 @@ class Formular(QDialog, FORM_CLASS):
         # QgsMessageLog.logMessage("Prekryt polygonov s centroidmi je hotový.", "Messages")
         # QgsProject.instance().addMapLayer(count)
         #
-        crs = QgsProject().instance().crs().toWkt() #WGS 84 System
-        input = layer #Use the processing.getObject to get information from our vector layer
-        xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
-        xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
-        ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
-        ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
-        #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
-        extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
-        #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
-        grid_creation = processing.run("native:creategrid", {'TYPE':2,'EXTENT': extent,
-                                                                 'HSPACING':cell_size,'VSPACING':cell_size,
-                                                                 'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
-        grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
-        QgsProject.instance().addMapLayer(grid)
+        for polygon in areas:
+            crs = QgsProject().instance().crs().toWkt() #WGS 84 System
+            input = layer #Use the processing.getObject to get information from our vector layer
+            xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
+            xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
+            ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
+            ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
+            #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
+            extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
+            #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
+            grid_creation = processing.run("native:creategrid", {'TYPE':2,'EXTENT': extent,
+                                                                     'HSPACING':cell_size,'VSPACING':cell_size,
+                                                                     'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
+            grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
+            QgsProject.instance().addMapLayer(grid)
         #
         #
         # #novy grid podle zvolene vrstvy (pouziti fce intersect)
