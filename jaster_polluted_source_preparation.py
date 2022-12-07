@@ -168,7 +168,12 @@ class Formular(QDialog, FORM_CLASS):
         count.setName('count')
         QgsMessageLog.logMessage("Prekryt polygonov s centroidmi je hotový.", "Messages")
         QgsProject.instance().addMapLayer(count)
-        #
+
+        layer_provider = count.dataProvider()
+        layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
+        count.updateFields()
+        #print(count.fields().names())
+
         # for polygon in areas:
         #     crs = QgsProject().instance().crs().toWkt() #WGS 84 System
         #     input = layer #Use the processing.getObject to get information from our vector layer
@@ -198,10 +203,10 @@ class Formular(QDialog, FORM_CLASS):
 
         #prida novy atribut emise
 
-        # layer_provider = finalgrid.dataProvider()
-        # layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
-        # finalgrid.updateFields()
-        # print(finalgrid.fields().names())
+        layer_provider = finalgrid.dataProvider()
+        layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
+        finalgrid.updateFields()
+        print(finalgrid.fields().names())
 
         # vypocita hodnoty v atributu emise (nejde)
         # expression = QgsExpression ('DruhPozemk'/10)
