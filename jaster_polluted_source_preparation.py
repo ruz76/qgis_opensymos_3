@@ -149,7 +149,7 @@ class Formular(QDialog, FORM_CLASS):
             ymin = (polygon.geometry().boundingBox().yMinimum()) #extract our minimum y coord from our layer
             ymax = (polygon.geometry().boundingBox().yMaximum()) #extract our maximum y coord from our layer
             polygon_extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
-            create_rastr = processing.run("gdal:rasterize", {'INPUT': layer,'FIELD':'Id','BURN':0,'USE_Z':False,'UNITS':1,'WIDTH':cell_size,'HEIGHT':cell_size,
+            create_rastr = processing.run("gdal:rasterize", {'INPUT': layer,'FIELD':'OBJECTID','BURN':0,'USE_Z':False,'UNITS':1,'WIDTH':cell_size,'HEIGHT':cell_size,
                                           'EXTENT':polygon_extent,'NODATA':0,'OPTIONS':'','DATA_TYPE':5,'INIT':None,'INVERT':False,'EXTRA':'','OUTPUT':'TEMPORARY_OUTPUT'})
             rastr = QgsRasterLayer(create_rastr['OUTPUT'])
             #rastr.setName('polygon_raster')
