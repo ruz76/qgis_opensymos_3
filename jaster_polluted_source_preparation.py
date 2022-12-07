@@ -169,23 +169,46 @@ class Formular(QDialog, FORM_CLASS):
         QgsMessageLog.logMessage("Prekryt polygonov s centroidmi je hotový.", "Messages")
         QgsProject.instance().addMapLayer(count)
 
-        layer_provider = count.dataProvider()
-        layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
+        prov = count.dataProvider()
+        fld = QgsField('emise', QVariant.Int)
+        prov.addAttributes([fld])
         count.updateFields()
-        print(count.fields().names())
+        idx = count.fields().lookupField('emise')
+        #print(count.fields().names())
+
+        count.startEditing()
+
+        e = QgsExpression('DruhPozemk / NUMPOINTS')
+        c = QgsExpressionContext()
+        s = QgsExpressionContextScope()
+        s.setFields(count.fields())
+        c.appendScope(s)
+        e.prepare(c)
+
+        for f in count.getFeatures():
+            c.setFeature(f)
+            value = e.evaluate(c)
+            atts = {idx: value}
+            count.dataProvider().changeAttributeValues({f.id(): atts})
+        count.commitChanges()
 
         # for terka in count:
         #     emise = atribut/"NUMPOINTS"
-        #
+        # features = count.getFeatures()
+        # count.startEditing()
+        # for f in features:
+        #     emise = 10 + 10
+        #     layer_provider.changeAttributeValues(emise)
+        # count.commitChanges()
         # #vypocita hodnoty v atributu emise (nejde)
-        # expression = QgsExpression('atribut'/10)
-        # index = finalgrid.fieldNameIndex("emise")
-        # expression.prepare(finalgrid.pendingFields())
-        # finalgrid.startEditing()
-        # for feature in finalgrid.getFeatures():
+        # expression = QgsExpression(int('DruhPozemk')/int('NUMPOINTS'))
+        # index = count.fieldNameIndex('emise')
+        # expression.prepare(count.pendingFields())
+        # count.startEditing()
+        # for feature in count.getFeatures():
         #     value = expression.evaluate(feature)
-        #     finalgrid.changeAttributeValue(feature.id(), index, value)
-        #
+        #     count.changeAttributeValue(feature.id(), index, value)
+        # #
         # finalgrid.commitChanges()
         # for polygon in areas:
         #     crs = QgsProject().instance().crs().toWkt() #WGS 84 System
