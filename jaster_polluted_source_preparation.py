@@ -142,31 +142,31 @@ class Formular(QDialog, FORM_CLASS):
         #                                                      'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
         #     grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
 
-crs = QgsProject().instance().crs().toWkt()
-for polygon in vrstva:
-    xmin = (polygon.extent().xMinimum()) #extract the minimum x coord from our layer
-    xmax = (polygon.extent().xMaximum()) #extract our maximum x coord from our layer
-    ymin = (polygon.extent().yMinimum()) #extract our minimum y coord from our layer
-    ymax = (polygon.extent().yMaximum()) #extract our maximum y coord from our layer
-    polygon_extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
-    create_rastr = processing.run("gdal:rasterize", {'INPUT': layer,'FIELD':'Id','BURN':0,'USE_Z':False,'UNITS':1,'WIDTH':cell_size,'HEIGHT':cell_size,
+    crs = QgsProject().instance().crs().toWkt()
+    for polygon in vrstva:
+        xmin = (polygon.extent().xMinimum()) #extract the minimum x coord from our layer
+        xmax = (polygon.extent().xMaximum()) #extract our maximum x coord from our layer
+        ymin = (polygon.extent().yMinimum()) #extract our minimum y coord from our layer
+        ymax = (polygon.extent().yMaximum()) #extract our maximum y coord from our layer
+        polygon_extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
+        create_rastr = processing.run("gdal:rasterize", {'INPUT': layer,'FIELD':'Id','BURN':0,'USE_Z':False,'UNITS':1,'WIDTH':cell_size,'HEIGHT':cell_size,
                                       'EXTENT':polygon_extent,'NODATA':0,'OPTIONS':'','DATA_TYPE':5,'INIT':None,'INVERT':False,'EXTRA':'','OUTPUT':'TEMPORARY_OUTPUT'})
-    rastr = create_rastr['OUTPUT']
-    rastr.setName('polygon_raster')
-    QgsMessageLog.logMessage("Rastrový grid je hotový.", "Messages")
-    QgsProject.instance().addMapLayer(rastr)
+        rastr = create_rastr['OUTPUT']
+        rastr.setName('polygon_raster')
+        QgsMessageLog.logMessage("Rastrový grid je hotový.", "Messages")
+        QgsProject.instance().addMapLayer(rastr)
 
-    create_centroids = processing.run("native:pixelstopoints", {'INPUT_RASTER':rastr,'RASTER_BAND':1,'FIELD_NAME':'VALUE','OUTPUT':'TEMPORARY_OUTPUT'})
-    centroids = create_centroids['OUTPUT']
-    centroids.setName('polygon_centroids')
-    QgsMessageLog.logMessage("Centroidy sú hotové.", "Messages")
-    QgsProject.instance().addMapLayer(centroids)
+        create_centroids = processing.run("native:pixelstopoints", {'INPUT_RASTER':rastr,'RASTER_BAND':1,'FIELD_NAME':'VALUE','OUTPUT':'TEMPORARY_OUTPUT'})
+        centroids = create_centroids['OUTPUT']
+        centroids.setName('polygon_centroids')
+        QgsMessageLog.logMessage("Centroidy sú hotové.", "Messages")
+        QgsProject.instance().addMapLayer(centroids)
 
-    create_count = processing.run("native:countpointsinpolygon", {'POLYGONS': layer,'POINTS': centroids,'WEIGHT':'','CLASSFIELD':'','FIELD':'NUMPOINTS','OUTPUT':'TEMPORARY_OUTPUT'})
-    count = create_count['OUTPUT']
-    count.setName('count')
-    QgsMessageLog.logMessage("Prekryt polygonov s centroidmi je hotový.", "Messages")
-    QgsProject.instance().addMapLayer(count)
+        create_count = processing.run("native:countpointsinpolygon", {'POLYGONS': layer,'POINTS': centroids,'WEIGHT':'','CLASSFIELD':'','FIELD':'NUMPOINTS','OUTPUT':'TEMPORARY_OUTPUT'})
+        count = create_count['OUTPUT']
+        count.setName('count')
+        QgsMessageLog.logMessage("Prekryt polygonov s centroidmi je hotový.", "Messages")
+        QgsProject.instance().addMapLayer(count)
         #
         # crs = QgsProject().instance().crs().toWkt() #WGS 84 System
         # input = layer #Use the processing.getObject to get information from our vector layer
@@ -213,12 +213,12 @@ for polygon in vrstva:
 
 
 # Otevření výstupního souboru
-        Output = self.FileOutput.filePath()
-        with open(Output, mode='w', encoding='utf-8') as soubor:
-            # Procházení seznamu všech geoprvků/parcel
-            for area in areas:
-                print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
-        QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
+    Output = self.FileOutput.filePath()
+    with open(Output, mode='w', encoding='utf-8') as soubor:
+        # Procházení seznamu všech geoprvků/parcel
+        for area in areas:
+            print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
+    QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
 
     def ExportView(self):
         # Uložení obrázku mapového pole (pojmenování obr. dle id aktuálně zpracovávané parcely)
