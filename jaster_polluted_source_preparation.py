@@ -151,10 +151,10 @@ class Formular(QDialog, FORM_CLASS):
             polygon_extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
             create_rastr = processing.run("gdal:rasterize", {'INPUT': layer,'FIELD':'Id','BURN':0,'USE_Z':False,'UNITS':1,'WIDTH':cell_size,'HEIGHT':cell_size,
                                           'EXTENT':polygon_extent,'NODATA':0,'OPTIONS':'','DATA_TYPE':5,'INIT':None,'INVERT':False,'EXTRA':'','OUTPUT':'TEMPORARY_OUTPUT'})
-            rastr = create_rastr['OUTPUT']
+            rastr = QgsRasterLayer(create_rastr['OUTPUT'])
             #rastr.setName('polygon_raster')
             QgsMessageLog.logMessage("Rastrový grid je hotový.", "Messages")
-            QgsProject.instance().addMapLayer(int(rastr))
+            QgsProject.instance().addMapLayer(rastr)
 
             create_centroids = processing.run("native:pixelstopoints", {'INPUT_RASTER':rastr,'RASTER_BAND':1,'FIELD_NAME':'VALUE','OUTPUT':'TEMPORARY_OUTPUT'})
             centroids = create_centroids['OUTPUT']
