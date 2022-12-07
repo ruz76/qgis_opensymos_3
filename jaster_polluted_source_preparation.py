@@ -172,7 +172,7 @@ class Formular(QDialog, FORM_CLASS):
         layer_provider = count.dataProvider()
         layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
         count.updateFields()
-        #print(count.fields().names())
+        print(count.fields().names())
 
         # for polygon in areas:
         #     crs = QgsProject().instance().crs().toWkt() #WGS 84 System
