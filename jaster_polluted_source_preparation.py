@@ -143,7 +143,7 @@ class Formular(QDialog, FORM_CLASS):
         #     grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
 
         crs = QgsProject().instance().crs().toWkt()
-        for polygon in layer.getFeatures():
+        for polygon in areas:
             xmin = (polygon.geometry().boundingBox().xMinimum()) #extract the minimum x coord from our layer
             xmax = (polygon.geometry().boundingBox().xMaximum()) #extract our maximum x coord from our layer
             ymin = (polygon.geometry().boundingBox().yMinimum()) #extract our minimum y coord from our layer
