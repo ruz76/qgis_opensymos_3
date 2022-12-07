@@ -174,19 +174,19 @@ class Formular(QDialog, FORM_CLASS):
         count.updateFields()
         print(count.fields().names())
 
-        for terka in count:
-            emise = atribut/"NUMPOINTS"
-
-        #vypocita hodnoty v atributu emise (nejde)
-        expression = QgsExpression('atribut'/10)
-        index = finalgrid.fieldNameIndex("emise")
-        expression.prepare(finalgrid.pendingFields())
-        finalgrid.startEditing()
-        for feature in finalgrid.getFeatures():
-            value = expression.evaluate(feature)
-            finalgrid.changeAttributeValue(feature.id(), index, value)
-
-        finalgrid.commitChanges()
+        # for terka in count:
+        #     emise = atribut/"NUMPOINTS"
+        #
+        # #vypocita hodnoty v atributu emise (nejde)
+        # expression = QgsExpression('atribut'/10)
+        # index = finalgrid.fieldNameIndex("emise")
+        # expression.prepare(finalgrid.pendingFields())
+        # finalgrid.startEditing()
+        # for feature in finalgrid.getFeatures():
+        #     value = expression.evaluate(feature)
+        #     finalgrid.changeAttributeValue(feature.id(), index, value)
+        #
+        # finalgrid.commitChanges()
         # for polygon in areas:
         #     crs = QgsProject().instance().crs().toWkt() #WGS 84 System
         #     input = layer #Use the processing.getObject to get information from our vector layer
@@ -216,10 +216,10 @@ class Formular(QDialog, FORM_CLASS):
 
         #prida novy atribut emise
 
-        layer_provider = finalgrid.dataProvider()
-        layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
-        finalgrid.updateFields()
-        print(finalgrid.fields().names())
+        # layer_provider = finalgrid.dataProvider()
+        # layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
+        # finalgrid.updateFields()
+        # print(finalgrid.fields().names())
 
         # vypocita hodnoty v atributu emise (nejde)
         # expression = QgsExpression ('DruhPozemk'/10)
