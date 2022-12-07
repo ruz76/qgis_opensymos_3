@@ -194,10 +194,11 @@ for polygon in vrstva:
         # QgsProject.instance().addMapLayer(finalgrid)
 
         #prida novy atribut emise
-        layer_provider = finalgrid.dataProvider()
-        layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
-        finalgrid.updateFields()
-        print(finalgrid.fields().names())
+
+        # layer_provider = finalgrid.dataProvider()
+        # layer_provider.addAttributes([QgsField("emise", QVariant.Double)])
+        # finalgrid.updateFields()
+        # print(finalgrid.fields().names())
 
         # vypocita hodnoty v atributu emise (nejde)
         # expression = QgsExpression ('DruhPozemk'/10)
