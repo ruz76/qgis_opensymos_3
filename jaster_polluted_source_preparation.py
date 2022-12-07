@@ -213,13 +213,13 @@ class Formular(QDialog, FORM_CLASS):
 
 
 # Otevření výstupního souboru
-    Output = self.FileOutput.filePath()
-    with open(Output, mode='w', encoding='utf-8') as soubor:
-        # Procházení seznamu všech geoprvků/parcel
-        for area in areas:
-            print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
-    QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
+        Output = self.FileOutput.filePath()
+        with open(Output, mode='w', encoding='utf-8') as soubor:
+            # Procházení seznamu všech geoprvků/parcel
+            for area in areas:
+                print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
+        QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
 
-    def ExportView(self):
-        # Uložení obrázku mapového pole (pojmenování obr. dle id aktuálně zpracovávané parcely)
-        self.iface.mapCanvas().saveAsImage(self.location + "\area_" + str(self.SelectedAreas[self.CurrentPosition]["Id"]) + ".png")
+        def ExportView(self):
+            # Uložení obrázku mapového pole (pojmenování obr. dle id aktuálně zpracovávané parcely)
+            self.iface.mapCanvas().saveAsImage(self.location + "\area_" + str(self.SelectedAreas[self.CurrentPosition]["Id"]) + ".png")
