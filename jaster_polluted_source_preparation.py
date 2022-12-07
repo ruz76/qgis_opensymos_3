@@ -154,13 +154,13 @@ class Formular(QDialog, FORM_CLASS):
             rastr = QgsRasterLayer(create_rastr['OUTPUT'])
             #rastr.setName('polygon_raster')
             QgsMessageLog.logMessage("Rastrový grid je hotový.", "Messages")
-            QgsProject.instance().addMapLayer(rastr)
+            #QgsProject.instance().addMapLayer(rastr)
 
             create_centroids = processing.run("native:pixelstopoints", {'INPUT_RASTER':rastr,'RASTER_BAND':1,'FIELD_NAME':'VALUE','OUTPUT':'TEMPORARY_OUTPUT'})
             centroids = create_centroids['OUTPUT']
             centroids.setName('polygon_centroids')
             QgsMessageLog.logMessage("Centroidy sú hotové.", "Messages")
-            QgsProject.instance().addMapLayer(centroids)
+            #QgsProject.instance().addMapLayer(centroids)
 
         create_count = processing.run("native:countpointsinpolygon", {'POLYGONS': layer,'POINTS': centroids,'WEIGHT':'','CLASSFIELD':'','FIELD':'NUMPOINTS','OUTPUT':'TEMPORARY_OUTPUT'})
         count = create_count['OUTPUT']
