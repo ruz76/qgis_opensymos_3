@@ -144,10 +144,10 @@ class Formular(QDialog, FORM_CLASS):
 
         crs = QgsProject().instance().crs().toWkt()
         for polygon in layer.getFeatures():
-            xmin = (polygon.extent().xMinimum()) #extract the minimum x coord from our layer
-            xmax = (polygon.extent().xMaximum()) #extract our maximum x coord from our layer
-            ymin = (polygon.extent().yMinimum()) #extract our minimum y coord from our layer
-            ymax = (polygon.extent().yMaximum()) #extract our maximum y coord from our layer
+            xmin = (polygon.geometry().boundingBox().xMinimum()) #extract the minimum x coord from our layer
+            xmax = (polygon.geometry().boundingBox().xMaximum()) #extract our maximum x coord from our layer
+            ymin = (polygon.geometry().boundingBox().yMinimum()) #extract our minimum y coord from our layer
+            ymax = (polygon.geometry().boundingBox().yMaximum()) #extract our maximum y coord from our layer
             polygon_extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
             create_rastr = processing.run("gdal:rasterize", {'INPUT': layer,'FIELD':'Id','BURN':0,'USE_Z':False,'UNITS':1,'WIDTH':cell_size,'HEIGHT':cell_size,
                                           'EXTENT':polygon_extent,'NODATA':0,'OPTIONS':'','DATA_TYPE':5,'INIT':None,'INVERT':False,'EXTRA':'','OUTPUT':'TEMPORARY_OUTPUT'})
