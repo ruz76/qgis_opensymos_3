@@ -58,7 +58,7 @@ class Formular(QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
         super(Formular, self).__init__(parent)
-        self.pushButton.clicked.connect(self.PolygonToPoints)
+
 
         # Set up the user interface from Designer.
         # After setupUI you can access any designer object by doing
@@ -67,6 +67,7 @@ class Formular(QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
         self.VyberVrstvu.layerChanged.connect(self.PolygonToPoints)
+        self.pushButton.clicked.connect(self.PolygonToPoints)
 
     # def AreaSelection(self):
     #     # Otevření dialogového okna
