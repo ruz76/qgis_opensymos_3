@@ -80,17 +80,12 @@ class Formular(QDialog, FORM_CLASS):
                                                              'HSPACING':cell_size,'VSPACING':cell_size,
                                                              'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
         grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
-        #QgsMessageLog.logMessage("Bodový Grid je hotový.", "Messages")
-        #QgsProject.instance().addMapLayer(grid)
-
 
         create_count = processing.run("native:countpointsinpolygon", {'POLYGONS': layer,'POINTS': grid,
                                                                       'WEIGHT':'','CLASSFIELD':'','FIELD':'NUMPOINTS',
                                                                       'OUTPUT':'TEMPORARY_OUTPUT'})
         count = create_count['OUTPUT']
         count.setName('count')
-        #QgsMessageLog.logMessage("Prekryt polygonov s centroidmi je hotový.", "Messages")
-        #QgsProject.instance().addMapLayer(count)
 
         grid_create2 = processing.run("native:intersection",
                        {'INPUT': grid, 'OVERLAY': count,
@@ -106,7 +101,6 @@ class Formular(QDialog, FORM_CLASS):
         prov.addAttributes([fld])
         finalgrid.updateFields()
         idx = finalgrid.fields().lookupField('emise')
-        #print(count.fields().names())
 
         finalgrid.startEditing()
         vzorec = atribut + ' / NUMPOINTS'
@@ -135,7 +129,8 @@ class Formular(QDialog, FORM_CLASS):
         #QgsVectorFileWriter.writeAsVectorFormat(finalgrid, "emise.shp", "UTF-8")
 
         #QgsVectorFileWriter.writeAsVectorFormat(finalgrid, vystup,"utf-8",None,"ESRI Shapefile")
-        QgsVectorFileWriter.writeAsVectorFormat(finalgrid, vystup, "UTF-8", layer.crs(),"ESRI Shapefile")
+        #QgsVectorFileWriter.writeAsVectorFormat(finalgrid, vystup, "UTF-8", layer.crs(),"ESRI Shapefile")
+        _writer = QgsVectorFileWriter.writeAsVectorFormat(finalgrid, vystup, "utf-8", None, "ESRI Shapefile")
         # with open(Output, mode='w', encoding='utf-8') as soubor:
         #     print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
         # QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
@@ -144,9 +139,6 @@ class Formular(QDialog, FORM_CLASS):
           #  QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(vystupniSoubor), "Messages"
 
            # QgsFileWidget.setStorageMode(QgsFileWidget.SaveFile)
-
-
-
 
 
         #     # Zjištění, kam chce uživatel uložit výstup (výsledný soubor)
