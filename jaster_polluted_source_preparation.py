@@ -58,14 +58,15 @@ class Formular(QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
         super(Formular, self).__init__(parent)
+        self.pushButton.clicked.connect(self.PolygonToPoints)
+
         # Set up the user interface from Designer.
         # After setupUI you can access any designer object by doing
         # self.<objectname>, and you can use autoconnect slots - see
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-        self.dlgFormular = Formular()
-        self.VyberVrstvu.layerChanged.connect(self.SelectLayerFields)
+        self.VyberVrstvu.layerChanged.connect(self.PolygonToPoints)
 
     # def AreaSelection(self):
     #     # Otevření dialogového okna
@@ -81,8 +82,7 @@ class Formular(QDialog, FORM_CLASS):
     #     # Zjištení jaký druh parcely uživatel vybral v rozbalovacím seznamu na formuláři
     #     #AreaType = self.dlgFormular.VyberAtribut.currentText()
 
-    def SelectLayerFields(self):
-        self.dlgFormular.exec()
+    def PolygonToPoints(self):
         self.layer = (self.VyberVrstvu.currentLayer())
         self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
 
