@@ -66,7 +66,7 @@ class Formular(QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
-        self.VyberVrstvu.layerChanged.connect(self.PolygonToPoints)
+        self.VyberVrstvu.layerChanged.connect(self.ChangeLayer)
         self.pushButton.clicked.connect(self.PolygonToPoints)
 
     # def AreaSelection(self):
@@ -83,9 +83,13 @@ class Formular(QDialog, FORM_CLASS):
     #     # Zjištení jaký druh parcely uživatel vybral v rozbalovacím seznamu na formuláři
     #     #AreaType = self.dlgFormular.VyberAtribut.currentText()
 
-    def PolygonToPoints(self):
+    def ChangeLayer(self):
         self.layer = (self.VyberVrstvu.currentLayer())
         self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
+
+    def PolygonToPoints(self):
+        # self.layer = (self.VyberVrstvu.currentLayer())
+        # self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
 
         atribut = self.VyberAtribut.currentField()
 
