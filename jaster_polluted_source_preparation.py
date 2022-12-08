@@ -81,6 +81,7 @@ class Formular(QDialog, FORM_CLASS):
     #     #AreaType = self.dlgFormular.VyberAtribut.currentText()
 
     def SelectLayerFields(self):
+        self.exec()
         self.layer = (self.VyberVrstvu.currentLayer())
         self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
 
