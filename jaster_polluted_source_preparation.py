@@ -132,8 +132,9 @@ class Formular(QDialog, FORM_CLASS):
         #QgsFileWidget.setStorageMode(QgsFileWidget.SaveFile)
         fields = QgsFields()
         #QgsVectorFileWriter("emise.shp", vystup, fields, "UTF-8", finalgrid.crs(), "ESRI Shapefile")
-        QgsVectorFileWriter.writeAsVectorFormat(finalgrid, "emise.shp", "UTF-8")
+        #QgsVectorFileWriter.writeAsVectorFormat(finalgrid, "emise.shp", "UTF-8")
 
+        QgsVectorFileWriter.writeAsVectorFormat(finalgrid, vystup,"utf-8",None,"ESRI Shapefile")
         # with open(Output, mode='w', encoding='utf-8') as soubor:
         #     print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
         # QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
