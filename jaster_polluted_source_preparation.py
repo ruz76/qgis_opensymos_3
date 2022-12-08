@@ -250,7 +250,7 @@ class Formular(QDialog, FORM_CLASS):
 
 
         prov = finalgrid.dataProvider()
-        fld = QgsField('emise', QVariant.Int)
+        fld = QgsField('emise', QVariant.Float)
         prov.addAttributes([fld])
         finalgrid.updateFields()
         idx = finalgrid.fields().lookupField('emise')
