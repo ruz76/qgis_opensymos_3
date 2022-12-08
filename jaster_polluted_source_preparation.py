@@ -64,6 +64,7 @@ class Formular(QDialog, FORM_CLASS):
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
         self.setupUi(self)
+        self.dlgFormular = Formular()
         self.VyberVrstvu.layerChanged.connect(self.SelectLayerFields)
 
     # def AreaSelection(self):
@@ -81,7 +82,7 @@ class Formular(QDialog, FORM_CLASS):
     #     #AreaType = self.dlgFormular.VyberAtribut.currentText()
 
     def SelectLayerFields(self):
-        self.exec()
+        self.dlgFormular.exec()
         self.layer = (self.VyberVrstvu.currentLayer())
         self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
 
