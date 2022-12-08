@@ -69,6 +69,7 @@ class Formular(QDialog, FORM_CLASS):
         self.VyberVrstvu.layerChanged.connect(self.ChangeLayer)
         self.pushButton.clicked.connect(self.PolygonToPoints)
 
+
     # def AreaSelection(self):
     #     # Otevření dialogového okna
     #     self.dlgFormular.exec()
@@ -86,6 +87,8 @@ class Formular(QDialog, FORM_CLASS):
     def ChangeLayer(self):
         self.layer = (self.VyberVrstvu.currentLayer())
         self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
+        if self.pushButton.clicked:
+            QgsMessageLog.logMessage("Spustení aplikace nad vrstvou " + self.layer.name(), "Messages")
 
     def PolygonToPoints(self):
         # self.layer = (self.VyberVrstvu.currentLayer())
@@ -311,3 +314,5 @@ class Formular(QDialog, FORM_CLASS):
         def ExportView(self):
             # Uložení obrázku mapového pole (pojmenování obr. dle id aktuálně zpracovávané parcely)
             self.iface.mapCanvas().saveAsImage(self.location + "\area_" + str(self.SelectedAreas[self.CurrentPosition]["Id"]) + ".png")
+
+            QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(vystupniSoubor), "Messages")
