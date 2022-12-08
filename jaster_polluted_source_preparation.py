@@ -84,7 +84,8 @@ class Formular(QDialog, FORM_CLASS):
         self.layer = (self.VyberVrstvu.currentLayer())
         self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
 
-        atribut = self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
+        atribut = self.VyberAtribut.currentField()
+
     # Získání všech geoprvků z vybrané vrstvy (seznam)
         areas = self.layer.getFeatures()
         cell_size = int(self.spinBox.value())
@@ -250,7 +251,7 @@ class Formular(QDialog, FORM_CLASS):
 
 
         prov = finalgrid.dataProvider()
-        fld = QgsField('emise', QVariant.Double, "double", 10, 3)
+        fld = QgsField('emise', QVariant.Double, "double", 10, 2)
         prov.addAttributes([fld])
         finalgrid.updateFields()
         idx = finalgrid.fields().lookupField('emise')
@@ -258,7 +259,7 @@ class Formular(QDialog, FORM_CLASS):
 
         finalgrid.startEditing()
 
-        e = QgsExpression('DruhPozemk / NUMPOINTS')
+        e = QgsExpression(atribut / 'NUMPOINTS')
         c = QgsExpressionContext()
         s = QgsExpressionContextScope()
         s.setFields(finalgrid.fields())
