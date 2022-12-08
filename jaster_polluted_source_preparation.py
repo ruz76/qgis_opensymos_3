@@ -39,6 +39,7 @@ from qgis.core import QgsMessageLog
 from qgis.gui import *
 from qgis.PyQt.QtCore import QVariant
 from qgis.utils import iface
+from qgis.core import QgsVectorFileWriter
 import processing
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
@@ -52,25 +53,9 @@ class Formular(QDialog, FORM_CLASS):
         self.VyberVrstvu.layerChanged.connect(self.ChangeLayer)
         self.pushButton.clicked.connect(self.PolygonToPoints)
 
-    # def AreaSelection(self):
-    #     # Otevření dialogového okna
-    #     self.dlgFormular.exec()
-    #     # Zjištění, kam chce uživatel uložit výstup (výsledný soubor)
-    #     Output = self.dlgFormular.FileOutput.filePath()
-    #     # Zjištění adresáře, kam chce uživatel uložit výstup (bez jména souboru, jen adresář)
-    #     self.location = os.path.dirname(Output)
-    #
-    #     # Zjištení jakou vrstvu uživatel vybral v rozbalovacím seznamu vrstev na formuláři
-    #     self.layer = (self.VyberVrstvu.currentLayer())
-    #     QgsMessageLog.logMessage("Zpracovávaná/vybraná vrstva: " + self.layer.name(), "Messages")
-    #     # Zjištení jaký druh parcely uživatel vybral v rozbalovacím seznamu na formuláři
-    #     #AreaType = self.dlgFormular.VyberAtribut.currentText()
-
     def ChangeLayer(self):
         self.layer = (self.VyberVrstvu.currentLayer())
         self.VyberAtribut.setLayer(self.VyberVrstvu.currentLayer())
-        if self.pushButton.clicked:
-            QgsMessageLog.logMessage("Spustení aplikace nad vrstvou: " + self.layer.name(), "Messages")
 
     def PolygonToPoints(self):
         atribut = self.VyberAtribut.currentField()
@@ -80,6 +65,7 @@ class Formular(QDialog, FORM_CLASS):
         self.CurrentPosition = 0
         layer = self.layer
         if self.pushButton.clicked:
+            QgsMessageLog.logMessage("Spustení aplikace nad vrstvou: " + layer.name(), "Messages")
             QgsMessageLog.logMessage("Velikost gridové buňky: " + str(cell_size), "Messages")
             QgsMessageLog.logMessage("Rozdělení emisí z atributu: " + str(atribut), "Messages")
 
@@ -141,14 +127,24 @@ class Formular(QDialog, FORM_CLASS):
 
 # Otevření výstupního souboru
         Output = self.FileOutput.filePath()
-        with open(Output, mode='w', encoding='utf-8') as soubor:
-            # Procházení seznamu všech geoprvků/parcel
-            for area in areas:
-                print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
-        QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
+        self.location = os.path.dirname(Output)
+        vystup = self.location
+        QgsVectorFileWriter.writeAsVectorFormat(finalgrid, "vystup", "UTF-8", finalgrid.crs(), "ESRI Shapefile")
+        
+        # with open(Output, mode='w', encoding='utf-8') as soubor:
+        #     print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
+        # QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
 
-        def ExportView(self):
-            # Uložení obrázku mapového pole (pojmenování obr. dle id aktuálně zpracovávané parcely)
-            self.iface.mapCanvas().saveAsImage(self.location + "\area_" + str(self.SelectedAreas[self.CurrentPosition]["Id"]) + ".png")
 
-            QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(vystupniSoubor), "Messages")
+          #  QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(vystupniSoubor), "Messages"
+
+            QgsFileWidget.setStorageMode(QgsFileWidget.SaveFile)
+
+
+
+
+
+        #     # Zjištění, kam chce uživatel uložit výstup (výsledný soubor)
+        #     Output = self.dlgFormular.FileOutput.filePath()
+        #     # Zjištění adresáře, kam chce uživatel uložit výstup (bez jména souboru, jen adresář)
+        #     self.location = os.path.dirname(Output)
