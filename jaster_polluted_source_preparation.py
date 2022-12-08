@@ -142,55 +142,55 @@ class Formular(QDialog, FORM_CLASS):
         #                                                      'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
         #     grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
 
-        crs = QgsProject().instance().crs().toWkt() #WGS 84 System
-        input = layer #Use the processing.getObject to get information from our vector layer
-        xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
-        xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
-        ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
-        ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
-        #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
-        extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
-        create_rastr = processing.run("gdal:rasterize", {'INPUT': layer,'FIELD':'Id','BURN':0,'USE_Z':False,'UNITS':1,'WIDTH':cell_size,'HEIGHT':cell_size,
-                                          'EXTENT':extent,'NODATA':0,'OPTIONS':'','DATA_TYPE':5,'INIT':None,'INVERT':False,'EXTRA':'','OUTPUT':'TEMPORARY_OUTPUT'})
-        rastr = create_rastr['OUTPUT']
-        #rastr.setName('polygon_raster')
-        QgsMessageLog.logMessage("Rastrový grid je hotový.", "Messages")
-        #QgsProject.instance().addMapLayer(rastr)
-
-        create_centroids = processing.run("native:pixelstopoints", {'INPUT_RASTER':rastr,'RASTER_BAND':1,'FIELD_NAME':'VALUE','OUTPUT':'TEMPORARY_OUTPUT'})
-        centroids = create_centroids['OUTPUT']
-        centroids.setName('polygon_centroids')
-        QgsMessageLog.logMessage("Centroidy sú hotové.", "Messages")
-        QgsProject.instance().addMapLayer(centroids)
-
-        create_count = processing.run("native:countpointsinpolygon", {'POLYGONS': layer,'POINTS': centroids,'WEIGHT':'','CLASSFIELD':'','FIELD':'NUMPOINTS','OUTPUT':'TEMPORARY_OUTPUT'})
-        count = create_count['OUTPUT']
-        count.setName('count')
-        QgsMessageLog.logMessage("Prekryt polygonov s centroidmi je hotový.", "Messages")
-        QgsProject.instance().addMapLayer(count)
-
-        prov = count.dataProvider()
-        fld = QgsField('emise', QVariant.Int)
-        prov.addAttributes([fld])
-        count.updateFields()
-        idx = count.fields().lookupField('emise')
-        #print(count.fields().names())
-
-        count.startEditing()
-
-        e = QgsExpression('DruhPozemk / NUMPOINTS')
-        c = QgsExpressionContext()
-        s = QgsExpressionContextScope()
-        s.setFields(count.fields())
-        c.appendScope(s)
-        e.prepare(c)
-
-        for f in count.getFeatures():
-            c.setFeature(f)
-            value = e.evaluate(c)
-            atts = {idx: value}
-            count.dataProvider().changeAttributeValues({f.id(): atts})
-        count.commitChanges()
+        # crs = QgsProject().instance().crs().toWkt() #WGS 84 System
+        # input = layer #Use the processing.getObject to get information from our vector layer
+        # xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
+        # xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
+        # ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
+        # ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
+        # #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
+        # extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
+        # create_rastr = processing.run("gdal:rasterize", {'INPUT': layer,'FIELD':'Id','BURN':0,'USE_Z':False,'UNITS':1,'WIDTH':cell_size,'HEIGHT':cell_size,
+        #                                   'EXTENT':extent,'NODATA':0,'OPTIONS':'','DATA_TYPE':5,'INIT':None,'INVERT':False,'EXTRA':'','OUTPUT':'TEMPORARY_OUTPUT'})
+        # rastr = create_rastr['OUTPUT']
+        # #rastr.setName('polygon_raster')
+        # QgsMessageLog.logMessage("Rastrový grid je hotový.", "Messages")
+        # #QgsProject.instance().addMapLayer(rastr)
+        #
+        # create_centroids = processing.run("native:pixelstopoints", {'INPUT_RASTER':rastr,'RASTER_BAND':1,'FIELD_NAME':'VALUE','OUTPUT':'TEMPORARY_OUTPUT'})
+        # centroids = create_centroids['OUTPUT']
+        # centroids.setName('polygon_centroids')
+        # QgsMessageLog.logMessage("Centroidy sú hotové.", "Messages")
+        # QgsProject.instance().addMapLayer(centroids)
+        #
+        # create_count = processing.run("native:countpointsinpolygon", {'POLYGONS': layer,'POINTS': centroids,'WEIGHT':'','CLASSFIELD':'','FIELD':'NUMPOINTS','OUTPUT':'TEMPORARY_OUTPUT'})
+        # count = create_count['OUTPUT']
+        # count.setName('count')
+        # QgsMessageLog.logMessage("Prekryt polygonov s centroidmi je hotový.", "Messages")
+        # QgsProject.instance().addMapLayer(count)
+        #
+        # prov = count.dataProvider()
+        # fld = QgsField('emise', QVariant.Int)
+        # prov.addAttributes([fld])
+        # count.updateFields()
+        # idx = count.fields().lookupField('emise')
+        # #print(count.fields().names())
+        #
+        # count.startEditing()
+        #
+        # e = QgsExpression('DruhPozemk / NUMPOINTS')
+        # c = QgsExpressionContext()
+        # s = QgsExpressionContextScope()
+        # s.setFields(count.fields())
+        # c.appendScope(s)
+        # e.prepare(c)
+        #
+        # for f in count.getFeatures():
+        #     c.setFeature(f)
+        #     value = e.evaluate(c)
+        #     atts = {idx: value}
+        #     count.dataProvider().changeAttributeValues({f.id(): atts})
+        # count.commitChanges()
 
         # for terka in count:
         #     emise = atribut/"NUMPOINTS"
@@ -211,31 +211,66 @@ class Formular(QDialog, FORM_CLASS):
         # #
         # finalgrid.commitChanges()
         # for polygon in areas:
-        #     crs = QgsProject().instance().crs().toWkt() #WGS 84 System
-        #     input = layer #Use the processing.getObject to get information from our vector layer
-        #     xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
-        #     xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
-        #     ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
-        #     ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
-        #     #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
-        #     extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
-        #     #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
-        #     grid_creation = processing.run("native:creategrid", {'TYPE':2,'EXTENT': extent,
-        #                                                              'HSPACING':cell_size,'VSPACING':cell_size,
-        #                                                              'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
-        #     grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
-        #     QgsProject.instance().addMapLayer(grid)
-        #
-        #
-        # #novy grid podle zvolene vrstvy (pouziti fce intersect)
-        # grid_create2 = processing.run("native:intersection",
-        #                {'INPUT': grid, 'OVERLAY': layer,
-        #                 'INPUT_FIELDS': [], 'OVERLAY_FIELDS': [], 'OVERLAY_FIELDS_PREFIX': '',
-        #                 'OUTPUT': 'TEMPORARY_OUTPUT', 'GRID_SIZE': None})
-        # finalgrid = grid_create2['OUTPUT']
-        # finalgrid.setName('Terka_is_Best')
-        # QgsMessageLog.logMessage("Finálny grid je hotový.", "Messages")
-        # QgsProject.instance().addMapLayer(finalgrid)
+
+
+        crs = QgsProject().instance().crs().toWkt() #WGS 84 System
+        input = layer #Use the processing.getObject to get information from our vector layer
+        xmin = (input.extent().xMinimum()) #extract the minimum x coord from our layer
+        xmax = (input.extent().xMaximum()) #extract our maximum x coord from our layer
+        ymin = (input.extent().yMinimum()) #extract our minimum y coord from our layer
+        ymax = (input.extent().yMaximum()) #extract our maximum y coord from our layer
+        #prepare the extent in a format the VectorGrid tool can interpret (xmin,xmax,ymin,ymax)
+        extent = str(xmin)+ ',' + str(xmax)+ ',' +str(ymin)+ ',' +str(ymax)
+        #processing.run('qgis:vectorgrid', extent, cellsize, cellsize, 0, grid)
+        grid_creation = processing.run("native:creategrid", {'TYPE':2,'EXTENT': extent,
+                                                             'HSPACING':cell_size,'VSPACING':cell_size,
+                                                             'HOVERLAY':0,'VOVERLAY':0,'CRS': crs,'OUTPUT': 'memory'})
+        grid = QgsVectorLayer(grid_creation['OUTPUT'], 'grid', 'ogr')
+        QgsMessageLog.logMessage("Grid je hotový.", "Messages")
+        QgsProject.instance().addMapLayer(grid)
+
+
+        create_count = processing.run("native:countpointsinpolygon", {'POLYGONS': layer,'POINTS': grid,
+                                                                      'WEIGHT':'','CLASSFIELD':'','FIELD':'NUMPOINTS',
+                                                                      'OUTPUT':'TEMPORARY_OUTPUT'})
+        count = create_count['OUTPUT']
+        count.setName('count')
+        QgsMessageLog.logMessage("Prekryt polygonov s centroidmi je hotový.", "Messages")
+        QgsProject.instance().addMapLayer(count)
+
+        #novy grid podle zvolene vrstvy (pouziti fce intersect)
+        grid_create2 = processing.run("native:intersection",
+                       {'INPUT': grid, 'OVERLAY': count,
+                        'INPUT_FIELDS': [], 'OVERLAY_FIELDS': [], 'OVERLAY_FIELDS_PREFIX': '',
+                        'OUTPUT': 'TEMPORARY_OUTPUT', 'GRID_SIZE': None})
+        finalgrid = grid_create2['OUTPUT']
+        finalgrid.setName('final_grid')
+        QgsMessageLog.logMessage("Finálny grid je hotový.", "Messages")
+        QgsProject.instance().addMapLayer(finalgrid)
+
+
+        prov = finalgrid.dataProvider()
+        fld = QgsField('emise', QVariant.Int)
+        prov.addAttributes([fld])
+        finalgrid.updateFields()
+        idx = finalgrid.fields().lookupField('emise')
+        #print(count.fields().names())
+
+        finalgrid.startEditing()
+
+        e = QgsExpression('DruhPozemk / NUMPOINTS')
+        c = QgsExpressionContext()
+        s = QgsExpressionContextScope()
+        s.setFields(finalgrid.fields())
+        c.appendScope(s)
+        e.prepare(c)
+
+        for f in finalgrid.getFeatures():
+            c.setFeature(f)
+            value = e.evaluate(c)
+            atts = {idx: value}
+            finalgrid.dataProvider().changeAttributeValues({f.id(): atts})
+        finalgrid.commitChanges()
 
         #prida novy atribut emise
 
