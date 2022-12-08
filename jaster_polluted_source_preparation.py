@@ -135,7 +135,7 @@ class Formular(QDialog, FORM_CLASS):
         #     print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
         # QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
 
-        exportLayer(finalgrid, output, vystup, crs)
+        QgsVectorLayerExporter.exportLayer(finalgrid, vystup)
 
 
         #  QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(vystupniSoubor), "Messages"
