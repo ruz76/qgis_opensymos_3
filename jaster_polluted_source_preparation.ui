@@ -82,7 +82,7 @@
     </rect>
    </property>
    <property name="storageMode">
-    <enum>QgsFileWidget::SaveFile</enum>
+    <enum>QgsFileWidget::GetDirectory</enum>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
