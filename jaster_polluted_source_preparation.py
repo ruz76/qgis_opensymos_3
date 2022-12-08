@@ -265,8 +265,9 @@ class Formular(QDialog, FORM_CLASS):
         #print(count.fields().names())
 
         finalgrid.startEditing()
+        vzorec = atribut + ' / NUMPOINTS'
 
-        e = QgsExpression(atribut / 'NUMPOINTS')
+        e = QgsExpression(vzorec)
         c = QgsExpressionContext()
         s = QgsExpressionContextScope()
         s.setFields(finalgrid.fields())
