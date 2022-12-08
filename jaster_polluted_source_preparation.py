@@ -129,8 +129,8 @@ class Formular(QDialog, FORM_CLASS):
         Output = self.FileOutput.filePath()
         self.location = os.path.dirname(Output)
         vystup = self.location
-        QgsFileWidget.setStorageMode(QgsFileWidget.SaveFile)
-        #QgsVectorFileWriter.writeAsVectorFormat(finalgrid, "vystup", "UTF-8", finalgrid.crs(), "ESRI Shapefile")
+        #QgsFileWidget.setStorageMode(QgsFileWidget.SaveFile)
+        QgsVectorFileWriter.writeAsVectorFormat(finalgrid, "vystup", "UTF-8", finalgrid.crs(), "ESRI Shapefile")
 
         # with open(Output, mode='w', encoding='utf-8') as soubor:
         #     print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
