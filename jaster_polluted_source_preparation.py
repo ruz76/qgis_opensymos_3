@@ -119,38 +119,12 @@ class Formular(QDialog, FORM_CLASS):
             finalgrid.dataProvider().changeAttributeValues({f.id(): atts})
         finalgrid.commitChanges()
 
-# Otevření výstupního souboru
         Output = self.FileOutput.filePath()
         self.location = os.path.dirname(Output)
         vystup = self.location
 
-        processing.run("native:savefeatures",
+        if processing.run("native:savefeatures",
                        {'INPUT':finalgrid,
                         'OUTPUT':Output,
-                        'LAYER_NAME':vystup,'DATASOURCE_OPTIONS':'','LAYER_OPTIONS':''})
-
-
-        #QgsFileWidget.setStorageMode(QgsFileWidget.SaveFile)
-        #fields = QgsFields()
-        #QgsVectorFileWriter("emise.shp", vystup, fields, "UTF-8", finalgrid.crs(), "ESRI Shapefile")
-        #QgsVectorFileWriter.writeAsVectorFormat(finalgrid, "emise.shp", "UTF-8")
-
-        #QgsVectorFileWriter.writeAsVectorFormat(finalgrid, vystup,"utf-8",None,"ESRI Shapefile")
-        #QgsVectorFileWriter.writeAsVectorFormat(finalgrid, vystup, "UTF-8", layer.crs(),"ESRI Shapefile")
-       # _writer = QgsVectorFileWriter.writeAsVectorFormat(finalgrid, vystup, "utf-8", "ESRI Shapefile")
-        # with open(Output, mode='w', encoding='utf-8') as soubor:
-        #     print("<p> " + str(area["Id"]) + " - " + " <img src=area_" + str(area["Id"]) + ".png width=300/></p>\n", file=soubor)
-        # QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(Output), "Messages")
-
-        #QgsVectorLayerExporter.exportLayer(finalgrid, vystup)
-
-
-        #  QgsMessageLog.logMessage("Výsledek byl uložen do: " + str(vystupniSoubor), "Messages"
-
-           # QgsFileWidget.setStorageMode(QgsFileWidget.SaveFile)
-
-
-        #     # Zjištění, kam chce uživatel uložit výstup (výsledný soubor)
-        #     Output = self.dlgFormular.FileOutput.filePath()
-        #     # Zjištění adresáře, kam chce uživatel uložit výstup (bez jména souboru, jen adresář)
-        #     self.location = os.path.dirname(Output)
+                        'LAYER_NAME':vystup,'DATASOURCE_OPTIONS':'','LAYER_OPTIONS':''}):
+            QgsMessageLog.logMessage("Finální vrstva emisí uložena do:" + str(output), "Messages")
