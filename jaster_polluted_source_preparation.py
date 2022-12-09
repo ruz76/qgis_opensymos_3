@@ -127,4 +127,4 @@ class Formular(QDialog, FORM_CLASS):
                        {'INPUT':finalgrid,
                         'OUTPUT':Output,
                         'LAYER_NAME':vystup,'DATASOURCE_OPTIONS':'','LAYER_OPTIONS':''}):
-            QgsMessageLog.logMessage("Finální vrstva emisí uložena do:" + str(output), "Messages")
+            QgsMessageLog.logMessage("Finální vrstva emisí uložena do:" + str(Output), "Messages")
