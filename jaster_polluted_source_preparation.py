@@ -123,7 +123,13 @@ class Formular(QDialog, FORM_CLASS):
         Output = self.FileOutput.filePath()
         self.location = os.path.dirname(Output)
         vystup = self.location
-        
+
+        processing.run("native:savefeatures",
+                       {'INPUT':finalgrid,
+                        'OUTPUT':Output,
+                        'LAYER_NAME':vystup,'DATASOURCE_OPTIONS':'','LAYER_OPTIONS':''})
+
+
         #QgsFileWidget.setStorageMode(QgsFileWidget.SaveFile)
         #fields = QgsFields()
         #QgsVectorFileWriter("emise.shp", vystup, fields, "UTF-8", finalgrid.crs(), "ESRI Shapefile")
