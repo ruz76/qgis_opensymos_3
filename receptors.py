@@ -46,6 +46,8 @@ class CreateReferencePoints(QDialog, FORM_CLASS):
         self.setupUi(self)
         self.btnCalculate.clicked.connect(self.CreateReferencePoints)
         self.SaveRefferencePointsAs.setStorageMode(3)
+
+
     def CreateReferencePoints(self):
         # Zjištení jakou vrstvu uživatel vybral v rozbalovacím seznamu vrstev na formuláři
         self.layer = (self.ExtentDMR.currentLayer())
@@ -76,9 +78,9 @@ class CreateReferencePoints(QDialog, FORM_CLASS):
                         'OUTPUT': output3,
                         'LAYER_NAME': vystup2, 'DATASOURCE_OPTIONS': '', 'LAYER_OPTIONS': ''})
 
-        VybranyObjekt = (self.DensePoints.currentLayer())
-        Vzdalenost = int(self.BufferSpacing.value())
-        buffer = processing.run("native:buffer", {'INPUT': VybranyObjekt,'DISTANCE': Vzdalenost, 'SEGMENTS': 1,'DISSOLVE': False, 'OUTPUT': 'TEMPORARY_OUTPUT'})
+        vybranyObjekt = (self.DensePoints.currentLayer())
+        vzdalenost = int(self.BufferSpacing.value())
+        buffer = processing.run("native:buffer", {'INPUT': vybranyObjekt,'DISTANCE': vzdalenost, 'SEGMENTS': 1,'DISSOLVE': False, 'OUTPUT': 'TEMPORARY_OUTPUT'})
         bufferoutput = buffer["OUTPUT"]
         points = processing.run("native:pointsalonglines",
                        {'INPUT': bufferoutput, 'DISTANCE': self.PointSpacing.value(), 'START_OFFSET': 0,
