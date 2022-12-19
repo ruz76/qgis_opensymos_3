@@ -86,11 +86,7 @@ class CreateReferencePoints(QDialog, FORM_CLASS):
                         'OUTPUT': Output3,
                         'LAYER_NAME': vystup2, 'DATASOURCE_OPTIONS': '', 'LAYER_OPTIONS': ''})
 
-        for alg in QgsApplication.processingRegistry().algorithms():
-                name = alg.displayName()
-                print(alg.id(), "->", name)
-
-                VybranyObjekt = (self.DensePoints.currentLayer())
+        VybranyObjekt = (self.DensePoints.currentLayer())
 
         Vzdalenost = int(self.BufferSpacing.value())
         buffer = processing.run("native:buffer", {'INPUT': VybranyObjekt,'DISTANCE': Vzdalenost, 'SEGMENTS': 1,'DISSOLVE': False, 'OUTPUT': 'TEMPORARY_OUTPUT'})
