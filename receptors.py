@@ -47,18 +47,9 @@ class CreateReferencePoints(QDialog, FORM_CLASS):
         self.btnCalculate.clicked.connect(self.CreateReferencePoints)
         self.SaveRefferencePointsAs.setStorageMode(3)
     def CreateReferencePoints(self):
-        # Otevření dialogového okna
-        QgsMessageLog.logMessage("Chystam se otvrit okno ", "Messages")
-        # Zjištění, kam chce uživatel uložit výstup (výsledný soubor)
-        vystupniSoubor = self.SaveRefferencePointsAs.filePath()
-        # Zjištění adresáře, kam chce uživatel uložit výstup (bez jména souboru, jen adresář)
-        self.location = os.path.dirname(vystupniSoubor)
-
         # Zjištení jakou vrstvu uživatel vybral v rozbalovacím seznamu vrstev na formuláři
         self.layer = (self.ExtentDMR.currentLayer())
         QgsMessageLog.logMessage("Zpracovávaná/vybraná vrstva: " + self.layer.name(), "Messages")
-        # Získání všech geoprvků z vybrané vrstvy (seznam)
-        # DMR = self.layer.getFeatures()
 
         # nastaveni rozestupu bodu pravidelne site
         self.SpacingX = []
@@ -67,8 +58,7 @@ class CreateReferencePoints(QDialog, FORM_CLASS):
         SpacingX = int(self.SBX.value())
         SpacingY = int(self.SBY.value())
 
-
-    # vytvoreni pravidelne site bodu
+        # vytvoreni pravidelne site bodu
 
         crs = QgsProject().instance().crs().toWkt()
         grid = processing.run("native:creategrid", {'TYPE': 0,
@@ -78,16 +68,15 @@ class CreateReferencePoints(QDialog, FORM_CLASS):
                                              'OUTPUT': 'TEMPORARY_OUTPUT'})
         gridoutput = grid["OUTPUT"]
         QgsProject.instance().addMapLayer(gridoutput)
-        Output3 = self.SaveRefferencePointsAs.filePath()
-        # self.location = os.path.dirname(Output3)
+
+        output3 = self.SaveRefferencePointsAs.filePath()
         vystup2 = 'grid'
         processing.run("native:savefeatures",
                        {'INPUT': gridoutput,
-                        'OUTPUT': Output3,
+                        'OUTPUT': output3,
                         'LAYER_NAME': vystup2, 'DATASOURCE_OPTIONS': '', 'LAYER_OPTIONS': ''})
 
         VybranyObjekt = (self.DensePoints.currentLayer())
-
         Vzdalenost = int(self.BufferSpacing.value())
         buffer = processing.run("native:buffer", {'INPUT': VybranyObjekt,'DISTANCE': Vzdalenost, 'SEGMENTS': 1,'DISSOLVE': False, 'OUTPUT': 'TEMPORARY_OUTPUT'})
         bufferoutput = buffer["OUTPUT"]
@@ -97,10 +86,9 @@ class CreateReferencePoints(QDialog, FORM_CLASS):
         output = points["OUTPUT"]
         QgsProject.instance().addMapLayer(output)
 
-        Output2 = self.SaveRefferencePointsAs_2.filePath()
-        # self.location = os.path.dirname(Output2)
+        output2 = self.SaveRefferencePointsAs_2.filePath()
         vystup = 'grid'
         processing.run("native:savefeatures",
                        {'INPUT': output,
-                        'OUTPUT': Output2,
+                        'OUTPUT': output2,
                         'LAYER_NAME': vystup, 'DATASOURCE_OPTIONS': '', 'LAYER_OPTIONS': ''})
