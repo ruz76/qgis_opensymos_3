@@ -25,6 +25,7 @@ from qgis.core import *
 from qgis.gui import *
 
 from .main_dialog import MainDialog
+from .receptors import CreateReferencePoints
 
 class Open_symos:
     # Implementace QGIS pluginu
@@ -40,6 +41,7 @@ class Open_symos:
         self.iface = iface
         self.canvas = iface.mapCanvas()
         self.dlg = MainDialog()
+        self.receptors_dlg = CreateReferencePoints()
 
     def initGui(self):
         # Vytvoreni a konfigurace nastrojove listy pro spusteni pluginu
@@ -48,11 +50,17 @@ class Open_symos:
 
         self.show_btn = QAction(QIcon(os.path.join(os.path.dirname(__file__), "opensymos.png")),
                                 "OpenSYMOS", self.iface.mainWindow())
-        self.toolbar.addActions([self.show_btn])
+        self.receptors_btn = QAction(QIcon(os.path.join(os.path.dirname(__file__), "createReferencePointsIcon.png")),
+                                "OpenSYMOS", self.iface.mainWindow())
+        self.toolbar.addActions([self.show_btn, self.receptors_btn])
         self.show_btn.triggered.connect(self.showDialog)
+        self.receptors_btn.triggered.connect(self.showReceptorsDialog)
 
     def showDialog(self):
         self.dlg.show()
+
+    def showReceptorsDialog(self):
+        self.receptors_dlg.show()
 
     def unload(self):
         # odstraneni ikony z panelu nastroju QGISu

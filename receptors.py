@@ -58,7 +58,7 @@ class CreateReferencePoints(QDialog, FORM_CLASS):
         self.layer = (self.ExtentDMR.currentLayer())
         QgsMessageLog.logMessage("Zpracovávaná/vybraná vrstva: " + self.layer.name(), "Messages")
         # Získání všech geoprvků z vybrané vrstvy (seznam)
-        DMR = self.layer.getFeatures()
+        # DMR = self.layer.getFeatures()
 
         # nastaveni rozestupu bodu pravidelne site
         self.SpacingX = []
@@ -79,8 +79,8 @@ class CreateReferencePoints(QDialog, FORM_CLASS):
         gridoutput = grid["OUTPUT"]
         QgsProject.instance().addMapLayer(gridoutput)
         Output3 = self.SaveRefferencePointsAs.filePath()
-        self.location = os.path.dirname(Output3)
-        vystup2 = self.location
+        # self.location = os.path.dirname(Output3)
+        vystup2 = 'grid'
         processing.run("native:savefeatures",
                        {'INPUT': gridoutput,
                         'OUTPUT': Output3,
@@ -102,14 +102,9 @@ class CreateReferencePoints(QDialog, FORM_CLASS):
         QgsProject.instance().addMapLayer(output)
 
         Output2 = self.SaveRefferencePointsAs_2.filePath()
-        self.location = os.path.dirname(Output2)
-        vystup = self.location
+        # self.location = os.path.dirname(Output2)
+        vystup = 'grid'
         processing.run("native:savefeatures",
                        {'INPUT': output,
                         'OUTPUT': Output2,
                         'LAYER_NAME': vystup, 'DATASOURCE_OPTIONS': '', 'LAYER_OPTIONS': ''})
-
-    def unload(self):
-        """Removes the icon (toolbar) from QGIS GUI."""
-        # remove the toolbar
-        del self.toolbar
