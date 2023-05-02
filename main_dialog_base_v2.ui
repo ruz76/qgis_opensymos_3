@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="tabSettings">
     <attribute name="title">
@@ -553,20 +553,6 @@
       </widget>
       <zorder>gboxImportPointSourceXML</zorder>
       <zorder>gboxImportPointSource</zorder>
-      <zorder>lblPointSourceLayer</zorder>
-      <zorder>mMapLayerComboBoxPointSource</zorder>
-      <zorder>mFieldComboBoxPointSourceEmission</zorder>
-      <zorder>lblPointSourceEmission</zorder>
-      <zorder>lblChimneyHeight</zorder>
-      <zorder>lblGasVolume</zorder>
-      <zorder>lblGasTemperature</zorder>
-      <zorder>lblChimneyDiameter</zorder>
-      <zorder>lblGasVelocity</zorder>
-      <zorder>mFieldComboBoxChimneyHeight</zorder>
-      <zorder>mFieldComboBoxGasVolume</zorder>
-      <zorder>mFieldComboBoxGasTemperature</zorder>
-      <zorder>mFieldComboBoxChimneyDiameter</zorder>
-      <zorder>mFieldComboBoxGasVelocity</zorder>
       <zorder>rbtnImportPointSource</zorder>
       <zorder>rbtnImportPointSourceXML</zorder>
      </widget>

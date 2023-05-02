@@ -69,7 +69,7 @@ class MainDialog(QDialog, FORM_CLASS):
         self.mFieldComboBoxUsingPerDay.setFilters(QgsFieldProxyModel.Numeric)
         self.rbtnImportPointSourceXML.clicked.connect(self.changePointSourceSelection2)
         self.mMapLayerComboBoxPointSource.currentIndexChanged.connect(self.fillingFields)
-        self.btnImportPointSourceFromLayer.clicked.connect(self.importPointSources)
+        # self.btnImportPointSourceFromLayer.clicked.connect(self.importPointSources)
 
     def selectPointSourceFile(self):
         self.fileDialog = QtGui.QFileDialog(self)
@@ -125,6 +125,14 @@ class MainDialog(QDialog, FORM_CLASS):
         #self.wd = '/tmp/' #tempfile.gettempdir()
         self.wd = os.path.join(os.path.dirname(__file__), "tmp/")
 
+    def get_type_of_pollution(self, index):
+        types = ["sirovodik", "chlorovodik", "peroxid_vodiku", "dimetyl_sulfid",
+                 "oxid_siricity", "oxid_dusnaty", "oxid_dusicity", "amoniak",
+                 "sirouhlik", "formaldehyd", "oxid_dusny", "oxid_uhelnaty",
+                 "oxid_uhlicity", "metan", "vyssi_uhlovodiky", "metyl_chlorid",
+                 "karbonyl_sulfid", "prach"]
+        return types[index]
+
     def calculate(self):
         self.main = Main()
         if self.txtXMLPointSource.text() == '':
@@ -144,7 +152,7 @@ class MainDialog(QDialog, FORM_CLASS):
         else:                    
             self.main.inicializuj_zdroje(self.txtXMLPointSource.text())
 
-        layer = self.mMapLayerComboBoxReceptors.currentLayer()
+        layer = self.mMapLayerComboBoxReceptor.currentLayer()
         self.main.inicializuj_ref_body(layer)
 
         # TODO - badly implemented
@@ -165,7 +173,11 @@ class MainDialog(QDialog, FORM_CLASS):
                 self.showMessage(u"Limit eas not set. Complete input data.")
                 return
 
-        self.main.vypocti(self.txtStatus, self.progressBar, self.cmbPollution.currentText(), self.cmbCalculationType.currentIndex() + 1, float(self.txtLimit.text()), float(self.txtReceptorHeigth_2.text()), fixed_h)
+        height = fixed_h
+        if self.rbtnImportTerrain.isChecked():
+            height = None
+
+        self.main.vypocti(self.txtStatus, self.progressBar, self.get_type_of_pollution(self.cmbPollution.currentIndex()), self.cmbCalculationType.currentIndex() + 1, float(self.txtLimit.text()), float(self.txtReceptorHeigth_2.text()), height)
         typ_zkr = ''
 
         if self.cmbCalculationType.currentIndex() == 0:
@@ -198,7 +210,7 @@ class MainDialog(QDialog, FORM_CLASS):
 
     def getReceptory(self):
         # mMapLayerComboBoxReceptors
-        layer = self.mMapLayerComboBoxReceptors.currentLayer()
+        layer = self.mMapLayerComboBoxReceptor.currentLayer()
         # layer = QgsMapLayerRegistry.instance().mapLayersByName(self.cmbReceptory.currentText())[0]
         iter = layer.getFeatures()
         for feature in iter:

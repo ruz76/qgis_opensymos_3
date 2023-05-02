@@ -29,7 +29,7 @@ class ZdrojeBod:
                                  feature[emission], feature[chimneyHeight],
                                  feature[gasTemperature], feature[chimneyDiameter],
                                  feature[gasVelocity],
-                                 feature["vyuziti"],
+                                 1,
                                  feature[gasVolume])
             self.zdroje.append(zdroj)
     
