@@ -36,7 +36,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'main_dialog_base.ui'))
+    os.path.dirname(__file__), 'main_dialog_base_v2.ui'))
 
 
 class MainDialog(QDialog, FORM_CLASS):
@@ -50,25 +50,37 @@ class MainDialog(QDialog, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.init_param()
         self.setupUi(self)
-        self.btnZdroj.clicked.connect(self.selectZdrojFile)
-        self.btnRuzice.clicked.connect(self.selectRuziceFile)
+        self.btnSelectXMLPointSource.clicked.connect(self.selectPointSourceFile)
+        self.btnWindRose.clicked.connect(self.selectWindRose)
         self.btnCalculate.clicked.connect(self.calculate)
-        self.btnUlozit.clicked.connect(self.selectConfigFileSave)
-        self.btnNacist.clicked.connect(self.selectConfigFileOpen)
-        self.mMapLayerComboBoxReceptory.setFilters(QgsMapLayerProxyModel.PointLayer)
-        self.mMapLayerComboBoxZdroje.setFilters(QgsMapLayerProxyModel.PointLayer)
-        self.mMapLayerComboBoxTeren.setFilters(QgsMapLayerProxyModel.RasterLayer)
+        self.btnSaveSettings.clicked.connect(self.selectConfigFileSave)
+        self.btnReadSettings.clicked.connect(self.selectConfigFileOpen)
+        self.mMapLayerComboBoxReceptor.setFilters(QgsMapLayerProxyModel.PointLayer)
+        self.mMapLayerComboBoxPointSource.setFilters(QgsMapLayerProxyModel.PointLayer)
+        self.mMapLayerComboBoxTerrain.setFilters(QgsMapLayerProxyModel.RasterLayer)
+        self.mFieldComboBoxIdPointSource.setFilters(QgsFieldProxyModel.Numeric)
+        self.mFieldComboBoxPointSourceEmission.setFilters(QgsFieldProxyModel.Numeric)
+        self.mFieldComboBoxChimneyHeight.setFilters(QgsFieldProxyModel.Numeric)
+        self.mFieldComboBoxGasVolume.setFilters(QgsFieldProxyModel.Numeric)
+        self.mFieldComboBoxGasTemperature.setFilters(QgsFieldProxyModel.Numeric)
+        self.mFieldComboBoxChimneyDiameter.setFilters(QgsFieldProxyModel.Numeric)
+        self.mFieldComboBoxGasVelocity.setFilters(QgsFieldProxyModel.Numeric)
+        self.mFieldComboBoxUsingPerYear.setFilters(QgsFieldProxyModel.Numeric)
+        self.mFieldComboBoxUsingPerDay.setFilters(QgsFieldProxyModel.Numeric)
+        self.rbtnImportPointSourceXML.clicked.connect(self.changePointSourceSelection2)
+        self.mMapLayerComboBoxPointSource.currentIndexChanged.connect(self.fillingFields)
+        self.btnImportPointSourceFromLayer.clicked.connect(self.importPointSources)
 
-    def selectZdrojFile(self):
+    def selectPointSourceFile(self):
         self.fileDialog = QtGui.QFileDialog(self)
         path, _ = self.fileDialog.getOpenFileName()
-        self.txtZdroj.setText(path)
+        self.txtXMLPointSource.setText(path)
         self.saveConfig('')
 
-    def selectRuziceFile(self):
+    def selectWindRose(self):
         self.fileDialog = QtGui.QFileDialog(self)
         path, _ = self.fileDialog.getOpenFileName()
-        self.txtRuzice.setText(path)
+        self.txtWindRose.setText(path)
         self.saveConfig('')
 
     def saveConfig(self, path):
@@ -76,14 +88,14 @@ class MainDialog(QDialog, FORM_CLASS):
             path = self.wd + "config"
 
         f = open(path, 'w')
-        f.write(str(self.cmbLatka.currentIndex()) + '\n')
-        f.write(str(self.cmbTypVypoctu.currentIndex()) + '\n')
-        f.write(self.txtZdroj.text() + '\n')
+        f.write(str(self.cmbPollution.currentIndex()) + '\n')
+        f.write(str(self.cmbCalculationType.currentIndex()) + '\n')
+        f.write(self.txtXMLPointSource.text() + '\n')
         f.write(str(self.cmbTeren.currentIndex()) + '\n')
-        f.write(self.txtTeren2.text() + '\n')
+        f.write(self.txtTerrainFixedElevation.text() + '\n')
         f.write(str(self.cmbReceptory.currentIndex()) + '\n')
-        f.write(self.txtReceptoryVyska.text() + '\n')
-        f.write(self.txtRuzice.text() + '\n')
+        f.write(self.txtReceptorHeigth_2.text() + '\n')
+        f.write(self.txtWindRose.text() + '\n')
         f.write(self.txtLimit.text() + '\n')
         f.close()
 
@@ -98,14 +110,14 @@ class MainDialog(QDialog, FORM_CLASS):
         path, _ = self.fileDialog.getOpenFileName()
         if path != '':
             f = open(path, 'r')        
-            self.cmbLatka.setCurrentIndex(int(f.readline()))
-            self.cmbTypVypoctu.setCurrentIndex(int(f.readline()))
-            self.txtZdroj.setText(f.readline().strip('\n\r'))        
+            self.cmbPollution.setCurrentIndex(int(f.readline()))
+            self.cmbTCalculationType.setCurrentIndex(int(f.readline()))
+            self.txtXMLPointSource.setText(f.readline().strip('\n\r'))
             self.cmbTeren.setCurrentIndex(int(f.readline()))
-            self.txtTeren2.setText(f.readline().strip('\n\r'))
+            self.txtTerrainFixedElevation.setText(f.readline().strip('\n\r'))
             self.cmbReceptory.setCurrentIndex(int(f.readline()))
-            self.txtReceptoryVyska.setText(f.readline().strip('\n\r'))
-            self.txtRuzice.setText(f.readline().strip('\n\r'))
+            self.txtTerrainFixedElevation.setText(f.readline().strip('\n\r'))
+            self.txtWindRose.setText(f.readline().strip('\n\r'))
             self.txtLimit.setText(f.readline().strip('\n\r'))                
             f.close()
 
@@ -115,57 +127,67 @@ class MainDialog(QDialog, FORM_CLASS):
 
     def calculate(self):
         self.main = Main()
-        if self.txtZdroj.text() == '':
+        if self.txtXMLPointSource.text() == '':
             #TODO
-            #http://portal.cenia.cz/irz/unikyPrenosy.jsp?Rok=2015&UnikOvzdusi=1&Typ=bezny&Mnozstvi=*&MetodaC=1&MetodaM=1&MetodaE=1&LatkaNazev=*&Ohlasovatel=&OhlasovatelTyp=subjektNazev&EPRTR=*&NACE=*&Lokalita=cr&Adresa=&Kraj=*&CZNUTS=*&SeskupitDle=subjektu&Razeni=vzestupne&OKEC=*
-            layer = self.mMapLayerComboBoxZdroje.currentLayer()
-            self.main.inicializuj_zdroje_vrstva(layer)
+            #http://portal.cenia.cz/irz/unikyPrenosy.jsp?Rok=2015&UnikOvzdusi=1&Typ=bezny&Mnozstvi=*&MetodaC=1&MetodaM=1&MetodaE=1&PollutionNazev=*&Ohlasovatel=&OhlasovatelTyp=subjektNazev&EPRTR=*&NACE=*&Lokalita=cr&Adresa=&Kraj=*&CZNUTS=*&SeskupitDle=subjektu&Razeni=vzestupne&OKEC=*
+            layer = self.mMapLayerComboBoxPointSource.currentLayer()
+            id = self.mFieldComboBoxIdPointSource.currentText()
+            emission = self.mFieldComboBoxPointSourceEmission.currentText()
+            chimneyHeight = self.mFieldComboBoxChimneyHeight.currentText()
+            gasVolume = self.mFieldComboBoxGasVolume.currentText()
+            gasTemperature = self.mFieldComboBoxGasTemperature.currentText()
+            chimneyDiameter = self.mFieldComboBoxChimneyDiameter.currentText()
+            gasVelocity = self.mFieldComboBoxGasVelocity.currentText()
+            usingPerYear = self.mFieldComboBoxUsingPerYear.currentText()
+            usingPerDay = self.mFieldComboBoxUsingPerDay.currentText()
+            self.main.inicializuj_zdroje_vrstva(layer, id, emission, chimneyHeight, gasVolume, gasTemperature, chimneyDiameter,gasVelocity,usingPerYear,usingPerDay)
         else:                    
-            self.main.inicializuj_zdroje(self.txtZdroj.text())
+            self.main.inicializuj_zdroje(self.txtXMLPointSource.text())
 
-        layer = self.mMapLayerComboBoxReceptory.currentLayer()
+        layer = self.mMapLayerComboBoxReceptors.currentLayer()
         self.main.inicializuj_ref_body(layer)
 
         # TODO - badly implemented
         fixed_h = None
-        if self.txtTeren2.text() != '':
-            fixed_h = float(self.txtTeren2.text())
-        layer = self.mMapLayerComboBoxTeren.currentLayer()
+        if self.txtTerrainFixedElevation.text() != '':
+            fixed_h = float(self.txtTerrainFixedElevation.text())
+        layer = self.mMapLayerComboBoxTerrain.currentLayer()
         self.main.inicializuj_teren(layer.source())
 
-        if self.cmbTypVypoctu.currentIndex() == 1 or self.cmbTypVypoctu.currentIndex() == 2:
-            if self.txtRuzice.text() == '':
-                self.showMessage(u"Nebyla vybrána větrná růžice. Není možno počítat.")
+        if self.cmbCalculationType.currentIndex() == 1 or self.cmbCalculationType.currentIndex() == 2:
+            if self.txtWindRose.text() == '':
+                self.showMessage(u"Wind rose was not set. Complete input data.")
                 return
             else:
-                self.main.inicializuj_vetrnou_ruzici(self.txtRuzice.text())
-        if self.cmbTypVypoctu.currentIndex() == 2:
+                self.main.inicializuj_vetrnou_ruzici(self.txtWindRose.text())
+        if self.cmbCalculationType.currentIndex() == 2:
             if self.txtLimit.text() == '':
-                self.showMessage(u"Nebyl nastaven limit Není možno počítat.")
+                self.showMessage(u"Limit eas not set. Complete input data.")
                 return
 
-        self.main.vypocti(self.txtStatus, self.progressBar, self.cmbLatka.currentText(), self.cmbTypVypoctu.currentIndex() + 1, float(self.txtLimit.text()), float(self.txtReceptoryVyska.text()), fixed_h)
+        self.main.vypocti(self.txtStatus, self.progressBar, self.cmbPollution.currentText(), self.cmbCalculationType.currentIndex() + 1, float(self.txtLimit.text()), float(self.txtReceptorHeigth_2.text()), fixed_h)
         typ_zkr = ''
 
-        if self.cmbTypVypoctu.currentIndex() == 0:
+        if self.cmbCalculationType.currentIndex() == 0:
             typ_zkr = 'max'
-        if self.cmbTypVypoctu.currentIndex() == 1:
+        if self.cmbCalculationType.currentIndex() == 1:
             typ_zkr = 'prum'
-        if self.cmbTypVypoctu.currentIndex() == 2:
+        if self.cmbCalculationType.currentIndex() == 2:
             typ_zkr = 'limit'
-        x = self.cmbLatka.currentText() + "_" + typ_zkr + "_" + str(uuid.uuid1())        
+        pollution = self.cmbPollution.currentText()
+        x = self.cmbPollution.currentText() + "_" + typ_zkr + "_" + str(uuid.uuid1())
         x = x.replace("-", "_")
         #shppath = os.path.join(os.path.dirname(__file__), "vysledky/" + x + ".shp")
-        #TODO Nastavit temp dir
+        #TODO set temp dir
         shppath = os.path.join(tempfile.gettempdir(), x + ".shp")
-        self.main.export(self.cmbTypVypoctu.currentIndex() + 1,"shp",shppath)
+        self.main.export(self.cmbCalculationType.currentIndex() + 1,"shp",shppath)
         copyfile(os.path.join(os.path.dirname(__file__), 'templates/5514.prj'), os.path.join(tempfile.gettempdir(), x + ".prj"))
         copyfile(os.path.join(os.path.dirname(__file__), 'templates/5514.qpj'), os.path.join(tempfile.gettempdir(), x + ".qpj"))
-        style_name = self.cmbLatka.currentText() + "_" + typ_zkr
+        style_name = self.cmbPollution.currentText() + "_" + typ_zkr
         style_name = style_name.replace("-", "_")
         if not os.path.exists(os.path.join(os.path.dirname(__file__), 'templates/' + style_name + '.qml')):
             #copyfile(os.path.join(os.path.dirname(__file__), 'templates/default.qml'), os.path.join(tempfile.gettempdir(), x + ".qml"))
-            QgsMessageLog.logMessage(u"Styl pro " + style_name + u" není nadefinován. Nadefinujte a uložte pod názvem " + style_name + u" do složky templates v adresáři pluginu.", u"Open SYMOS")
+            QgsMessageLog.logMessage(u"Style for " + style_name + u" was not defined. Define and save it " + style_name + u" into templates in plugin folder.", u"Open SYMOS")
         else:
             copyfile(os.path.join(os.path.dirname(__file__), 'templates/' + style_name + '.qml'), os.path.join(tempfile.gettempdir(), x + ".qml"))
         layer = QgsVectorLayer(shppath, x, "ogr")
@@ -175,8 +197,8 @@ class MainDialog(QDialog, FORM_CLASS):
             QgsProject.instance().addMapLayer(layer)
 
     def getReceptory(self):
-        # mMapLayerComboBoxReceptory
-        layer = self.mMapLayerComboBoxReceptory.currentLayer()
+        # mMapLayerComboBoxReceptors
+        layer = self.mMapLayerComboBoxReceptors.currentLayer()
         # layer = QgsMapLayerRegistry.instance().mapLayersByName(self.cmbReceptory.currentText())[0]
         iter = layer.getFeatures()
         for feature in iter:
@@ -184,6 +206,35 @@ class MainDialog(QDialog, FORM_CLASS):
             print (geom.asPoint().x())
             print (geom.asPoint().y())
             print ("Feature ID %d: " % feature.id())
+
+    def changePointSourceSelection(self):
+        self.gboxImportPointSourceXML.setEnabled(False)
+        self.gboxImportPointSource.setEnabled(True)
+
+    def changePointSourceSelection2(self):
+
+        self.gboxImportPointSourceXML.setEnabled(True)
+        self.gboxImportPointSource.setEnabled(False)
+
+    def fillingFields(self):
+        self.mFieldComboBoxIdPointSource.setLayer(self.mMapLayerComboBoxPointSource.currentLayer())
+        self.mFieldComboBoxPointSourceEmission.setLayer(self.mMapLayerComboBoxPointSource.currentLayer())
+        self.mFieldComboBoxChimneyHeight.setLayer(self.mMapLayerComboBoxPointSource.currentLayer())
+        self.mFieldComboBoxGasVolume.setLayer(self.mMapLayerComboBoxPointSource.currentLayer())
+        self.mFieldComboBoxGasTemperature.setLayer(self.mMapLayerComboBoxPointSource.currentLayer())
+        self.mFieldComboBoxChimneyDiameter.setLayer(self.mMapLayerComboBoxPointSource.currentLayer())
+        self.mFieldComboBoxGasVelocity.setLayer(self.mMapLayerComboBoxPointSource.currentLayer())
+        self.mFieldComboBoxUsingPerYear.setLayer(self.mMapLayerComboBoxPointSource.currentLayer())
+        self.mFieldComboBoxUsingPerDay.setLayer(self.mMapLayerComboBoxPointSource.currentLayer())
+        self.mFieldComboBoxIdPointSource.setEnabled(True)
+        self.mFieldComboBoxPointSourceEmission.setEnabled(True)
+        self.mFieldComboBoxChimneyHeight.setEnabled(True)
+        self.mFieldComboBoxGasVolume.setEnabled(True)
+        self.mFieldComboBoxGasTemperature.setEnabled(True)
+        self.mFieldComboBoxChimneyDiameter.setEnabled(True)
+        self.mFieldComboBoxGasVelocity.setEnabled(True)
+        self.mFieldComboBoxUsingPerYear.setEnabled(True)
+        self.mFieldComboBoxUsingPerDay.setEnabled(True)
 
     def showMessage(self, message):                    
         msgBox = QtGui.QMessageBox(self)

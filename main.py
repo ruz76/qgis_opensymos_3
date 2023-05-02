@@ -34,9 +34,9 @@ class Main:
             print("Chyba pri nacteni souboru zdroju")
             print("Program ukoncen")
 
-    def inicializuj_zdroje_vrstva(self, layer):
+    def inicializuj_zdroje_vrstva(self, layer,id, emission, chimneyHeight, gasVolume, gasTemperature, chimneyDiameter,gasVelocity,usingPerYear,usingPerDay):
         self.db_zdroje = ZdrojeBod()
-        self.db_zdroje.vytvor_db_vrstva(layer)
+        self.db_zdroje.vytvor_db_vrstva(layer, id, emission, chimneyHeight, gasVolume, gasTemperature, chimneyDiameter,gasVelocity,usingPerYear,usingPerDay)
         if len(self.db_zdroje.get_zdroje()) == 0:
             print("Chyba pri nacteni vrstvy zdroju")
             print("Program ukoncen")

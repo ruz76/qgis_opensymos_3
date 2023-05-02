@@ -1,0 +1,1236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainDialogBase</class>
+ <widget class="QDialog" name="MainDialogBase">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>802</width>
+    <height>519</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Open Symos</string>
+  </property>
+  <widget class="QTabWidget" name="tabSYMOS">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>625</width>
+     <height>501</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>1</number>
+   </property>
+   <widget class="QWidget" name="tabSettings">
+    <attribute name="title">
+     <string>Settings</string>
+    </attribute>
+    <widget class="QComboBox" name="cmbPollution">
+     <property name="geometry">
+      <rect>
+       <x>410</x>
+       <y>20</y>
+       <width>160</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Hydrogen sulfide (H2S)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Hydrogen chloride (HCl)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Hydrogen peroxide (H2O2)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Dimethyl sulfide (C2H6S)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Sulfur dioxide (SO2)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Nitric oxide (NO)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Nitrogen dioxide (NO2)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Amonia (NH3)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Carbon disulfide (CS2)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Formaldehyde (CH2O)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Nitrous oxide (N2O)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Carbon monoxide (CO)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Carbon dioxide (CO2)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Metane (CH4)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Higher hydrocarbons</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Methyl chloride (CH3Cl)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Carbonyl sulphide (COS)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Dust (PM10????)</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="lblPollution">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>20</y>
+       <width>65</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Pollution:</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="txtLimit">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>50</y>
+       <width>101</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblLimit">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>50</y>
+       <width>81</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Limit (ug/m3):</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblAlertCRC">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>180</y>
+       <width>431</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>All source data must use the same coordinate system!</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblDescription">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>110</y>
+       <width>71</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Descritoin:</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="txtDescription">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>110</y>
+       <width>301</width>
+       <height>61</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblWorkspace">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>80</y>
+       <width>231</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Working directory (for immediate results):</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnWorkSpace">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>80</y>
+       <width>21</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnReadSettings">
+     <property name="geometry">
+      <rect>
+       <x>480</x>
+       <y>190</y>
+       <width>95</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Read settings</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tabSources">
+    <attribute name="title">
+     <string>Sources</string>
+    </attribute>
+    <widget class="QTabWidget" name="tabPointSource">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>621</width>
+       <height>461</height>
+      </rect>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tabpointSource">
+      <attribute name="title">
+       <string>Point source</string>
+      </attribute>
+      <widget class="QGroupBox" name="gboxImportPointSource">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>10</y>
+         <width>561</width>
+         <height>321</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Import from layer</string>
+       </property>
+       <widget class="QgsFieldComboBox" name="mFieldComboBoxIdPointSource">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>60</y>
+          <width>160</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QgsFieldComboBox" name="mFieldComboBoxUsingPerYear">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>250</y>
+          <width>160</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QgsFieldComboBox" name="mFieldComboBoxUsingPerDay">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>280</y>
+          <width>160</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QgsFieldComboBox" name="mFieldComboBoxChimneyHeight">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>115</y>
+          <width>160</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QgsFieldComboBox" name="mFieldComboBoxGasVolume">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>141</y>
+          <width>160</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QgsFieldComboBox" name="mFieldComboBoxGasTemperature">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>167</y>
+          <width>160</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QgsFieldComboBox" name="mFieldComboBoxChimneyDiameter">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>193</y>
+          <width>160</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QgsFieldComboBox" name="mFieldComboBoxGasVelocity">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>220</y>
+          <width>160</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QgsFieldComboBox" name="mFieldComboBoxPointSourceEmission">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>88</y>
+          <width>160</width>
+          <height>20</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxPointSource">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>30</y>
+          <width>180</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QSplitter" name="splitter">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>30</y>
+          <width>207</width>
+          <height>271</height>
+         </rect>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <widget class="QLabel" name="lblPointSourceLayer">
+         <property name="text">
+          <string>Source (points) layer: </string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblIdPointSource">
+         <property name="text">
+          <string>Source ID:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblPointSourceEmission">
+         <property name="text">
+          <string>Emission amout (g/s) field:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblChimneyHeight">
+         <property name="text">
+          <string>Chimney height above terrain (m) field:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblGasVolume">
+         <property name="text">
+          <string>Flue gas volume (m3/s) field:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblGasTemperature">
+         <property name="text">
+          <string>Temperature of flue gas (°C) field:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblChimneyDiameter">
+         <property name="text">
+          <string>Internal diameter of the chymney (m) field:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblGasVelocity">
+         <property name="text">
+          <string>Flue gas (exit) velocity (m/s) field:</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Percentage of using durig year (0-100%):</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="lblUsingDay">
+         <property name="text">
+          <string>Range of using during day (0-24hours):</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QGroupBox" name="gboxImportPointSourceXML">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>340</y>
+         <width>561</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Import from XML file</string>
+       </property>
+       <widget class="QLabel" name="lblSelectXMLPointSource">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>30</y>
+          <width>101</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Select file:</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="txtXMLPointSource">
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>30</y>
+          <width>171</width>
+          <height>21</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnSelectXMLPointSource">
+        <property name="geometry">
+         <rect>
+          <x>460</x>
+          <y>30</y>
+          <width>31</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QRadioButton" name="rbtnImportPointSource">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>16</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>RadioButton</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="rbtnImportPointSourceXML">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>340</y>
+         <width>16</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>RadioButton</string>
+       </property>
+      </widget>
+      <zorder>gboxImportPointSourceXML</zorder>
+      <zorder>gboxImportPointSource</zorder>
+      <zorder>lblPointSourceLayer</zorder>
+      <zorder>mMapLayerComboBoxPointSource</zorder>
+      <zorder>mFieldComboBoxPointSourceEmission</zorder>
+      <zorder>lblPointSourceEmission</zorder>
+      <zorder>lblChimneyHeight</zorder>
+      <zorder>lblGasVolume</zorder>
+      <zorder>lblGasTemperature</zorder>
+      <zorder>lblChimneyDiameter</zorder>
+      <zorder>lblGasVelocity</zorder>
+      <zorder>mFieldComboBoxChimneyHeight</zorder>
+      <zorder>mFieldComboBoxGasVolume</zorder>
+      <zorder>mFieldComboBoxGasTemperature</zorder>
+      <zorder>mFieldComboBoxChimneyDiameter</zorder>
+      <zorder>mFieldComboBoxGasVelocity</zorder>
+      <zorder>rbtnImportPointSource</zorder>
+      <zorder>rbtnImportPointSourceXML</zorder>
+     </widget>
+     <widget class="QWidget" name="tabLineSource">
+      <attribute name="title">
+       <string>Line source</string>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="tabPolygonSource">
+      <attribute name="title">
+       <string>Polygon source</string>
+      </attribute>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tabTerrain">
+    <attribute name="title">
+     <string>Terrain</string>
+    </attribute>
+    <widget class="QRadioButton" name="rbtnImportTerrain">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>16</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>RadioButton</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="gboxImportTerrain">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>10</y>
+       <width>561</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Import from raster file</string>
+     </property>
+     <widget class="QLabel" name="lblImportTerrain">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>161</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select file:</string>
+      </property>
+     </widget>
+     <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxTerrain">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>30</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QRadioButton" name="rbtnGenerateFlatTerrain">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>16</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>RadioButton</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="gboxGenerateFlatTerrain">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>80</y>
+       <width>561</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Generate flat terrain with fixed elevation</string>
+     </property>
+     <widget class="QLineEdit" name="txtTerrainFixedElevation">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>30</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>250</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblTerrainFixElevation">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>91</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Elevation (m):</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblExtendForFlatTerrain">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>151</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Extend according the layer:</string>
+      </property>
+     </widget>
+     <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxExtendForFlatTerrain">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>60</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <zorder>gboxImportTerrain</zorder>
+    <zorder>rbtnImportTerrain</zorder>
+    <zorder>rbtnGenerateFlatTerrain</zorder>
+    <zorder>gboxGenerateFlatTerrain</zorder>
+   </widget>
+   <widget class="QWidget" name="tabReceptors">
+    <attribute name="title">
+     <string>Receptors</string>
+    </attribute>
+    <widget class="QCheckBox" name="chckGenerateReggularReceptorNet">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>16</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CheckBox</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>10</y>
+       <width>561</width>
+       <height>121</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Genetrate reggular receptors</string>
+     </property>
+     <widget class="QLabel" name="lblReceptorsExtent">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>161</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Extent according to  layer:</string>
+      </property>
+     </widget>
+     <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxReceptorsExtentLayer">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>30</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtReceptorHeigth">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>90</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblReceptorHeight">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>90</y>
+        <width>191</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Height above terrain (m):</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtReceptorsSpacing">
+      <property name="geometry">
+       <rect>
+        <x>240</x>
+        <y>60</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblReceptorSpacing">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>121</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Point spacing (m):</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnReceptorGenerateRegullar">
+      <property name="geometry">
+       <rect>
+        <x>420</x>
+        <y>30</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Generate</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QCheckBox" name="chckGenerateReceptorsAround">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>250</y>
+       <width>16</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CheckBox</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>250</y>
+       <width>561</width>
+       <height>151</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Generate receptors aroud features</string>
+     </property>
+     <widget class="QLabel" name="lblLayerForReceptorsAround">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>30</y>
+        <width>141</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select layer with features:</string>
+      </property>
+     </widget>
+     <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxLayerForReceptorsAround">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>30</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblDistanceReceptorsFromFeatures">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>60</y>
+        <width>141</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Distance from Features (m):</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtDistanceReceptorsFromFeatures">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>60</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblReceptorsSpacingAround">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>90</y>
+        <width>151</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Point spacing (m):</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtReceptorsSpacingAround">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>90</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnReceptorsAroundGenerate">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>30</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Generate</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QCheckBox" name="chckImportReceptors">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>16</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>CheckBox</string>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="gboxImportReceptors">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>150</y>
+       <width>561</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Import receptors from layer</string>
+     </property>
+     <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxReceptor">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>30</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblSelectReceptorsLayer">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>30</y>
+        <width>101</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select layer:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblReceptorHeight_2">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>60</y>
+        <width>191</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Height above terrain (m):</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtReceptorHeigth_2">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>60</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>0</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnImportReceptors">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>30</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Import</string>
+      </property>
+     </widget>
+    </widget>
+    <zorder>groupBox</zorder>
+    <zorder>chckGenerateReggularReceptorNet</zorder>
+    <zorder>chckGenerateReceptorsAround</zorder>
+    <zorder>groupBox_2</zorder>
+    <zorder>chckImportReceptors</zorder>
+    <zorder>gboxImportReceptors</zorder>
+   </widget>
+   <widget class="QWidget" name="tabWindRose">
+    <attribute name="title">
+     <string>Wind Rose</string>
+    </attribute>
+    <widget class="QGroupBox" name="gboxWindRose">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>551</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Import </string>
+     </property>
+     <widget class="QLabel" name="lblWindRose">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>81</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Selelct file:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtWindRose">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>30</y>
+        <width>160</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnWindRose">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>30</y>
+        <width>21</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>...</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Calculation</string>
+    </attribute>
+    <widget class="QComboBox" name="cmbCalculationType">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>40</y>
+       <width>331</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>Maximum short-time concentration</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Maen (year) concentration</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Time of limit exceeding</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="lblCalculationType">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>81</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Result:</string>
+     </property>
+    </widget>
+    <widget class="QProgressBar" name="progressBar">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>100</y>
+       <width>511</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnCalculate">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>240</y>
+       <width>95</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Calculate</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="txtStatus">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>150</y>
+       <width>481</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblStatus">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>111</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Calculation progress:</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnSaveSettings">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>240</y>
+       <width>95</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Save settings</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="btnImportPointSourceFromLayer">
+   <property name="geometry">
+    <rect>
+     <x>660</x>
+     <y>100</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Import</string>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QgsFieldComboBox</class>
+   <extends>QComboBox</extends>
+   <header>qgsfieldcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QgsMapLayerComboBox</class>
+   <extends>QComboBox</extends>
+   <header>qgsmaplayercombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

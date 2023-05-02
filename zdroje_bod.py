@@ -20,17 +20,17 @@ class ZdrojeBod:
         
         self.zdroje = []
 
-    def vytvor_db_vrstva(self, layer):
+    def vytvor_db_vrstva(self, layer, id, emission, chimneyHeight, gasVolume, gasTemperature, chimneyDiameter,gasVelocity,usingPerYear,usingPerDay):
         "nacte udaje o zdrojich z vrstvy qgis a ulozi je do listu"
         iter = layer.getFeatures()
         for feature in iter:
             geom = feature.geometry()
-            zdroj = ZdrojBod(feature.id(), geom.asPoint().x(), geom.asPoint().y(),
-                                 feature["mnozstvi"], feature["vyska"],
-                                 feature["teplota"], feature["prumer"],
-                                 feature["rychlost"],
+            zdroj = ZdrojBod(feature[id], geom.asPoint().x(), geom.asPoint().y(),
+                                 feature[emission], feature[chimneyHeight],
+                                 feature[gasTemperature], feature[chimneyDiameter],
+                                 feature[gasVelocity],
                                  feature["vyuziti"],
-                                 feature["objem"])
+                                 feature[gasVolume])
             self.zdroje.append(zdroj)
     
     def vytvor_db(self,soubor):

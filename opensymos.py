@@ -27,7 +27,7 @@ from qgis.gui import *
 from .main_dialog import MainDialog
 
 class Open_symos:
-    # Implementace QGIS pluginu
+    # QGIS plugin implementation
     def __init__(self, iface):
         """Constructor.
 
@@ -36,13 +36,13 @@ class Open_symos:
             application at run time.
         :type iface: QgsInterface
         """
-        # Ulozeni reference na QGIS interface
+        # Saving reference to QGIS interface
         self.iface = iface
         self.canvas = iface.mapCanvas()
         self.dlg = MainDialog()
 
     def initGui(self):
-        # Vytvoreni a konfigurace nastrojove listy pro spusteni pluginu
+        # Creation and configuration of toolbar to run plugin
         self.toolbar = self.iface.addToolBar("OpenSYMOS")
         self.toolbar.setObjectName("OpenSYMOS")
 
@@ -55,7 +55,7 @@ class Open_symos:
         self.dlg.show()
 
     def unload(self):
-        # odstraneni ikony z panelu nastroju QGISu
+        # Plugin icon removal from QGIS toolbar
         del self.toolbar
 
 
