@@ -78,7 +78,7 @@ class MainDialog(QDialog, FORM_CLASS):
         self.saveConfig('')
 
     def selectWindRose(self):
-        self.fileDialog = QtGui.QFileDialog(self)
+        self.fileDialog = QFileDialog(self)
         path, _ = self.fileDialog.getOpenFileName()
         self.txtWindRose.setText(path)
         self.saveConfig('')
@@ -91,9 +91,9 @@ class MainDialog(QDialog, FORM_CLASS):
         f.write(str(self.cmbPollution.currentIndex()) + '\n')
         f.write(str(self.cmbCalculationType.currentIndex()) + '\n')
         f.write(self.txtXMLPointSource.text() + '\n')
-        f.write(str(self.cmbTeren.currentIndex()) + '\n')
+        f.write(str(self.mMapLayerComboBoxTerrain.currentIndex()) + '\n')
         f.write(self.txtTerrainFixedElevation.text() + '\n')
-        f.write(str(self.cmbReceptory.currentIndex()) + '\n')
+        f.write(str(self.mMapLayerComboBoxReceptor.currentIndex()) + '\n')
         f.write(self.txtReceptorHeigth_2.text() + '\n')
         f.write(self.txtWindRose.text() + '\n')
         f.write(self.txtLimit.text() + '\n')
@@ -113,9 +113,9 @@ class MainDialog(QDialog, FORM_CLASS):
             self.cmbPollution.setCurrentIndex(int(f.readline()))
             self.cmbTCalculationType.setCurrentIndex(int(f.readline()))
             self.txtXMLPointSource.setText(f.readline().strip('\n\r'))
-            self.cmbTeren.setCurrentIndex(int(f.readline()))
+            self.mMapLayerComboBoxTerrain.setCurrentIndex(int(f.readline()))
             self.txtTerrainFixedElevation.setText(f.readline().strip('\n\r'))
-            self.cmbReceptory.setCurrentIndex(int(f.readline()))
+            self.mMapLayerComboBoxReceptor.setCurrentIndex(int(f.readline()))
             self.txtTerrainFixedElevation.setText(f.readline().strip('\n\r'))
             self.txtWindRose.setText(f.readline().strip('\n\r'))
             self.txtLimit.setText(f.readline().strip('\n\r'))                
@@ -211,7 +211,7 @@ class MainDialog(QDialog, FORM_CLASS):
     def getReceptory(self):
         # mMapLayerComboBoxReceptors
         layer = self.mMapLayerComboBoxReceptor.currentLayer()
-        # layer = QgsMapLayerRegistry.instance().mapLayersByName(self.cmbReceptory.currentText())[0]
+        # layer = QgsMapLayerRegistry.instance().mapLayersByName(self.mMapLayerComboBoxReceptor.currentText())[0]
         iter = layer.getFeatures()
         for feature in iter:
             geom = feature.geometry()

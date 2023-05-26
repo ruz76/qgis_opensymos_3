@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>802</width>
+    <width>647</width>
     <height>519</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>5</number>
    </property>
    <widget class="QWidget" name="tabSettings">
     <attribute name="title">
@@ -32,7 +32,7 @@
     <widget class="QComboBox" name="cmbPollution">
      <property name="geometry">
       <rect>
-       <x>410</x>
+       <x>430</x>
        <y>20</y>
        <width>160</width>
        <height>21</height>
@@ -145,7 +145,7 @@
     <widget class="QLineEdit" name="txtLimit">
      <property name="geometry">
       <rect>
-       <x>470</x>
+       <x>490</x>
        <y>50</y>
        <width>101</width>
        <height>21</height>
@@ -197,7 +197,7 @@
     <widget class="QTextEdit" name="txtDescription">
      <property name="geometry">
       <rect>
-       <x>270</x>
+       <x>290</x>
        <y>110</y>
        <width>301</width>
        <height>61</height>
@@ -220,7 +220,7 @@
     <widget class="QPushButton" name="btnWorkSpace">
      <property name="geometry">
       <rect>
-       <x>550</x>
+       <x>570</x>
        <y>80</y>
        <width>21</width>
        <height>21</height>
@@ -233,8 +233,8 @@
     <widget class="QPushButton" name="btnReadSettings">
      <property name="geometry">
       <rect>
-       <x>480</x>
-       <y>190</y>
+       <x>500</x>
+       <y>200</y>
        <width>95</width>
        <height>27</height>
       </rect>
@@ -285,7 +285,7 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>370</x>
           <y>60</y>
           <width>160</width>
           <height>21</height>
@@ -298,7 +298,7 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>370</x>
           <y>250</y>
           <width>160</width>
           <height>21</height>
@@ -311,7 +311,7 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>370</x>
           <y>280</y>
           <width>160</width>
           <height>21</height>
@@ -324,7 +324,7 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>370</x>
           <y>115</y>
           <width>160</width>
           <height>20</height>
@@ -337,7 +337,7 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>370</x>
           <y>141</y>
           <width>160</width>
           <height>20</height>
@@ -350,7 +350,7 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>370</x>
           <y>167</y>
           <width>160</width>
           <height>20</height>
@@ -363,7 +363,7 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>370</x>
           <y>193</y>
           <width>160</width>
           <height>20</height>
@@ -376,7 +376,7 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>370</x>
           <y>220</y>
           <width>160</width>
           <height>20</height>
@@ -389,7 +389,7 @@
         </property>
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>370</x>
           <y>88</y>
           <width>160</width>
           <height>20</height>
@@ -399,7 +399,7 @@
        <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxPointSource">
         <property name="geometry">
          <rect>
-          <x>260</x>
+          <x>350</x>
           <y>30</y>
           <width>180</width>
           <height>22</height>
@@ -501,7 +501,7 @@
        <widget class="QLineEdit" name="txtXMLPointSource">
         <property name="geometry">
          <rect>
-          <x>280</x>
+          <x>320</x>
           <y>30</y>
           <width>171</width>
           <height>21</height>
@@ -511,7 +511,7 @@
        <widget class="QPushButton" name="btnSelectXMLPointSource">
         <property name="geometry">
          <rect>
-          <x>460</x>
+          <x>500</x>
           <y>30</y>
           <width>31</width>
           <height>21</height>
@@ -616,7 +616,7 @@
      <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxTerrain">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>370</x>
         <y>30</y>
         <width>160</width>
         <height>21</height>
@@ -655,7 +655,7 @@
      <widget class="QLineEdit" name="txtTerrainFixedElevation">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>370</x>
         <y>30</y>
         <width>160</width>
         <height>21</height>
@@ -694,7 +694,7 @@
      <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxExtendForFlatTerrain">
       <property name="geometry">
        <rect>
-        <x>270</x>
+        <x>370</x>
         <y>60</y>
         <width>160</width>
         <height>21</height>
@@ -732,7 +732,7 @@
       <rect>
        <x>30</x>
        <y>10</y>
-       <width>561</width>
+       <width>571</width>
        <height>121</height>
       </rect>
      </property>
@@ -755,7 +755,7 @@
      <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxReceptorsExtentLayer">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>300</x>
         <y>30</y>
         <width>160</width>
         <height>21</height>
@@ -765,7 +765,7 @@
      <widget class="QLineEdit" name="txtReceptorHeigth">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>300</x>
         <y>90</y>
         <width>160</width>
         <height>21</height>
@@ -791,7 +791,7 @@
      <widget class="QLineEdit" name="txtReceptorsSpacing">
       <property name="geometry">
        <rect>
-        <x>240</x>
+        <x>300</x>
         <y>60</y>
         <width>160</width>
         <height>21</height>
@@ -814,7 +814,7 @@
      <widget class="QPushButton" name="btnReceptorGenerateRegullar">
       <property name="geometry">
        <rect>
-        <x>420</x>
+        <x>480</x>
         <y>30</y>
         <width>75</width>
         <height>23</height>
@@ -829,7 +829,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>250</y>
+       <y>260</y>
        <width>16</width>
        <height>17</height>
       </rect>
@@ -842,8 +842,8 @@
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>250</y>
-       <width>561</width>
+       <y>260</y>
+       <width>571</width>
        <height>151</height>
       </rect>
      </property>
@@ -866,7 +866,7 @@
      <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxLayerForReceptorsAround">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>300</x>
         <y>30</y>
         <width>160</width>
         <height>21</height>
@@ -889,7 +889,7 @@
      <widget class="QLineEdit" name="txtDistanceReceptorsFromFeatures">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>300</x>
         <y>60</y>
         <width>160</width>
         <height>21</height>
@@ -912,7 +912,7 @@
      <widget class="QLineEdit" name="txtReceptorsSpacingAround">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>300</x>
         <y>90</y>
         <width>160</width>
         <height>21</height>
@@ -922,7 +922,7 @@
      <widget class="QPushButton" name="btnReceptorsAroundGenerate">
       <property name="geometry">
        <rect>
-        <x>430</x>
+        <x>480</x>
         <y>30</y>
         <width>75</width>
         <height>23</height>
@@ -951,7 +951,7 @@
       <rect>
        <x>30</x>
        <y>150</y>
-       <width>561</width>
+       <width>571</width>
        <height>91</height>
       </rect>
      </property>
@@ -961,7 +961,7 @@
      <widget class="QgsMapLayerComboBox" name="mMapLayerComboBoxReceptor">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>300</x>
         <y>30</y>
         <width>160</width>
         <height>21</height>
@@ -991,13 +991,13 @@
        </rect>
       </property>
       <property name="text">
-       <string>Height above terrain (m):</string>
+       <string>Receptor height above terrain (m):</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="txtReceptorHeigth_2">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>300</x>
         <y>60</y>
         <width>160</width>
         <height>21</height>
@@ -1010,7 +1010,7 @@
      <widget class="QPushButton" name="btnImportReceptors">
       <property name="geometry">
        <rect>
-        <x>430</x>
+        <x>480</x>
         <y>30</y>
         <width>75</width>
         <height>23</height>
@@ -1037,7 +1037,7 @@
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>551</width>
+       <width>591</width>
        <height>101</height>
       </rect>
      </property>
@@ -1060,7 +1060,7 @@
      <widget class="QLineEdit" name="txtWindRose">
       <property name="geometry">
        <rect>
-        <x>190</x>
+        <x>370</x>
         <y>30</y>
         <width>160</width>
         <height>21</height>
@@ -1070,7 +1070,7 @@
      <widget class="QPushButton" name="btnWindRose">
       <property name="geometry">
        <rect>
-        <x>360</x>
+        <x>540</x>
         <y>30</y>
         <width>21</width>
         <height>21</height>
@@ -1127,10 +1127,10 @@
     <widget class="QProgressBar" name="progressBar">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>100</y>
-       <width>511</width>
-       <height>23</height>
+       <x>170</x>
+       <y>160</y>
+       <width>441</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="value">
@@ -1140,9 +1140,9 @@
     <widget class="QPushButton" name="btnCalculate">
      <property name="geometry">
       <rect>
-       <x>500</x>
-       <y>240</y>
-       <width>95</width>
+       <x>510</x>
+       <y>85</y>
+       <width>90</width>
        <height>27</height>
       </rect>
      </property>
@@ -1153,10 +1153,10 @@
     <widget class="QTextEdit" name="txtStatus">
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>150</y>
-       <width>481</width>
-       <height>61</height>
+       <x>170</x>
+       <y>210</y>
+       <width>431</width>
+       <height>81</height>
       </rect>
      </property>
      <property name="autoFillBackground">
@@ -1167,7 +1167,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>80</y>
+       <y>160</y>
        <width>111</width>
        <height>17</height>
       </rect>
@@ -1179,14 +1179,27 @@
     <widget class="QPushButton" name="btnSaveSettings">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>240</y>
-       <width>95</width>
+       <x>510</x>
+       <y>120</y>
+       <width>90</width>
        <height>27</height>
       </rect>
      </property>
      <property name="text">
       <string>Save settings</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblFinalReport">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>210</y>
+       <width>121</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Progress/Final repost:</string>
      </property>
     </widget>
    </widget>
