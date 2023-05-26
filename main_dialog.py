@@ -40,7 +40,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 
 class MainDialog(QDialog, FORM_CLASS):
-    def __init__(self, parent=None):
+    def __init__(self, iface, parent=None):
         """Constructor."""
         super(MainDialog, self).__init__(parent)
         # Set up the user interface from Designer.
@@ -48,6 +48,7 @@ class MainDialog(QDialog, FORM_CLASS):
         # self.<objectname>, and you can use autoconnect slots - see
         # http://qt-project.org/doc/qt-4.8/designer-using-a-ui-file.html
         # #widgets-and-dialogs-with-auto-connect
+        self.iface = iface
         self.init_param()
         self.setupUi(self)
         self.btnSelectXMLPointSource.clicked.connect(self.selectPointSourceFile)
@@ -133,7 +134,23 @@ class MainDialog(QDialog, FORM_CLASS):
                  "karbonyl_sulfid", "prach"]
         return types[index]
 
+    def checkLayersCrs(self):
+        layerSource = self.mMapLayerComboBoxPointSource.currentLayer()
+        layerReceptors = self.mMapLayerComboBoxReceptor.currentLayer()
+        layerTerrain = self.mMapLayerComboBoxTerrain.currentLayer()
+        if layerReceptors is not None:
+            if layerSource.crs().srsid() != layerReceptors.crs().srsid():
+                return False
+        if layerTerrain is not None:
+            if layerSource.crs().srsid() != layerTerrain.crs().srsid():
+                return False
+        return True
+
     def calculate(self):
+        if not self.checkLayersCrs():
+            self.iface.messageBar().pushMessage('OpenSYMOS', 'Can not calculate. The input data are not in the same CRS.', level=Qgis.Critical)
+            return
+
         self.main = Main()
         if self.txtXMLPointSource.text() == '':
             #TODO

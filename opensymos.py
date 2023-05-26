@@ -39,7 +39,7 @@ class Open_symos:
         # Saving reference to QGIS interface
         self.iface = iface
         self.canvas = iface.mapCanvas()
-        self.dlg = MainDialog()
+        self.dlg = MainDialog(iface)
 
     def initGui(self):
         # Creation and configuration of toolbar to run plugin
