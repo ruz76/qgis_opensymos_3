@@ -223,6 +223,7 @@ class MainDialog(QDialog, FORM_CLASS):
         if not layer.isValid():
             print ("Layer failed to load!")
         else:
+            layer.setCrs(self.mMapLayerComboBoxPointSource.currentLayer().crs())
             QgsProject.instance().addMapLayer(layer)
 
     def getReceptory(self):
