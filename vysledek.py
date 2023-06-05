@@ -13,24 +13,24 @@
 class Vysledek:
     
     
-    def typ_prum(self, idv, x, y,  c_prum):
+    def typ_prum(self, idv, x, y,  c_average):
         self.idv = idv        
         self.x = x
         self.y = y
-        self.c_prum = c_prum
+        self.c_average = c_average
     
-    def typ_max(self, idv, x, y, c_max_tridy, c_max_total):
+    def typ_max(self, idv, x, y, c_max, c_max_total):
         self.idv = idv
         self.x = x
         self.y = y
-        self.c_max_tridy = c_max_tridy
+        self.c_max = c_max
         self.c_max_total = c_max_total
     
-    def typ_doba(self,idv,x,y,doba):
+    def typ_doba(self,idv,x,y,time):
         self.idv = idv
         self.x = x
         self.y = y
-        self.doba = doba
+        self.time = time
         
     
 

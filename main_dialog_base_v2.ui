@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Open Symos</string>
+   <string>Open SYMOS</string>
   </property>
   <widget class="QTabWidget" name="tabSYMOS">
    <property name="geometry">
@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>5</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tabSettings">
     <attribute name="title">
@@ -125,7 +125,7 @@
      </item>
      <item>
       <property name="text">
-       <string>Dust (PM10????)</string>
+       <string>Dust (PM10)</string>
       </property>
      </item>
     </widget>
@@ -139,7 +139,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Pollution:</string>
+      <string>Pollutant:</string>
      </property>
     </widget>
     <widget class="QLineEdit" name="txtLimit">
@@ -165,7 +165,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Limit (ug/m3):</string>
+      <string>Limit (μg/m3):</string>
      </property>
     </widget>
     <widget class="QLabel" name="lblAlertCRC">
@@ -205,6 +205,9 @@
      </property>
     </widget>
     <widget class="QLabel" name="lblWorkspace">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -218,6 +221,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="btnWorkSpace">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>570</x>
@@ -231,6 +237,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="btnReadSettings">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>500</x>
@@ -411,9 +420,15 @@
          <rect>
           <x>30</x>
           <y>30</y>
-          <width>207</width>
+          <width>281</width>
           <height>271</height>
          </rect>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
         </property>
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -425,47 +440,47 @@
         </widget>
         <widget class="QLabel" name="lblIdPointSource">
          <property name="text">
-          <string>Source ID:</string>
+          <string>   Source ID field:</string>
          </property>
         </widget>
         <widget class="QLabel" name="lblPointSourceEmission">
          <property name="text">
-          <string>Emission amout (g/s) field:</string>
+          <string>   Emission amout (g/s) field:</string>
          </property>
         </widget>
         <widget class="QLabel" name="lblChimneyHeight">
          <property name="text">
-          <string>Chimney height above terrain (m) field:</string>
+          <string>   Chimney height (m) field:</string>
          </property>
         </widget>
         <widget class="QLabel" name="lblGasVolume">
          <property name="text">
-          <string>Flue gas volume (m3/s) field:</string>
+          <string>   Flue gas volume (m3/s) field:</string>
          </property>
         </widget>
         <widget class="QLabel" name="lblGasTemperature">
          <property name="text">
-          <string>Temperature of flue gas (°C) field:</string>
+          <string>   Temperature of flue gas (°C) field:</string>
          </property>
         </widget>
         <widget class="QLabel" name="lblChimneyDiameter">
          <property name="text">
-          <string>Internal diameter of the chymney (m) field:</string>
+          <string>   Internal diameter of the chimney (m) field:</string>
          </property>
         </widget>
         <widget class="QLabel" name="lblGasVelocity">
          <property name="text">
-          <string>Flue gas (exit) velocity (m/s) field:</string>
+          <string>   Flue gas (exit) velocity (m/s) field:</string>
          </property>
         </widget>
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>Percentage of using durig year (0-100%):</string>
+          <string>   Percentage of using durig year (0-100%) field:</string>
          </property>
         </widget>
         <widget class="QLabel" name="lblUsingDay">
          <property name="text">
-          <string>Range of using during day (0-24hours):</string>
+          <string>   Range of using during day (0-24hours) field:</string>
          </property>
         </widget>
        </widget>
@@ -539,6 +554,9 @@
        </property>
       </widget>
       <widget class="QRadioButton" name="rbtnImportPointSourceXML">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -636,6 +654,9 @@
      <property name="text">
       <string>RadioButton</string>
      </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
     </widget>
     <widget class="QGroupBox" name="gboxGenerateFlatTerrain">
      <property name="enabled">
@@ -723,8 +744,11 @@
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
      <property name="checked">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QGroupBox" name="groupBox">
@@ -837,6 +861,9 @@
      <property name="text">
       <string>CheckBox</string>
      </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
     </widget>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="geometry">
@@ -944,6 +971,9 @@
      </property>
      <property name="text">
       <string>CheckBox</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QGroupBox" name="gboxImportReceptors">
@@ -1102,7 +1132,7 @@
      </item>
      <item>
       <property name="text">
-       <string>Maen (year) concentration</string>
+       <string>Mean (year) concentration</string>
       </property>
      </item>
      <item>
@@ -1177,6 +1207,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="btnSaveSettings">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>510</x>
@@ -1199,8 +1232,93 @@
       </rect>
      </property>
      <property name="text">
-      <string>Progress/Final repost:</string>
+      <string>Progress/Final report:</string>
      </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>About/Help</string>
+    </attribute>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>621</width>
+       <height>481</height>
+      </rect>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>About</string>
+      </attribute>
+      <widget class="QTextBrowser" name="textBrowser_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>611</width>
+         <height>451</height>
+        </rect>
+       </property>
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Plugin version:	3.0&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Plugin licence:	&lt;a href=&quot;https://github.com/ruz76/qgis_opensymos_3/blob/main/LICENSE&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;GPL-3.0&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Authors:&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'-apple-system','BlinkMacSystemFont','Segoe UI','Noto Sans','Helvetica','Arial','sans-serif','Apple Color Emoji','Segoe UI Emoji'; font-size:8pt; color:#000000; background-color:#ffffff;&quot;&gt;Modifications - larger works using:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;- Jan Ruzicka&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;- Katerina Ruzickova&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;- Ondrej Kolodziej&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;- Radek Furmanek&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Original version:&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;- Karel Psota (28.04.2011)&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Licence:     Simplified BSD License&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>Help</string>
+      </attribute>
+      <widget class="QTextBrowser" name="textBrowser">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>10</y>
+         <width>611</width>
+         <height>441</height>
+        </rect>
+       </property>
+       <property name="html">
+        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Open SYMOS plugin allows users to calculate year average, or maximum short-term concentrations of the selected pollutant based on information on point sources of pollution, wind rose and terrain. The result is a point layer of receptors with calculated immission values. The treatment of linear and areal sources of pollution has not yet been included in the model. The calculation model is based on the Sutton model of the Gaussian statistical plume model. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Settings of input data and their parameters is solved via browsing and filling in individual cards from left to right. The user can set: &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:9pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman'; font-size:9pt;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Tab Settings – the selection of pollutant (SO&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;, NO, NO&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;, N&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;O, CO, CO&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;, NH&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;, CS&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;, HCl, H&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;O&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;, C&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;H&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;6&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;S, CH&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;O, CH&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;4&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;, CH&lt;/span&gt;&lt;span style=&quot; font-size:9pt; vertical-align:sub;&quot;&gt;3&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Cl, COS, Higher hydrocarbons, PM10), health limit of selected pollutant and description of modelling project. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:9pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman'; font-size:9pt;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Tab Sources – the selection of the layer loaded into QGIS (or created in QGIS) containing source representation and its attributes. Only Point source is available up-to-date. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:9pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman'; font-size:9pt;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Tab Terrain - the selection of the layer loaded into QGIS (or created in QGIS) containing raster terrain representation. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:9pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman'; font-size:9pt;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Tab Receptors - the selection of the layer loaded into QGIS (or created in QGIS) containing receptors representation. Only Import receptors from layer is available up-to-date. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:9pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman'; font-size:9pt;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Tab Wind rose - the selection of the (XML) file containing wind rose values. The modelling methodology except using wind rose summarized in 3 categories wind speed and 5 categories of atmospheric stability. The example of wind rose file is part of the sample data (at GitHub project). &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Symbol'; font-size:9pt;&quot;&gt;·&lt;/span&gt;&lt;span style=&quot; font-family:'Times New Roman'; font-size:9pt;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;Tab Calculation - the selection of the type of calculation and preview of information about the status and settings of the calculation.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;The result of the modelling is a new point layer of receptors with the pollutant concentration attribute. This is automatically loaded on the QGIS project. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;There are some inactive controls in the GUI, like for importing line and polygon sources or generating receptors around the sources. This functionality was mostly already created. The codes are available in GitHub project repository. But they were not bound to controls and debugged. The project is still in progress. However, the basic functions for point source pollution calculations are already completely functional. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </widget>
   </widget>

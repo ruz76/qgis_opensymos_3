@@ -600,7 +600,7 @@ class Vypocet:
             if typ_vypocet == 1:
                 c_max_total = max(c_tridy)
             elif typ_vypocet == 2:
-                c_prum = round(sum(c_tridy),6)
+                c_average = round(sum(c_tridy),6)
             elif typ_vypocet == 3:
                 doba_prekroceni = 8760*sum(doby_tridy) 
             
@@ -610,7 +610,7 @@ class Vypocet:
                                  c_tridy_vyber, c_max_total)
             elif typ_vypocet == 2:
                 vysledek.typ_prum(k, getattr(r, "x"), getattr(r, "y"), 
-                                  c_prum)
+                                  c_average)
             elif typ_vypocet == 3:
                 vysledek.typ_doba(k, getattr(r, "x"), getattr(r, "y"), 
                                   round(doba_prekroceni,3))
