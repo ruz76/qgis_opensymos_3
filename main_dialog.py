@@ -198,11 +198,11 @@ class MainDialog(QDialog, FORM_CLASS):
         typ_zkr = ''
 
         if self.cmbCalculationType.currentIndex() == 0:
-            typ_zkr = 'max'
+            typ_zkr = 'maximum'
         if self.cmbCalculationType.currentIndex() == 1:
-            typ_zkr = 'prum'
+            typ_zkr = 'average'
         if self.cmbCalculationType.currentIndex() == 2:
-            typ_zkr = 'limit'
+            typ_zkr = 'over_limit'
         pollution = self.cmbPollution.currentText()
         x = self.cmbPollution.currentText() + "_" + typ_zkr + "_" + str(uuid.uuid1())
         x = x.replace("-", "_")
