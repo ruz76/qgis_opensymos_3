@@ -62,11 +62,33 @@ class Main:
             print("The receptor layer is missing.")
             print("The calculation will be terminated.")
 
-        
+    def get_type_of_pollution(self, type):
+        types = {
+            "sirovodik": "Hydrogen sulfide (H2S)",
+            "chlorovodik": "Hydrogen chloride (HCl)",
+            "peroxid_vodiku": "Hydrogen peroxide (H2O2)",
+            "dimetyl_sulfid": "Dimethyl sulfide (C2H6S)",
+            "oxid_siricity": "Sulfur dioxide (SO2)",
+            "oxid_dusnaty": "Nitric oxide (NO)",
+            "oxid_dusicity": "Nitrogen dioxide (NO2)",
+            "amoniak": "Amonia (NH3)",
+            "sirouhlik": "Carbon disulfide (CS2)",
+            "formaldehyd": "Formaldehyde (CH2O)",
+            "oxid_dusny": "Nitrous oxide (N2O)",
+            "oxid_uhelnaty": "Carbon monoxide (CO)",
+            "oxid_uhlicity": "Carbon dioxide (CO2)",
+            "metan": "Metane (CH4)",
+            "vyssi_uhlovodiky": "Higher hydrocarbons",
+            "metyl_chlorid": "Methyl chloride (CH3Cl)",
+            "karbonyl_sulfid": "Carbonyl sulphide (COS)",
+            "prach": "Dust (PM10)"
+        }
+        return types[type]
+
     def vypocti(self, status, progress, latka, typ_vypocet, imise_limit, vyska_l, vyska_body):
         start_time = time.time()
         status.append(u"Calculation Type: " + str(typ_vypocet))
-        status.append(u"Pollutant: " + latka)
+        status.append(u"Pollutant: " + self.get_type_of_pollution(latka))
         status.append(u"Limit: " + str(imise_limit))
         status.append(u"Receptor height above terrain: " + str(vyska_l))
         if vyska_body == None:

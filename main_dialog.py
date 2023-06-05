@@ -187,7 +187,7 @@ class MainDialog(QDialog, FORM_CLASS):
                 self.main.inicializuj_vetrnou_ruzici(self.txtWindRose.text())
         if self.cmbCalculationType.currentIndex() == 2:
             if self.txtLimit.text() == '':
-                self.showMessage(u"Limit eas not set. Complete input data.")
+                self.showMessage(u"Limit was not set. Complete input data.")
                 return
 
         height = fixed_h
