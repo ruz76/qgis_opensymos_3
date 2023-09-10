@@ -546,7 +546,7 @@ class Vypocet:
                                     (2*(sigma_z**2))) )) + ( (1.0-theta) * 
                                     math.exp( -(((z__ + h1)**2)/
                                     (2*(sigma_z**2))) )) + 
-                                    (theta*math.exp( -(((z___ + h1)**2)/
+                                    (theta*math.exp( -(((z___ - h1)**2)/
                                     2*(sigma_z**2))))) )
                                     if latka == "oxid_uhelnaty" or latka == "oxid_uhlicity":
                                         c_i_fi_j = self.reduce_based_on_method_update(latka, c_i_fi_j, trida_stability, x_l, u_h1)
