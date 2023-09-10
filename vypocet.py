@@ -335,7 +335,16 @@ class Vypocet:
     
     
 #    "hlavni metoda - vypocet znecisteni"
-        
+
+    def reduce_based_on_method_update(self, latka, conc, tr_stab, x_l, u_h1):
+        coef_no_reduce = [0.96*10**-4, 1.11*10**-4, 1.46*10**-4, 2.31*10**-4, 5.56*10**-4]
+        if latka == "oxid_uhelnaty":
+            return conc * (0.1 + 0.9 * math.exp(-1 * coef_no_reduce[tr_stab - 1] * (x_l / u_h1)))
+        if latka == "oxid_uhlicity":
+            # TODO need to calculate oxid_uhelnaty first
+            # return conc * (0.1 + 0.9 * math.exp(-1 * coef_no_reduce[tr_stab - 1] * (x_l / u_h1)))
+            return conc
+
     def vypocti_koncentraci(self, status, progress, typ_vypocet, latka, refbody, zdroje, 
                             teren, vetrna_ruzice, 
                             imise_limit, vyska_l, vyska_body):
@@ -539,6 +548,9 @@ class Vypocet:
                                     (2*(sigma_z**2))) )) + 
                                     (theta*math.exp( -(((z___ + h1)**2)/
                                     2*(sigma_z**2))))) )
+                                    if latka == "oxid_uhelnaty" or latka == "oxid_uhlicity":
+                                        c_i_fi_j = self.reduce_based_on_method_update(latka, c_i_fi_j, trida_stability, x_l, u_h1)
+
                                 elif typ_latka == "prach":   
                                     c_i_fi_j = ( ((10.0**6.0*m)/
                                     ((2*math.pi*sigma_y*sigma_z*u_h1)+vs)) * 
