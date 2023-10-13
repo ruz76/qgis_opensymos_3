@@ -20,6 +20,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from qgis.core import *
 from qgis.gui import *
+from scipy import integrate
 
 class Vypocet:
     
@@ -37,7 +38,7 @@ class Vypocet:
                              "epsilon_koef":0.1},
                             {"trida":3,"exp_p":0.18,
                              "a_y":0.1400, "b_y":0.8986, "a_z":0.4221,
-                             "b_z":0.6564, "k_s":1.0, "k_m":236.0,
+                             "b_z":0.6563, "k_s":1.0, "k_m":236.0,
                              "epsilon_koef":0.20},
                             {"trida":4,"exp_p":0.14,
                              "a_y":0.1684, "b_y":0.9018, "a_z":0.3158,
@@ -269,14 +270,14 @@ class Vypocet:
                 #i += hrana_pixel
                 krok_dmt.append(float((i+1)*hrana_pixel))
 
-            #obsah_krivka = integrate.simps(profil_korekce, krok_dmt)
+            obsah_krivka = integrate.simps(profil_korekce, krok_dmt)
             #print profil_korekce
             #print krok_dmt
             #print obsah_krivka
             #print hrana_pixel
             #TODO - udelat spravnou integraci - takto je to dost nepresene, mozna pouzit tu z scipy - proste jen prepsat
-            b = sum(profil_korekce)
-            obsah_krivka = b * 0.9 * hrana_pixel
+            # b = sum(profil_korekce)
+            # obsah_krivka = b * 0.9 * hrana_pixel
             #print obsah_krivka
             theta = (1/(x*(z_r - z_z)))*obsah_krivka
             if theta < 0:
@@ -284,7 +285,9 @@ class Vypocet:
             
         else:
             theta = 0.0
-        
+
+        # print(theta)
+
         return theta
         
          
@@ -612,6 +615,8 @@ class Vypocet:
             if typ_vypocet == 1:
                 c_max_total = max(c_tridy)
             elif typ_vypocet == 2:
+                print("CTRIDY")
+                print(c_tridy)
                 c_average = round(sum(c_tridy),6)
             elif typ_vypocet == 3:
                 doba_prekroceni = 8760*sum(doby_tridy) 
