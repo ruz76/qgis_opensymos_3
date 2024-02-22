@@ -10,14 +10,12 @@
 # Licence:     Simplified BSD License
 #-------------------------------------------------------------------------------
 
-import sys
 import time
 from .zdroje_bod import ZdrojeBod
 from .ref_body import ReferencniBody
 from .teren import Teren
 from .vypocet import Vypocet
 from .vetrna_ruzice import VetrnaRuzice
-
 
 class Main:
     

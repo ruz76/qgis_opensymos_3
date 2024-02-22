@@ -12,7 +12,6 @@
 # Licence:     Simplified BSD License
 #------------------------------------------------------------------------------- 
 
-import sys
 from osgeo import gdal
 import numpy as np
 from osgeo import gdalconst

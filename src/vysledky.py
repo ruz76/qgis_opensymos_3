@@ -12,8 +12,6 @@
 
 import os
 from osgeo import ogr
-import xml.etree.ElementTree as ET
-from xml.dom import minidom
 
 class Vysledky:
     

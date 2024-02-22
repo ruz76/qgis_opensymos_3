@@ -10,7 +10,6 @@
 # Licence:     Simplified BSD License
 #-------------------------------------------------------------------------------
 
-import sys
 import xml.etree.ElementTree as ET
 from .zdroj_bod import ZdrojBod
 

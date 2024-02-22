@@ -10,8 +10,6 @@
 # Licence:     Simplified BSD License
 #-------------------------------------------------------------------------------
 
-import sys
-import xml.etree.ElementTree as ET
 from .ref_bod import ReferencniBod
 import math
 
